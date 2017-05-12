@@ -1,11 +1,7 @@
 ﻿using FirstFloor.ModernUI.Presentation;
 using FirstFloor.ModernUI.Windows.Navigation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -40,6 +36,14 @@ namespace FirstFloor.ModernUI.Windows.Controls
         /// Identifies the LogoData dependency property.
         /// </summary>
         public static readonly DependencyProperty LogoDataProperty = DependencyProperty.Register("LogoData", typeof(Geometry), typeof(ModernWindow));
+        /// <summary>
+        /// Identifies the LogoDataToolTip dependency property
+        /// </summary>
+        public static readonly DependencyProperty LogoDataToolTipProperty = DependencyProperty.Register("LogoDataToolTip", typeof(string), typeof(ModernWindow));
+        /// <summary>
+        /// Identifies the LogoDataToolTip dependency property
+        /// </summary>
+        public static readonly DependencyProperty LogoDataCommandProperty = DependencyProperty.Register("LogoDataCommand", typeof(ICommand), typeof(ModernWindow));
         /// <summary>
         /// Defines the ContentSource dependency property.
         /// </summary>
@@ -138,7 +142,8 @@ namespace FirstFloor.ModernUI.Windows.Controls
                 if (NavigationHelper.TryParseUriWithParameters(e.Parameter, out uri, out parameter, out targetName)) {
                     ICommand command;
                     if (this.LinkNavigator.Commands.TryGetValue(uri, out command)) {
-                        e.CanExecute = command.CanExecute(parameter);
+                        if (command != null)
+                            e.CanExecute = command.CanExecute(parameter);
                     }
                 }
             }
@@ -246,6 +251,24 @@ namespace FirstFloor.ModernUI.Windows.Controls
         {
             get { return (Geometry)GetValue(LogoDataProperty); }
             set { SetValue(LogoDataProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the ToolTip text of LogoData.
+        /// </summary>
+        public string LogoDataToolTip
+        {
+            get { return (string)GetValue(LogoDataToolTipProperty); }
+            set { SetValue(LogoDataToolTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Command text of LogoData.
+        /// </summary>
+        public ICommand LogoDataCommand
+        {
+            get { return (ICommand)GetValue(LogoDataCommandProperty); }
+            set { SetValue(LogoDataCommandProperty, value); }
         }
 
         /// <summary>

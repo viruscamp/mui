@@ -92,11 +92,26 @@
                                         </ItemsControl>
 
                                         <!-- logo (visible only when LogoData is not null) -->
-                                        <Border Grid.Column="2" Background="{DynamicResource Accent}" Width="36" Height="36" Margin="8,0"
-                                                DataContext="{TemplateBinding LogoData}"
-                                                Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                                            <Path Data="{Binding}" Stretch="Fill" Fill="White" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
+                                        <Button Grid.Column="2" Style="{x:Null}" 
+                                                Margin="8,0"
+                                                DataContext=""
+                                                ToolTip="{TemplateBinding LogoDataToolTip}" 
+                                                Visibility="{TemplateBinding LogoData, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}"
+                                                Padding="0">
+                                            <Button.Content>
+                                                <Border Background="{DynamicResource Accent}"
+                                                        Width="36"
+                                                        Height="36">
+                                                    <Path Data="{TemplateBinding LogoData}" 
+                                                          Stretch="Fill" 
+                                                          Fill="White" 
+                                                          Width="24" 
+                                                          Height="24" 
+                                                          HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                                </Border>
+                                            </Button.Content>
+                                        </Button>
 
                                         <!-- window system buttons-->
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top" shell:WindowChrome.IsHitTestVisibleInChrome="True">
