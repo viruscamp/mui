@@ -18,7 +18,7 @@ using System;
 [assembly: AssemblyConfiguration("retail")]
 [assembly: AssemblyCompany("First Floor Software")]
 [assembly: AssemblyProduct("ModernUI")]
-[assembly: AssemblyCopyright("Copyright © First Floor Software 2013-2016")]
+[assembly: AssemblyCopyright("Copyright © First Floor Software 2013-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -44,12 +44,12 @@ using System;
 [assembly: AssemblyVersion("1.0.9.0")]
 [assembly: AssemblyFileVersion("1.0.9.0")]
 
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Presentation")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Controls")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Converters")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Navigation")]
-[assembly: XmlnsPrefix("http://firstfloorsoftware.com/ModernUI", "mui")]
+[assembly: XmlnsDefinition("https://github.com/bakx/mui", "ModernUI.Presentation")]
+[assembly: XmlnsDefinition("https://github.com/bakx/mui", "ModernUI.Windows")]
+[assembly: XmlnsDefinition("https://github.com/bakx/mui", "ModernUI.Windows.Controls")]
+[assembly: XmlnsDefinition("https://github.com/bakx/mui", "ModernUI.Windows.Converters")]
+[assembly: XmlnsDefinition("https://github.com/bakx/mui", "ModernUI.Windows.Navigation")]
+[assembly: XmlnsPrefix("https://github.com/bakx/mui", "mui")]
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located

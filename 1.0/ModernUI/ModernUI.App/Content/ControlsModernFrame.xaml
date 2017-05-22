@@ -1,23 +1,24 @@
 ﻿<UserControl x:Class="ModernUI.App.Content.ControlsModernFrame"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="https://github.com/bakx/mui"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock Text="MODERNFRAME" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
 
-                <Border BorderBrush="{DynamicResource ButtonBorder}" BorderThickness="1" HorizontalAlignment="Left" Margin="0,0,0,16">
-                    <mui:ModernFrame x:Name="Frame" Source="/Content/ModernFrame/Sample.xaml" 
-                                     Width="480" Height="200" Padding="4"
-                                     FragmentNavigation="Frame_FragmentNavigation"
-                                     Navigated="Frame_Navigated"
-                                     Navigating="Frame_Navigating"
-                                     NavigationFailed="Frame_NavigationFailed"/>
+                <Border BorderBrush="{DynamicResource ButtonBorder}" BorderThickness="1" HorizontalAlignment="Left"
+                        Margin="0,0,0,16">
+                    <controls:ModernFrame x:Name="Frame" Source="/Content/ModernFrame/Sample.xaml"
+                                          Width="480" Height="200" Padding="4"
+                                          FragmentNavigation="Frame_FragmentNavigation"
+                                          Navigated="Frame_Navigated"
+                                          Navigating="Frame_Navigating"
+                                          NavigationFailed="Frame_NavigationFailed" />
                 </Border>
 
                 <TextBlock Margin="0,0,0,16">
@@ -26,11 +27,19 @@
                 </TextBlock>
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                    <Button Content="back" Command="NavigationCommands.BrowseBack" CommandTarget="{Binding ElementName=Frame}"/>
-                    <Button Content="refresh" Command="NavigationCommands.Refresh" CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0"/>
-                    <Button Content="error" Command="NavigationCommands.GoToPage" CommandParameter="/Content/ModernFrame/ErrorSample.xaml" CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0"/>
-                    <Button Content="cancellable" Command="NavigationCommands.GoToPage" CommandParameter="/Content/ModernFrame/CancelNavigateSample.xaml" CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0"/>
-                    <Button Content="fragment" Command="NavigationCommands.GoToPage" CommandParameter="/Content/ModernFrame/CancelNavigateSample.xaml#somevalue" CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0"/>
+                    <Button Content="back" Command="NavigationCommands.BrowseBack"
+                            CommandTarget="{Binding ElementName=Frame}" />
+                    <Button Content="refresh" Command="NavigationCommands.Refresh"
+                            CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0" />
+                    <Button Content="error" Command="NavigationCommands.GoToPage"
+                            CommandParameter="/Content/ModernFrame/ErrorSample.xaml"
+                            CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0" />
+                    <Button Content="cancellable" Command="NavigationCommands.GoToPage"
+                            CommandParameter="/Content/ModernFrame/CancelNavigateSample.xaml"
+                            CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0" />
+                    <Button Content="fragment" Command="NavigationCommands.GoToPage"
+                            CommandParameter="/Content/ModernFrame/CancelNavigateSample.xaml#somevalue"
+                            CommandTarget="{Binding ElementName=Frame}" Margin="8,0,0,0" />
                 </StackPanel>
 
                 <!--
@@ -51,7 +60,8 @@
                 -->
 
                 <TextBlock Text="Events" FontWeight="Bold" Margin="0,0,0,8" />
-                <TextBox x:Name="TextEvents" Width="480" Height="200" HorizontalAlignment="Left" IsReadOnly="True" VerticalScrollBarVisibility="Auto" />
+                <TextBox x:Name="TextEvents" Width="480" Height="200" HorizontalAlignment="Left" IsReadOnly="True"
+                         VerticalScrollBarVisibility="Auto" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
