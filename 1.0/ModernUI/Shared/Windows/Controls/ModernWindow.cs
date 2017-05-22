@@ -313,5 +313,11 @@ namespace ModernUI.Windows.Controls
         {
             get => (string)GetValue(BBCodeTitleProperty); set => SetValue(BBCodeTitleProperty, value);
         }
+
+        /// <summary>
+        /// Gets the content frame.
+        /// </summary>
+        /// <value>The link navigator.</value>
+        public ModernFrame ContentFrame => GetTemplateChild("ContentFrame") as ModernFrame;
     }
 }
