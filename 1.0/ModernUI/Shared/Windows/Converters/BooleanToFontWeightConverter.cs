@@ -27,7 +27,7 @@ namespace ModernUI.Windows.Converters
         {
             bool inverse = (parameter as string) == "inverse";
 
-            var bold = value as bool?;
+            bool? bold = value as bool?;
             if (bold.HasValue && bold.Value) {
                 return inverse ? FontWeights.Normal : FontWeights.Bold;
             }

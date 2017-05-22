@@ -51,7 +51,7 @@ namespace ModernUI.Windows.Media
         /// </returns>
         public static IEnumerable<DependencyObject> Ancestors(this DependencyObject dependencyObject)
         {
-            var parent = dependencyObject;
+            DependencyObject parent = dependencyObject;
             while (true) {
                 parent = GetParent(parent);
                 if (parent != null) {
@@ -76,7 +76,7 @@ namespace ModernUI.Windows.Media
                 throw new ArgumentNullException("dependencyObject");
             }
 
-            var parent = dependencyObject;
+            DependencyObject parent = dependencyObject;
             while (true) {
                 if (parent != null) {
                     yield return parent;
@@ -99,14 +99,14 @@ namespace ModernUI.Windows.Media
                 throw new ArgumentNullException("dependencyObject");
             }
 
-            var ce = dependencyObject as ContentElement;
+            ContentElement ce = dependencyObject as ContentElement;
             if (ce != null) {
-                var parent = ContentOperations.GetParent(ce);
+                DependencyObject parent = ContentOperations.GetParent(ce);
                 if (parent != null) {
                     return parent;
                 }
 
-                var fce = ce as FrameworkContentElement;
+                FrameworkContentElement fce = ce as FrameworkContentElement;
                 return fce != null ? fce.Parent : null;
             }
 

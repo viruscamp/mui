@@ -35,19 +35,13 @@ namespace ModernUI.App.Pages
             OnPropertyChanged(null);        // refresh all properties
         }
 
-        public string DpiAwareMessage
-        {
-            get
-            {
-                return string.Format(CultureInfo.InvariantCulture, "The DPI awareness of this process is [b]{0}[/b]", ModernUIHelper.GetDpiAwareness());
-            }
-        }
+        public string DpiAwareMessage => string.Format(CultureInfo.InvariantCulture, "The DPI awareness of this process is [b]{0}[/b]", ModernUIHelper.GetDpiAwareness());
 
         public string WpfDpi
         {
             get
             {
-                var info = this.wnd.DpiInformation;
+                DpiInformation info = this.wnd.DpiInformation;
                 return string.Format(CultureInfo.InvariantCulture, "{0} x {1}", info.WpfDpiX, info.WpfDpiY);
             }
         }
@@ -56,7 +50,7 @@ namespace ModernUI.App.Pages
         {
             get
             {
-                var info = this.wnd.DpiInformation;
+                DpiInformation info = this.wnd.DpiInformation;
                 if (info.MonitorDpiX.HasValue) {
                     return string.Format(CultureInfo.InvariantCulture, "{0} x {1}", info.MonitorDpiX, info.MonitorDpiY);
                 }
@@ -68,7 +62,7 @@ namespace ModernUI.App.Pages
         {
             get
             {
-                var info = this.wnd.DpiInformation;
+                DpiInformation info = this.wnd.DpiInformation;
                 return string.Format(CultureInfo.InvariantCulture, "{0} x {1}", info.ScaleX, info.ScaleY);
             }
         }
@@ -77,9 +71,9 @@ namespace ModernUI.App.Pages
         {
             get
             {
-                var info = this.wnd.DpiInformation;
-                var width = this.wnd.ActualWidth * info.WpfDpiX / 96D;
-                var height = this.wnd.ActualHeight * info.WpfDpiY / 96D;
+                DpiInformation info = this.wnd.DpiInformation;
+                double width = this.wnd.ActualWidth * info.WpfDpiX / 96D;
+                double height = this.wnd.ActualHeight * info.WpfDpiY / 96D;
 
                 return string.Format(CultureInfo.InvariantCulture, "{0} x {1}", width, height);
             }

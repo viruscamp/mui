@@ -27,7 +27,7 @@ namespace ModernUI.App.Content
 
         private MenuItem CreateSubMenu(string header)
         {
-            var item = new MenuItem { Header = header };
+            MenuItem item = new MenuItem { Header = header };
             item.Items.Add(new MenuItem { Header = "Item 1" });
             item.Items.Add("Item 2");
             item.Items.Add(new Separator());
@@ -37,7 +37,7 @@ namespace ModernUI.App.Content
 
         private void ShowContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            var contextMenu = new ContextMenu();
+            ContextMenu contextMenu = new ContextMenu();
             
             contextMenu.Items.Add(new MenuItem { Header = "Item" });
             contextMenu.Items.Add(new MenuItem { Header = "Item with gesture", InputGestureText="Ctrl+C" });
@@ -47,7 +47,7 @@ namespace ModernUI.App.Content
             contextMenu.Items.Add(new Separator());
             contextMenu.Items.Add(CreateSubMenu("Item with submenu"));
 
-            var menu = CreateSubMenu("Item with submenu, disabled");
+            MenuItem menu = CreateSubMenu("Item with submenu, disabled");
             menu.IsEnabled = false;
             contextMenu.Items.Add(menu);
             

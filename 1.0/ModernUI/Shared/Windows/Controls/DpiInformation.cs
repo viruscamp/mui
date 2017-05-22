@@ -49,8 +49,8 @@ namespace ModernUI.Windows.Controls
         internal Vector UpdateMonitorDpi(double dpiX, double dpiY)
         {
             // calculate the vector of the current to new dpi
-            var oldDpiX = this.MonitorDpiX ?? this.WpfDpiX;
-            var oldDpiY = this.MonitorDpiY ?? this.WpfDpiY;
+            double oldDpiX = this.MonitorDpiX ?? this.WpfDpiX;
+            double oldDpiY = this.MonitorDpiY ?? this.WpfDpiY;
 
             this.MonitorDpiX = dpiX;
             this.MonitorDpiY = dpiY;

@@ -36,10 +36,7 @@ namespace ModernUI.App
             }
         }
 
-        public string Error
-        {
-            get { return null; }
-        }
+        public string Error => null;
 
         public string this[string columnName]
         {

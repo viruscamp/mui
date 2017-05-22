@@ -82,7 +82,7 @@ namespace ModernUI.Windows.Controls
         private static void OnSelectedLinkGroupChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             // retrieve the selected link from the group
-            var group = (LinkGroup)e.NewValue;
+            LinkGroup group = (LinkGroup)e.NewValue;
             Link selectedLink = null;
             if (group != null) {
                 selectedLink = group.SelectedLink;
@@ -106,7 +106,7 @@ namespace ModernUI.Windows.Controls
         private static void OnSelectedLinkChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             // update selected source
-            var newValue = (Link)e.NewValue;
+            Link newValue = (Link)e.NewValue;
             Uri selectedSource = null;
             if (newValue != null) {
                 selectedSource = newValue.Source;
@@ -141,7 +141,7 @@ namespace ModernUI.Windows.Controls
             }
 
             // raise SelectedSourceChanged event
-            var handler = this.SelectedSourceChanged;
+            EventHandler<SourceEventArgs> handler = this.SelectedSourceChanged;
             if (handler != null) {
                 handler(this, new SourceEventArgs(newValue));
             }
@@ -177,18 +177,12 @@ namespace ModernUI.Windows.Controls
         /// <summary>
         /// Gets the selected link groups.
         /// </summary>
-        public LinkGroup SelectedLinkGroup
-        {
-            get { return (LinkGroup)GetValue(SelectedLinkGroupProperty); }
-        }
+        public LinkGroup SelectedLinkGroup => (LinkGroup)GetValue(SelectedLinkGroupProperty);
 
         /// <summary>
         /// Gets the collection of link groups that are currently visible.
         /// </summary>
-        public ReadOnlyLinkGroupCollection VisibleLinkGroups
-        {
-            get { return (ReadOnlyLinkGroupCollection)GetValue(VisibleLinkGroupsProperty); }
-        }
+        public ReadOnlyLinkGroupCollection VisibleLinkGroups => (ReadOnlyLinkGroupCollection)GetValue(VisibleLinkGroupsProperty);
 
         /// <summary>
         /// Gets a non-null key for given group.
@@ -206,8 +200,8 @@ namespace ModernUI.Windows.Controls
             this.groupMap.Clear();
             if (groups != null) {
                 // fill the group map based on group key
-                foreach (var group in groups) {
-                    var groupKey = GetGroupKey(group);
+                foreach (LinkGroup group in groups) {
+                    string groupKey = GetGroupKey(group);
 
                     ReadOnlyLinkGroupCollection groupCollection;
                     if (!this.groupMap.TryGetValue(groupKey, out groupCollection)) {
@@ -263,7 +257,7 @@ namespace ModernUI.Windows.Controls
                 selectedGroup.SelectedLink = selectedLink;
 
                 // find the collection this group belongs to
-                var groupKey = GetGroupKey(selectedGroup);
+                string groupKey = GetGroupKey(selectedGroup);
                 this.groupMap.TryGetValue(groupKey, out groups);
             }
 

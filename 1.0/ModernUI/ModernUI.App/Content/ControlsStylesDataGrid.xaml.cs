@@ -45,7 +45,7 @@ namespace ModernUI.App.Content
 
         private ObservableCollection<Customer> GetData()
         {
-            var customers = new ObservableCollection<Customer>();
+            ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
             customers.Add(new Customer { FirstName = "Orlando", LastName = "Gee", Email = "orlando0@adventure-works.com", IsMember = true, Status = OrderStatus.New });
             customers.Add(new Customer { FirstName = "Keith", LastName = "Harris", Email = "keith0@adventure-works.com", IsMember = true, Status = OrderStatus.Received });
             customers.Add(new Customer { FirstName = "Donna", LastName = "Carreras", Email = "donna0@adventure-works.com", IsMember = false, Status = OrderStatus.None });

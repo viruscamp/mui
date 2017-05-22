@@ -99,25 +99,13 @@ namespace ModernUI.App.Content
             }
         }
 
-        public LinkCollection Themes
-        {
-            get { return this.themes; }
-        }
+        public LinkCollection Themes => this.themes;
 
-        public string[] FontSizes
-        {
-            get { return new string[] { FontSmall, FontLarge }; }
-        }
+        public string[] FontSizes => new string[] { FontSmall, FontLarge };
 
-        public string[] Palettes
-        {
-            get { return new string[] { PaletteMetro, PaletteWP }; }
-        }
+        public string[] Palettes => new string[] { PaletteMetro, PaletteWP };
 
-        public Color[] AccentColors
-        {
-            get { return this.selectedPalette == PaletteMetro ? this.metroAccentColors : this.wpAccentColors; }
-        }
+        public Color[] AccentColors => this.selectedPalette == PaletteMetro ? this.metroAccentColors : this.wpAccentColors;
 
         public string SelectedPalette
         {

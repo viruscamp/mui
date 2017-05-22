@@ -10,14 +10,14 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="controls:ModernFrame">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="BorderBrush" Value="{x:Null}"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -28,13 +28,17 @@
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
                                     <TextBlock Text="NAVIGATION FAILED" Style="{StaticResource Heading1}" />
-                                    <TextBlock Text="{Binding Message}" FontWeight="Bold" Foreground="#e51400" Margin="0,0,0,8" />
+                                    <TextBlock Text="{Binding Message}" FontWeight="Bold" Foreground="#e51400"
+                                               Margin="0,0,0,8" />
                                     <TextBlock Text="Source" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Source, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:ModernFrame}}" Margin="0,0,0,8"/>
+                                    <TextBlock
+                                        Text="{Binding Source, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:ModernFrame}}"
+                                        Margin="0,0,0,8" />
                                     <TextBlock Text="Stack Trace" FontWeight="Bold" />
                                     <TextBlock Text="{Binding}" Style="{StaticResource Fixed}" Margin="0,0,0,16" />
                                     <TextBlock Text="Suggestions" FontWeight="Bold" />
-                                    <controls:BBCodeBlock BBCode="[url=cmd://copy]Copy[/url] the error details to the clipboard. Try to [url=cmd://refresh]refresh[/url] this page or go [url=cmd://browseback]back[/url].">
+                                    <controls:BBCodeBlock
+                                        BBCode="[url=cmd://copy]Copy[/url] the error details to the clipboard. Try to [url=cmd://refresh]refresh[/url] this page or go [url=cmd://browseback]back[/url].">
                                         <controls:BBCodeBlock.LinkNavigator>
                                             <nav:DefaultLinkNavigator />
                                         </controls:BBCodeBlock.LinkNavigator>
@@ -49,7 +53,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        
+
                         <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Margin="{TemplateBinding Padding}">

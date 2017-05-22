@@ -94,7 +94,7 @@ namespace ModernUI.Windows.Navigation
                 }
 
                 // use optional parameter as navigation target to identify target frame (_self, _parent, _top or named target frame)
-                var frame = NavigationHelper.FindFrame(parameter, source);
+                ModernFrame frame = NavigationHelper.FindFrame(parameter, source);
                 if (frame == null) {
                     throw new ArgumentException(string.Format(CultureInfo.CurrentUICulture, ModernUI.Resources.NavigationFailedFrameNotFound, uri, parameter));
                 }

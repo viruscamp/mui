@@ -8,26 +8,26 @@
     <Style x:Key="ExpandCollapseToggleStyle"
            TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable"
-                Value="False"/>
+                Value="False" />
         <Setter Property="Width"
-                Value="16"/>
+                Value="16" />
         <Setter Property="Height"
-                Value="16"/>
+                Value="16" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border Width="16"
                             Height="16"
                             Background="Transparent"
-                            Padding="5,5,5,5" >
-                        <Path x:Name="ExpandPath" 
+                            Padding="5,5,5,5">
+                        <Path x:Name="ExpandPath"
                               Stroke="#FF989898"
                               StrokeThickness="1"
                               Data="F1 M.5,.5, .5,6.5 6.5,.5 Z" UseLayoutRounding="True" SnapsToDevicePixels="True">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="135"
                                                  CenterX="3"
-                                                 CenterY="3"/>
+                                                 CenterY="3" />
                             </Path.RenderTransform>
                         </Path>
                     </Border>
@@ -46,22 +46,22 @@
                                 <Setter.Value>
                                     <RotateTransform Angle="180"
                                                      CenterX="3"
-                                                     CenterY="3"/>
+                                                     CenterY="3" />
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="ExpandPath"
                                     Property="Fill"
-                                    Value="#FF595959"/>
+                                    Value="#FF595959" />
                             <Setter TargetName="ExpandPath"
                                     Property="Stroke"
-                                    Value="#FF262626"/>
+                                    Value="#FF262626" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsChecked"
-                                           Value="True"/>
+                                           Value="True" />
                                 <Condition Property="IsMouseOver"
-                                           Value="True"/>
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <!--<Setter TargetName="ExpandPath"
                                     Property="Stroke"
@@ -85,36 +85,36 @@
     <Style x:Key="{x:Type TreeViewItem}"
            TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background"
-                Value="Transparent"/>
+                Value="Transparent" />
         <Setter Property="HorizontalContentAlignment"
-                Value="{Binding Path=HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                Value="{Binding Path=HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="VerticalContentAlignment"
-                Value="{Binding Path=VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                Value="{Binding Path=VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="Padding"
-                Value="4,2"/>
+                Value="4,2" />
         <Setter Property="Foreground"
-                Value="{DynamicResource ItemText}"/>
+                Value="{DynamicResource ItemText}" />
         <Setter Property="FocusVisualStyle"
-                Value="{StaticResource TreeViewItemFocusVisual}"/>
+                Value="{StaticResource TreeViewItemFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition MinWidth="19"
-                                              Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                                              Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
                         <ToggleButton x:Name="Expander"
                                       Style="{StaticResource ExpandCollapseToggleStyle}"
                                       IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource TemplatedParent}}"
-                                      ClickMode="Press"/>
+                                      ClickMode="Press" />
                         <Border Name="Bd"
                                 Grid.Column="1"
                                 Background="{TemplateBinding Background}"
@@ -131,26 +131,27 @@
                         <ItemsPresenter x:Name="ItemsHost"
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Grid.ColumnSpan="2"/>
+                                        Grid.ColumnSpan="2" />
 
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="false">
-                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
-                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger SourceName="Bd" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ItemBackgroundHover}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource ItemTextHover}"/>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ItemBackgroundHover}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ItemTextHover}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ItemBackgroundSelected}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource ItemTextSelected}"/>
+                            <Setter TargetName="Bd" Property="Background"
+                                    Value="{DynamicResource ItemBackgroundSelected}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ItemTextSelected}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource ItemTextDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource ItemTextDisabled}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -158,11 +159,11 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="VirtualizingStackPanel.IsVirtualizing"
-                 Value="true">
+                     Value="true">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <VirtualizingStackPanel/>
+                            <VirtualizingStackPanel />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>

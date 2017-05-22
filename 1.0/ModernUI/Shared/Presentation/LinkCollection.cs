@@ -28,9 +28,9 @@ namespace ModernUI.Presentation
         public LinkCollection(IEnumerable<Link> links)
         {
             if (links == null) {
-                throw new ArgumentNullException("links");
+                throw new ArgumentNullException(nameof(links));
             }
-            foreach (var link in links) {
+            foreach (Link link in links) {
                 Add(link);
             }
         }

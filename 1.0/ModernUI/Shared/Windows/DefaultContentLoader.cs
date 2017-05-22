@@ -27,7 +27,7 @@ namespace ModernUI.Windows
             }
             
             // scheduler ensures LoadContent is executed on the current UI thread
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             return Task.Factory.StartNew(() => LoadContent(uri), cancellationToken, TaskCreationOptions.None, scheduler);
         }
 

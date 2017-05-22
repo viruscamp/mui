@@ -69,7 +69,7 @@ namespace ModernUI.Windows.Controls
             UpdateSelection();
 
             // raise SelectedSourceChanged event
-            var handler = this.SelectedSourceChanged;
+            EventHandler<SourceEventArgs> handler = this.SelectedSourceChanged;
             if (handler != null) {
                 handler(this, new SourceEventArgs(newValue));
             }
@@ -106,7 +106,7 @@ namespace ModernUI.Windows.Controls
 
         private void OnLinkListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var link = this.linkList.SelectedItem as Link;
+            Link link = this.linkList.SelectedItem as Link;
             if (link != null && link.Source != this.SelectedSource) {
                 SetCurrentValue(SelectedSourceProperty, link.Source);
             }

@@ -8,13 +8,20 @@
                 <ControlTemplate TargetType="{x:Type RadioButton}">
                     <Grid x:Name="LayoutRoot" Margin="{TemplateBinding Padding}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="CheckBorder" Width="16" Height="16" Margin="0,1,4,0" Background="{DynamicResource ButtonBackground}" BorderBrush="{DynamicResource ButtonBorder}" BorderThickness="1">
-                            <Rectangle x:Name="CheckMark" Width="8" Height="8" Margin="4" Fill="{TemplateBinding Foreground}" Visibility="Collapsed"/>
+                        <Border x:Name="CheckBorder" Width="16" Height="16" Margin="0,1,4,0"
+                                Background="{DynamicResource ButtonBackground}"
+                                BorderBrush="{DynamicResource ButtonBorder}" BorderThickness="1">
+                            <Rectangle x:Name="CheckMark" Width="8" Height="8" Margin="4"
+                                       Fill="{TemplateBinding Foreground}" Visibility="Collapsed" />
                         </Border>
-                        <ContentPresenter Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" />
+                        <ContentPresenter Grid.Column="1" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="Center" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
@@ -24,13 +31,17 @@
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="CheckBorder" Property="Background" Value="{DynamicResource ButtonBackgroundHover}" />
-                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{DynamicResource ButtonBorderHover}" />
+                            <Setter TargetName="CheckBorder" Property="Background"
+                                    Value="{DynamicResource ButtonBackgroundHover}" />
+                            <Setter TargetName="CheckBorder" Property="BorderBrush"
+                                    Value="{DynamicResource ButtonBorderHover}" />
                             <Setter TargetName="CheckMark" Property="Fill" Value="{DynamicResource ButtonTextHover}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="CheckBorder" Property="Background" Value="{DynamicResource ButtonBackgroundPressed}" />
-                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{DynamicResource ButtonBorderPressed}" />
+                            <Setter TargetName="CheckBorder" Property="Background"
+                                    Value="{DynamicResource ButtonBackgroundPressed}" />
+                            <Setter TargetName="CheckBorder" Property="BorderBrush"
+                                    Value="{DynamicResource ButtonBorderPressed}" />
                             <Setter TargetName="CheckMark" Property="Fill" Value="{DynamicResource ButtonTextPressed}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">

@@ -26,11 +26,11 @@ namespace ModernUI.Windows.Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var flag = value == null;
+            bool flag = value == null;
             if (value is string) {
                 flag = string.IsNullOrEmpty((string)value);
             }
-            var inverse = (parameter as string) == "inverse";
+            bool inverse = (parameter as string) == "inverse";
 
             if (inverse) {
                 return (flag ? Visibility.Collapsed : Visibility.Visible);

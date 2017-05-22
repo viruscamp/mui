@@ -118,7 +118,7 @@ namespace ModernUI.Windows.Controls
             base.OnApplyTemplate();
 
             // retrieve BackgroundAnimation storyboard
-            var border = GetTemplateChild("WindowBorder") as Border;
+            Border border = GetTemplateChild("WindowBorder") as Border;
             if (border != null)
             {
                 this.backgroundAnimation = border.Resources["BackgroundAnimation"] as Storyboard;

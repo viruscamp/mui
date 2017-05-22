@@ -33,19 +33,13 @@ namespace ModernUI.Windows.Controls.BBCode
         /// Gets the value.
         /// </summary>
         /// <value>The value.</value>
-        public string Value
-        {
-            get { return this.value; }
-        }
+        public string Value => this.value;
 
         /// <summary>
         /// Gets the type of the token.
         /// </summary>
         /// <value>The type.</value>
-        public int TokenType
-        {
-            get { return this.tokenType; }
-        }
+        public int TokenType => this.tokenType;
 
         /// <summary>
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.

@@ -24,7 +24,7 @@ namespace ModernUI.Windows.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value != null) {
-                var strValue = value.ToString();
+                string strValue = value.ToString();
 
                 
                 return strValue.ToLowerInvariant();

@@ -53,9 +53,6 @@ namespace ModernUI.Presentation
         /// Gets the links.
         /// </summary>
         /// <value>The links.</value>
-        public LinkCollection Links
-        {
-            get { return this.links; }
-        }
+        public LinkCollection Links => this.links;
     }
 }

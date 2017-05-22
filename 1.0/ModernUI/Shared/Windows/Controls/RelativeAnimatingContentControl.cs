@@ -161,7 +161,7 @@ namespace ModernUI.Windows.Controls
         {
             // Look through all keyframes in the instance.
             foreach (DoubleKeyFrame frame in da.KeyFrames) {
-                var d = DoubleAnimationFrameAdapter.GetDimensionFromIdentifyingValue(frame.Value);
+                DoubleAnimationDimension? d = DoubleAnimationFrameAdapter.GetDimensionFromIdentifyingValue(frame.Value);
                 if (d.HasValue) {
                     _specialAnimations.Add(new DoubleAnimationFrameAdapter(d.Value, frame));
                 }
@@ -176,7 +176,7 @@ namespace ModernUI.Windows.Controls
         {
             // Look for a special value in the To property.
             if (da.To.HasValue) {
-                var d = DoubleAnimationToAdapter.GetDimensionFromIdentifyingValue(da.To.Value);
+                DoubleAnimationDimension? d = DoubleAnimationToAdapter.GetDimensionFromIdentifyingValue(da.To.Value);
                 if (d.HasValue) {
                     _specialAnimations.Add(new DoubleAnimationToAdapter(d.Value, da));
                 }
@@ -184,7 +184,7 @@ namespace ModernUI.Windows.Controls
 
             // Look for a special value in the From property.
             if (da.From.HasValue) {
-                var d = DoubleAnimationFromAdapter.GetDimensionFromIdentifyingValue(da.To.Value);
+                DoubleAnimationDimension? d = DoubleAnimationFromAdapter.GetDimensionFromIdentifyingValue(da.To.Value);
                 if (d.HasValue) {
                     _specialAnimations.Add(new DoubleAnimationFromAdapter(d.Value, da));
                 }

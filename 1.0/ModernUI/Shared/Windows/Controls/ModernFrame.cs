@@ -538,10 +538,7 @@ namespace ModernUI.Windows.Controls
         /// <summary>
         /// Gets a value indicating whether this instance is currently loading content.
         /// </summary>
-        public bool IsLoadingContent
-        {
-            get { return (bool)GetValue(IsLoadingContentProperty); }
-        }
+        public bool IsLoadingContent => (bool)GetValue(IsLoadingContentProperty);
 
         /// <summary>
         /// Gets or sets the source of the current content.

@@ -41,7 +41,7 @@ namespace ModernUI.Windows.Navigation
             }
 
             // collect all ancestor frames
-            var frames = context.AncestorsAndSelf().OfType<ModernFrame>().ToArray();
+            ModernFrame[] frames = context.AncestorsAndSelf().OfType<ModernFrame>().ToArray();
 
             if (name == null || name == FrameSelf) {
                 // find first ancestor frame
@@ -57,7 +57,7 @@ namespace ModernUI.Windows.Navigation
             }
 
             // find ancestor frame having a name matching the target
-            var frame = frames.FirstOrDefault(f => f.Name == name);
+            ModernFrame frame = frames.FirstOrDefault(f => f.Name == name);
 
             if (frame == null) {
                 // find frame in context scope
@@ -65,9 +65,9 @@ namespace ModernUI.Windows.Navigation
 
                 if (frame == null) {
                     // find frame in scope of ancestor frame content
-                    var parent = frames.FirstOrDefault();
+                    ModernFrame parent = frames.FirstOrDefault();
                     if (parent != null && parent.Content != null) {
-                        var content = parent.Content as FrameworkElement;
+                        FrameworkElement content = parent.Content as FrameworkElement;
                         if (content != null) {
                             frame = content.FindName(name) as ModernFrame;
                         }
@@ -100,9 +100,9 @@ namespace ModernUI.Windows.Navigation
             fragment = null;
 
             if (uri != null) {
-                var value = uri.OriginalString;
+                string value = uri.OriginalString;
 
-                var i = value.IndexOf('#');
+                int i = value.IndexOf('#');
                 if (i != -1) {
                     fragment = value.Substring(i + 1);
                     uri = new Uri(value.Substring(0, i), uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
@@ -119,9 +119,9 @@ namespace ModernUI.Windows.Navigation
         /// <returns></returns>
         public static Uri ToUri(object value)
         {
-            var uri = value as Uri;
+            Uri uri = value as Uri;
             if (uri == null) {
-                var uriString = value as string;
+                string uriString = value as string;
                 if (uriString == null || !Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out uri)) {
                     return null; // no valid uri found
                 }
@@ -144,7 +144,7 @@ namespace ModernUI.Windows.Navigation
             targetName = null;
 
             if (uri == null) {
-                var valueString = value as string;
+                string valueString = value as string;
                 return TryParseUriWithParameters(valueString, out uri, out parameter, out targetName);
             }
             
@@ -171,7 +171,7 @@ namespace ModernUI.Windows.Navigation
 
             // parse uri value for optional parameter and/or target, eg 'cmd://foo|parameter|target'
             string uriString = value;
-            var parts = uriString.Split(new char[] { '|' }, 3);
+            string[] parts = uriString.Split(new char[] { '|' }, 3);
             if (parts.Length == 3) {
                 uriString = parts[0];
                 parameter = Uri.UnescapeDataString(parts[1]);

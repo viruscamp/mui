@@ -1,7 +1,9 @@
 ﻿using ModernUI.Windows.Controls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,21 +29,21 @@ namespace ModernUI.App.Content
             InitializeComponent();
 
             // find all embedded XAML icon files
-            var assembly = GetType().Assembly;
-            var iconResourceNames = from name in assembly.GetManifestResourceNames()
+            Assembly assembly = GetType().Assembly;
+            IEnumerable<string> iconResourceNames = from name in assembly.GetManifestResourceNames()
                                     where name.StartsWith("ModernUI.App.Assets.appbar.")
                                     select name;
 
 
-            foreach (var name in iconResourceNames) {
+            foreach (string name in iconResourceNames) {
                 // load the resource stream
-                using (var stream = assembly.GetManifestResourceStream(name)) {
+                using (Stream stream = assembly.GetManifestResourceStream(name)) {
                     // parse the icon data using xml
-                    var doc = XDocument.Load(stream);
+                    XDocument doc = XDocument.Load(stream);
 
-                    var path = doc.Root.Element("{http://schemas.microsoft.com/winfx/2006/xaml/presentation}Path");
+                    XElement path = doc.Root.Element("{http://schemas.microsoft.com/winfx/2006/xaml/presentation}Path");
                     if (path != null) {
-                        var data = (string)path.Attribute("Data");
+                        string data = (string)path.Attribute("Data");
 
                         // create a modern button and add it to the button panel
                         ButtonPanel.Children.Add(new ModernButton {

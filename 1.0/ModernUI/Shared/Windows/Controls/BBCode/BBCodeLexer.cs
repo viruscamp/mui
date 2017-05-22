@@ -110,7 +110,7 @@ namespace ModernUI.Windows.Controls.BBCode
             {
                 Consume();
             }
-            var result = GetMark();
+            string result = GetMark();
             return new Token(result.Substring(0, 1) + result.Substring(2), TokenText);
         }
 
@@ -157,10 +157,7 @@ namespace ModernUI.Windows.Controls.BBCode
         /// Gets the default state of the lexer.
         /// </summary>
         /// <value>The state of the default.</value>
-        protected override int DefaultState
-        {
-            get { return StateNormal; }
-        }
+        protected override int DefaultState => StateNormal;
 
         /// <summary>
         /// Gets the next token.

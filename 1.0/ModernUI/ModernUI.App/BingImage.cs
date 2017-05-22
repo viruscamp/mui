@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -25,16 +26,16 @@ namespace ModernUI.App
 
         private static async void OnUseBingImageChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            var newValue = (bool)e.NewValue;
-            var image = o as Image;
-            var imageBrush = o as ImageBrush;
+            bool newValue = (bool)e.NewValue;
+            Image image = o as Image;
+            ImageBrush imageBrush = o as ImageBrush;
 
             if (!newValue || (image == null && imageBrush == null)) {
                 return;
             }
 
             if (cachedBingImage == null) {
-                var url = await GetCurrentBingImageUrl();
+                Uri url = await GetCurrentBingImageUrl();
                 if (url != null) {
                     cachedBingImage = new BitmapImage(url);
                 }
@@ -52,13 +53,13 @@ namespace ModernUI.App
 
         private static async Task<Uri> GetCurrentBingImageUrl()
         {
-            var client = new HttpClient();
-            var result = await client.GetAsync("http://www.bing.com/hpimagearchive.aspx?format=xml&idx=0&n=2&mbl=1&mkt=en-ww");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage result = await client.GetAsync("http://www.bing.com/hpimagearchive.aspx?format=xml&idx=0&n=2&mbl=1&mkt=en-ww");
             if (result.IsSuccessStatusCode) {
-                using (var stream = await result.Content.ReadAsStreamAsync()) {
-                    var doc = XDocument.Load(stream);
+                using (Stream stream = await result.Content.ReadAsStreamAsync()) {
+                    XDocument doc = XDocument.Load(stream);
 
-                    var url = (string)doc.XPathSelectElement("/images/image/url");
+                    string url = (string)doc.XPathSelectElement("/images/image/url");
 
                     return new Uri(string.Format(CultureInfo.InvariantCulture, "http://bing.com{0}", url), UriKind.Absolute);
                 }

@@ -90,7 +90,7 @@ namespace ModernUI.Windows.Controls
                 return;
             }
 
-            var bbcode = this.BBCode;
+            string bbcode = this.BBCode;
 
             this.Inlines.Clear();
 
@@ -99,7 +99,7 @@ namespace ModernUI.Windows.Controls
                 Inline inline;
                 try
                 {
-                    var parser = new BBCodeParser(bbcode, this, BBCodeQuoteBackground)
+                    BBCodeParser parser = new BBCodeParser(bbcode, this, BBCodeQuoteBackground)
                     {
                         Commands = this.LinkNavigator.Commands
                     };

@@ -36,7 +36,7 @@
     <SolidColorBrush x:Key="Hyperlink" Color="{DynamicResource AccentColor}" />
     <SolidColorBrush x:Key="HyperlinkHover" Color="{DynamicResource AccentColor}" />
     <SolidColorBrush x:Key="HyperlinkDisabled" Color="#919191" />
-    
+
     <SolidColorBrush x:Key="InputBackground" Color="#ffffff" />
     <SolidColorBrush x:Key="InputBackgroundHover" Color="#ffffff" />
     <SolidColorBrush x:Key="InputBorder" Color="#cccccc" />
@@ -44,7 +44,7 @@
     <SolidColorBrush x:Key="InputText" Color="#333333" />
     <SolidColorBrush x:Key="InputTextHover" Color="#333333" />
     <SolidColorBrush x:Key="InputTextDisabled" Color="#919191" />
-    
+
     <SolidColorBrush x:Key="ItemBackgroundHover" Color="#dddddd" />
     <SolidColorBrush x:Key="ItemBackgroundSelected" Color="{DynamicResource AccentColor}" />
     <SolidColorBrush x:Key="ItemBorder" Color="#cccccc" />
@@ -85,7 +85,7 @@
     <SolidColorBrush x:Key="ScrollBarThumbForeground" Color="Transparent" />
     <SolidColorBrush x:Key="ScrollBarThumbForegroundDragging" Color="Transparent" />
     <SolidColorBrush x:Key="ScrollBarThumbForegroundHover" Color="Transparent" />
-    
+
     <SolidColorBrush x:Key="SeparatorBackground" Color="#cccccc" />
 
     <SolidColorBrush x:Key="SliderSelectionBackground" Color="{DynamicResource AccentColor}" />
@@ -118,17 +118,18 @@
     <SolidColorBrush x:Key="WindowText" Color="#333333" />
     <SolidColorBrush x:Key="WindowTextReadOnly" Color="#919191" />
 
-    <SolidColorBrush x:Key="CloseButtonBackground" Color="{StaticResource WindowBackgroundColor}"  Opacity="0" />
+    <SolidColorBrush x:Key="CloseButtonBackground" Color="{StaticResource WindowBackgroundColor}" Opacity="0" />
     <SolidColorBrush x:Key="CloseButtonBackgroundOnMoseOver" Color="#dddddd" />
     <SolidColorBrush x:Key="CloseButtonForegroundOnMoseOver" Color="#333333" />
     <SolidColorBrush x:Key="CloseButtonBackgroundIsPressed" Color="#e51400" />
     <SolidColorBrush x:Key="CloseButtonForegroundIsPressed" Color="White" />
 
-    <SolidColorBrush x:Key="SystemButtonBackground" Color="{StaticResource WindowBackgroundColor}"  Opacity="0" />
+    <SolidColorBrush x:Key="SystemButtonBackground" Color="{StaticResource WindowBackgroundColor}" Opacity="0" />
     <SolidColorBrush x:Key="SystemButtonBackgroundOnMoseOver" Color="#dddddd" />
     <SolidColorBrush x:Key="SystemButtonForegroundOnMoseOver" Color="#333333" />
     <SolidColorBrush x:Key="SystemButtonBackgroundIsPressed" Color="{DynamicResource AccentColor}" />
     <SolidColorBrush x:Key="SystemButtonForegroundIsPressed" Color="#919191" />
 
-    <Rectangle x:Key="WindowBackgroundContent" x:Shared="false" Height="96" Fill="{StaticResource WindowHeaderGradient}" VerticalAlignment="Top"/>
+    <Rectangle x:Key="WindowBackgroundContent" x:Shared="false" Height="96"
+               Fill="{StaticResource WindowHeaderGradient}" VerticalAlignment="Top" />
 </ResourceDictionary>

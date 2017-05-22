@@ -31,7 +31,7 @@ namespace ModernUI.App.Content
             // create a blank modern window with lorem content
             // the BlankWindow ModernWindow styles is found in the mui assembly at Assets/ModernWindowStyles.xaml
 
-            var wnd = new ModernWindow {
+            ModernWindow wnd = new ModernWindow {
                 Style = (Style)App.Current.Resources["BlankWindow"],
                 Title = "ModernWindow",
                 IsTitleVisible = true == this.title.IsChecked,

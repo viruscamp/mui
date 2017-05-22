@@ -34,12 +34,12 @@ namespace ModernUI.App
             }
 
             const int count = 50;       // limit the number of images to 50
-            var listUri = string.Format(CultureInfo.InvariantCulture, "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key={0}&per_page={1}", apiKey, count);
-            var client = new HttpClient();
-            var result = await client.GetAsync(listUri);
+            string listUri = string.Format(CultureInfo.InvariantCulture, "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key={0}&per_page={1}", apiKey, count);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage result = await client.GetAsync(listUri);
             result.EnsureSuccessStatusCode();
-            using (var stream = await result.Content.ReadAsStreamAsync()) {
-                var doc = XDocument.Load(stream);
+            using (Stream stream = await result.Content.ReadAsStreamAsync()) {
+                XDocument doc = XDocument.Load(stream);
 
                 return new LinkCollection(from p in doc.Descendants("photo")
                                           let title = (string)p.Attribute("title")
@@ -60,14 +60,14 @@ namespace ModernUI.App
         public async Task<object> LoadContentAsync(Uri uri, CancellationToken cancellationToken)
         {
             // assuming uri is a valid image uri
-            var client = new HttpClient();
-            var result = await client.GetAsync(uri, cancellationToken);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage result = await client.GetAsync(uri, cancellationToken);
 
             // raise exception is result is not ok
             result.EnsureSuccessStatusCode();
 
-            using (var stream = await result.Content.ReadAsStreamAsync()) {
-                var bitmap = new BitmapImage();
+            using (Stream stream = await result.Content.ReadAsStreamAsync()) {
+                BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.StreamSource = stream;

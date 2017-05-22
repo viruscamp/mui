@@ -18,9 +18,6 @@ namespace ModernUI.Windows.Navigation
         /// <summary>
         /// Gets the navigate link routed command.
         /// </summary>
-        public static RoutedUICommand NavigateLink
-        {
-            get { return navigateLink; }
-        }
+        public static RoutedUICommand NavigateLink => navigateLink;
     }
 }

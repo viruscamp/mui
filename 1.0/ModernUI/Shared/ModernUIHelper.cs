@@ -41,7 +41,7 @@ namespace ModernUI
         {
             if (OSVersionHelper.IsWindows8Point1OrGreater) {
                 ProcessDpiAwareness value;
-                var result = NativeMethods.GetProcessDpiAwareness(IntPtr.Zero, out value);
+                int result = NativeMethods.GetProcessDpiAwareness(IntPtr.Zero, out value);
                 if (result != NativeMethods.S_OK) {
                     throw new Win32Exception(result);
                 }
@@ -73,7 +73,7 @@ namespace ModernUI
         /// </remarks>
         public static bool TrySetPerMonitorDpiAware()
         {
-            var awareness = GetDpiAwareness();
+            ProcessDpiAwareness awareness = GetDpiAwareness();
 
             // initial awareness must be DpiUnaware
             if (awareness == ProcessDpiAwareness.DpiUnaware) {

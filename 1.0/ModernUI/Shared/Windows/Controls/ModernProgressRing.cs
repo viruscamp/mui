@@ -35,7 +35,7 @@ namespace ModernUI.Windows.Controls
 
         private void GotoCurrentState(bool animate)
         {
-            var state = this.IsActive ? StateActive : StateInactive;
+            string state = this.IsActive ? StateActive : StateInactive;
 
             VisualStateManager.GoToState(this, state, animate);
         }

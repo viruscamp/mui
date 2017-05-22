@@ -56,7 +56,7 @@ namespace ModernUI.Windows.Controls.BBCode
             /// <returns></returns>
             public Run CreateRun(string text)
             {
-                var run = new Run { Text = text };
+                Run run = new Run { Text = text };
                 if (this.FontSize.HasValue)
                 {
                     run.FontSize = this.FontSize.Value;
@@ -125,7 +125,7 @@ namespace ModernUI.Windows.Controls.BBCode
                     Token token = LA(1);
                     if (token.TokenType == BBCodeLexer.TokenAttribute)
                     {
-                        var color = (Color)ColorConverter.ConvertFromString(token.Value);
+                        Color color = (Color)ColorConverter.ConvertFromString(token.Value);
                         context.Foreground = new SolidColorBrush(color);
 
                         Consume();
@@ -218,7 +218,7 @@ namespace ModernUI.Windows.Controls.BBCode
 
         private void Parse(Span span)
         {
-            var context = new ParseContext(span);
+            ParseContext context = new ParseContext(span);
 
             while (true)
             {
@@ -227,7 +227,7 @@ namespace ModernUI.Windows.Controls.BBCode
 
                 if (token.TokenType == BBCodeLexer.TokenStartTag)
                 {
-                    var parent = span;
+                    Span parent = span;
                     if (token.Value == TagListItem)
                     {
                         if (context.IsFirstListItem)
@@ -245,7 +245,7 @@ namespace ModernUI.Windows.Controls.BBCode
                 }
                 else if (token.TokenType == BBCodeLexer.TokenEndTag)
                 {
-                    var parent = span;
+                    Span parent = span;
                     if (context.IsListItem && token.Value == TagListItem)
                     {
                         parent.Inlines.Add(new LineBreak());
@@ -254,7 +254,7 @@ namespace ModernUI.Windows.Controls.BBCode
                 }
                 else if (token.TokenType == BBCodeLexer.TokenText)
                 {
-                    var parent = span;
+                    Span parent = span;
                     Uri uri;
                     string parameter = null;
                     string targetName = null;
@@ -262,7 +262,7 @@ namespace ModernUI.Windows.Controls.BBCode
                     // parse uri value for optional parameter and/or target, eg [url=cmd://foo|parameter|target]
                     if (NavigationHelper.TryParseUriWithParameters(context.NavigateUri, out uri, out parameter, out targetName))
                     {
-                        var link = new Hyperlink();
+                        Hyperlink link = new Hyperlink();
 
                         // assign ICommand instance if available, otherwise set NavigateUri
                         ICommand command;
@@ -294,7 +294,7 @@ namespace ModernUI.Windows.Controls.BBCode
                     }
                     else
                     {
-                        var run = context.CreateRun(token.Value);
+                        Run run = context.CreateRun(token.Value);
                         parent.Inlines.Add(run);
                     }
 
@@ -324,7 +324,7 @@ namespace ModernUI.Windows.Controls.BBCode
         /// <returns></returns>
         public override Span Parse()
         {
-            var span = new Span();
+            Span span = new Span();
 
             Parse(span);
 

@@ -1,6 +1,7 @@
 ﻿using ModernUI.Windows.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,7 @@ namespace ModernUI.Presentation
             DarkThemeCommand = new RelayCommand(o => ThemeSource = DarkThemeSource, o => !DarkThemeSource.Equals(ThemeSource));
             LightThemeCommand = new RelayCommand(o => ThemeSource = LightThemeSource, o => !LightThemeSource.Equals(ThemeSource));
             SetThemeCommand = new RelayCommand(o => {
-                var uri = NavigationHelper.ToUri(o);
+                Uri uri = NavigationHelper.ToUri(o);
                 if (uri != null) {
                     ThemeSource = uri;
                 }
@@ -66,7 +67,7 @@ namespace ModernUI.Presentation
                 }
                 else {
                     // parse color from string
-                    var str = o as string;
+                    string str = o as string;
                     if (str != null) {
                         AccentColor = (Color)ColorConverter.ConvertFromString(str);
                     }
@@ -84,7 +85,7 @@ namespace ModernUI.Presentation
 
         private Uri GetThemeSource()
         {
-            var dict = GetThemeDictionary();
+            ResourceDictionary dict = GetThemeDictionary();
             if (dict != null) {
                 return dict.Source;
             }
@@ -96,15 +97,15 @@ namespace ModernUI.Presentation
         private void SetThemeSource(Uri source, bool useThemeAccentColor)
         {
             if (source == null) {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
 
-            var oldThemeDict = GetThemeDictionary();
-            var dictionaries = Application.Current.Resources.MergedDictionaries;
-            var themeDict = new ResourceDictionary { Source = source };
+            ResourceDictionary oldThemeDict = GetThemeDictionary();
+            Collection<ResourceDictionary> dictionaries = Application.Current.Resources.MergedDictionaries;
+            ResourceDictionary themeDict = new ResourceDictionary { Source = source };
 
             // if theme defines an accent color, use it
-            var accentColor = themeDict[KeyAccentColor] as Color?;
+            Color? accentColor = themeDict[KeyAccentColor] as Color?;
             if (accentColor.HasValue) {
                 // remove from the theme dictionary and apply globally if useThemeAccentColor is true
                 themeDict.Remove(KeyAccentColor);
@@ -134,7 +135,7 @@ namespace ModernUI.Presentation
 
         private FontSize GetFontSize()
         {
-            var defaultFontSize = Application.Current.Resources[KeyDefaultFontSize] as double?;
+            double? defaultFontSize = Application.Current.Resources[KeyDefaultFontSize] as double?;
              
             if (defaultFontSize.HasValue) {
                 return defaultFontSize.Value == 12D ? FontSize.Small : FontSize.Large;
@@ -158,7 +159,7 @@ namespace ModernUI.Presentation
 
         private Color GetAccentColor()
         {
-            var accentColor = Application.Current.Resources[KeyAccentColor] as Color?;
+            Color? accentColor = Application.Current.Resources[KeyAccentColor] as Color?;
 
             if (accentColor.HasValue) {
                 return accentColor.Value;
@@ -173,7 +174,7 @@ namespace ModernUI.Presentation
             ApplyAccentColor(value);
 
             // re-apply theme to ensure brushes referencing AccentColor are updated
-            var themeSource = GetThemeSource();
+            Uri themeSource = GetThemeSource();
             if (themeSource != null) {
                 SetThemeSource(themeSource, false);
             }
@@ -184,10 +185,7 @@ namespace ModernUI.Presentation
         /// <summary>
         /// Gets the current <see cref="AppearanceManager"/> instance.
         /// </summary>
-        public static AppearanceManager Current
-        {
-            get { return current; }
-        }
+        public static AppearanceManager Current => current;
 
         /// <summary>
         /// The command that sets the dark theme.

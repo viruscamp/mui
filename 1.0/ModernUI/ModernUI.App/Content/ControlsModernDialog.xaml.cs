@@ -29,7 +29,7 @@ namespace ModernUI.App.Content
 
         private void CommonDialog_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new ModernDialog {
+            ModernDialog dlg = new ModernDialog {
                 Title = "Common dialog",
                 Content = new LoremIpsum()
             };
@@ -48,7 +48,7 @@ namespace ModernUI.App.Content
             else if (true == yesno.IsChecked) btn = MessageBoxButton.YesNo;
             else if (true == yesnocancel.IsChecked) btn = MessageBoxButton.YesNoCancel;
 
-            var result = ModernDialog.ShowMessage("This is a simple Modern UI styled message dialog. Do you like it?", "Message Dialog", btn);
+            MessageBoxResult result = ModernDialog.ShowMessage("This is a simple Modern UI styled message dialog. Do you like it?", "Message Dialog", btn);
 
             this.msgboxResult.Text = result.ToString();
         }

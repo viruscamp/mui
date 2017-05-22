@@ -44,7 +44,7 @@ namespace ModernUI.Windows.Controls
             this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             this.closeCommand = new RelayCommand(o => {
-                var result = o as MessageBoxResult?;
+                MessageBoxResult? result = o as MessageBoxResult?;
                 if (result.HasValue) {
                     this.messageBoxResult = result.Value;
 
@@ -87,10 +87,7 @@ namespace ModernUI.Windows.Controls
         /// <summary>
         /// Gets the close window command.
         /// </summary>
-        public ICommand CloseCommand
-        {
-            get { return this.closeCommand; }
-        }
+        public ICommand CloseCommand => this.closeCommand;
 
         /// <summary>
         /// Gets the Ok button.
@@ -184,10 +181,7 @@ namespace ModernUI.Windows.Controls
         /// <value>
         /// The message box result.
         /// </value>
-        public MessageBoxResult MessageBoxResult
-        {
-            get { return this.messageBoxResult; }
-        }
+        public MessageBoxResult MessageBoxResult => this.messageBoxResult;
 
         /// <summary>
         /// Displays a messagebox.
@@ -199,7 +193,7 @@ namespace ModernUI.Windows.Controls
         /// <returns></returns>
         public static MessageBoxResult ShowMessage(string text, string title, MessageBoxButton button, Window owner = null)
         {
-            var dlg = new ModernDialog {
+            ModernDialog dlg = new ModernDialog {
                 Title = title,
                 Content = new BBCodeBlock { BBCode = text, Margin = new Thickness(0, 0, 0, 8) },
                 MinHeight = 0,

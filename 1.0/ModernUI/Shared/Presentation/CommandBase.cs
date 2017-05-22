@@ -18,8 +18,8 @@ namespace ModernUI.Presentation
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add { System.Windows.Input.CommandManager.RequerySuggested += value; }
-            remove { System.Windows.Input.CommandManager.RequerySuggested -= value; }
+            add => System.Windows.Input.CommandManager.RequerySuggested += value;
+            remove => System.Windows.Input.CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>
