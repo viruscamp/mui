@@ -16,12 +16,12 @@
             <Setter.Value>
                 <ControlTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Border BorderThickness="1" BorderBrush="#FFdc000c" VerticalAlignment="Top">
+                        <Border BorderThickness="1" BorderBrush="{DynamicResource ErrorBorder}" VerticalAlignment="Top">
                             <Grid>
                                 <AdornedElementPlaceholder x:Name="adorner" Margin="-1" />
                             </Grid>
                         </Border>
-                        <Border x:Name="errorBorder" Background="#FFdc000c" Margin="8,0,0,0"
+                        <Border x:Name="errorBorder" Background="{DynamicResource ErrorBackground}" Margin="8,0,0,0"
                                 Opacity="0" CornerRadius="0"
                                 IsHitTestVisible="False"
                                 MinHeight="24">
