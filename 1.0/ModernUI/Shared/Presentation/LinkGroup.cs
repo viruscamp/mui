@@ -25,8 +25,7 @@ namespace ModernUI.Presentation
         /// </remarks>
         public string GroupKey
         {
-            get { return this.groupKey; }
-            set
+            get => this.groupKey; set
             {
                 if (this.groupKey != value) {
                     this.groupKey = value;
@@ -41,8 +40,7 @@ namespace ModernUI.Presentation
         /// <value>The selected link.</value>
         internal Link SelectedLink
         {
-            get { return this.selectedLink; }
-            set
+            get => this.selectedLink; set
             {
                 if (this.selectedLink != value) {
                     this.selectedLink = value;

@@ -48,8 +48,7 @@ namespace ModernUI.Windows.Navigation
         /// </remarks>
         public string[] ExternalSchemes
         {
-            get { return this.externalSchemes; }
-            set { this.externalSchemes = value; }
+            get => this.externalSchemes; set => this.externalSchemes = value;
         }
 
         /// <summary>
@@ -57,8 +56,7 @@ namespace ModernUI.Windows.Navigation
         /// </summary>
         public CommandDictionary Commands
         {
-            get { return this.commands; }
-            set { this.commands = value; }
+            get => this.commands; set => this.commands = value;
         }
 
         /// <summary>

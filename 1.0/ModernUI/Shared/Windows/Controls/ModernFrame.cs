@@ -524,8 +524,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool KeepContentAlive
         {
-            get { return (bool)GetValue(KeepContentAliveProperty); }
-            set { SetValue(KeepContentAliveProperty, value); }
+            get => (bool)GetValue(KeepContentAliveProperty); set => SetValue(KeepContentAliveProperty, value);
         }
 
         /// <summary>
@@ -533,8 +532,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get { return (IContentLoader)GetValue(ContentLoaderProperty); }
-            set { SetValue(ContentLoaderProperty, value); }
+            get => (IContentLoader)GetValue(ContentLoaderProperty); set => SetValue(ContentLoaderProperty, value);
         }
 
         /// <summary>
@@ -550,8 +548,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public Uri Source
         {
-            get { return (Uri)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get => (Uri)GetValue(SourceProperty); set => SetValue(SourceProperty, value);
         }
     }
 }

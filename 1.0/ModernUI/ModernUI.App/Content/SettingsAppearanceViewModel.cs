@@ -121,8 +121,7 @@ namespace ModernUI.App.Content
 
         public string SelectedPalette
         {
-            get { return this.selectedPalette; }
-            set
+            get => this.selectedPalette; set
             {
                 if (this.selectedPalette != value) {
                     this.selectedPalette = value;
@@ -135,8 +134,7 @@ namespace ModernUI.App.Content
 
         public Link SelectedTheme
         {
-            get { return this.selectedTheme; }
-            set
+            get => this.selectedTheme; set
             {
                 if (this.selectedTheme != value) {
                     this.selectedTheme = value;
@@ -150,8 +148,7 @@ namespace ModernUI.App.Content
 
         public string SelectedFontSize
         {
-            get { return this.selectedFontSize; }
-            set
+            get => this.selectedFontSize; set
             {
                 if (this.selectedFontSize != value) {
                     this.selectedFontSize = value;
@@ -164,8 +161,7 @@ namespace ModernUI.App.Content
 
         public Color SelectedAccentColor
         {
-            get { return this.selectedAccentColor; }
-            set
+            get => this.selectedAccentColor; set
             {
                 if (this.selectedAccentColor != value) {
                     this.selectedAccentColor = value;

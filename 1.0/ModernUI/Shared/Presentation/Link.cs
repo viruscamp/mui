@@ -20,8 +20,7 @@ namespace ModernUI.Presentation
         /// <value>The source.</value>
         public Uri Source
         {
-            get { return this.source; }
-            set
+            get => this.source; set
             {
                 if (this.source != value) {
                     this.source = value;

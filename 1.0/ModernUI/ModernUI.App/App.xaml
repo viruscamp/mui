@@ -9,7 +9,7 @@
                 <ResourceDictionary Source="/ModernUI;component/Assets/ModernUI.Light.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -49,8 +49,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public double EllipseDiameter
         {
-            get { return (double)GetValue(EllipseDiameterProperty); }
-            set { SetValue(EllipseDiameterProperty, value); }
+            get => (double)GetValue(EllipseDiameterProperty); set => SetValue(EllipseDiameterProperty, value);
         }
 
         /// <summary>
@@ -58,8 +57,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public double EllipseStrokeThickness
         {
-            get { return (double)GetValue(EllipseStrokeThicknessProperty); }
-            set { SetValue(EllipseStrokeThicknessProperty, value); }
+            get => (double)GetValue(EllipseStrokeThicknessProperty); set => SetValue(EllipseStrokeThicknessProperty, value);
         }
 
         /// <summary>
@@ -70,8 +68,7 @@ namespace ModernUI.Windows.Controls
         /// </value>
         public Geometry IconData
         {
-            get { return (Geometry)GetValue(IconDataProperty); }
-            set { SetValue(IconDataProperty, value); }
+            get => (Geometry)GetValue(IconDataProperty); set => SetValue(IconDataProperty, value);
         }
 
         /// <summary>
@@ -82,8 +79,7 @@ namespace ModernUI.Windows.Controls
         /// </value>
         public double IconHeight
         {
-            get { return (double)GetValue(IconHeightProperty); }
-            set { SetValue(IconHeightProperty, value); }
+            get => (double)GetValue(IconHeightProperty); set => SetValue(IconHeightProperty, value);
         }
 
         /// <summary>
@@ -94,8 +90,7 @@ namespace ModernUI.Windows.Controls
         /// </value>
         public double IconWidth
         {
-            get { return (double)GetValue(IconWidthProperty); }
-            set { SetValue(IconWidthProperty, value); }
+            get => (double)GetValue(IconWidthProperty); set => SetValue(IconWidthProperty, value);
         }
     }
 }

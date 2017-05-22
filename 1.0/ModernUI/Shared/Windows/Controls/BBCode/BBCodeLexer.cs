@@ -60,7 +60,8 @@ namespace ModernUI.Windows.Controls.BBCode
         {
             Match('[');
             Mark();
-            while (IsTagNameChar()) {
+            while (IsTagNameChar())
+            {
                 Consume();
             }
 
@@ -73,7 +74,8 @@ namespace ModernUI.Windows.Controls.BBCode
             Match('/');
 
             Mark();
-            while (IsTagNameChar()) {
+            while (IsTagNameChar())
+            {
                 Consume();
             }
             Token token = new Token(GetMark(), TokenEndTag);
@@ -93,40 +95,59 @@ namespace ModernUI.Windows.Controls.BBCode
         private Token Text()
         {
             Mark();
-            while (LA(1) != '[' && LA(1) != char.MaxValue && !IsInRange(NewlineChars)) {
+            while (LA(1) != '[' && LA(1) != char.MaxValue && !IsInRange(NewlineChars))
+            {
                 Consume();
             }
             return new Token(GetMark(), TokenText);
         }
 
+        private Token EscapedTag()
+        {
+            Mark();
+            Consume();
+            while (LA(1) != '[' && LA(1) != char.MaxValue && !IsInRange(NewlineChars))
+            {
+                Consume();
+            }
+            var result = GetMark();
+            return new Token(result.Substring(0, 1) + result.Substring(2), TokenText);
+        }
+
         private Token Attribute()
         {
             Match('=');
-            while (IsInRange(WhitespaceChars)) {
+            while (IsInRange(WhitespaceChars))
+            {
                 Consume();
             }
 
             Token token;
 
-            if (IsInRange(QuoteChars)) {
+            if (IsInRange(QuoteChars))
+            {
                 Consume();
                 Mark();
-                while (!IsInRange(QuoteChars)) {
+                while (!IsInRange(QuoteChars))
+                {
                     Consume();
                 }
                 token = new Token(GetMark(), TokenAttribute);
                 Consume();
             }
-            else {
+            else
+            {
                 Mark();
-                while (!IsInRange(WhitespaceChars) && LA(1) != ']' && LA(1) != char.MaxValue) {
+                while (!IsInRange(WhitespaceChars) && LA(1) != ']' && LA(1) != char.MaxValue)
+                {
                     Consume();
                 }
 
                 token = new Token(GetMark(), TokenAttribute);
             }
 
-            while (IsInRange(WhitespaceChars)) {
+            while (IsInRange(WhitespaceChars))
+            {
                 Consume();
             }
             return token;
@@ -147,30 +168,43 @@ namespace ModernUI.Windows.Controls.BBCode
         /// <returns></returns>
         public override Token NextToken()
         {
-            if (LA(1) == char.MaxValue) {
+            if (LA(1) == char.MaxValue)
+            {
                 return Token.End;
             }
 
-            if (State == StateNormal) {
-                if (LA(1) == '[') {
-                    if (LA(2) == '/') {
+            if (State == StateNormal)
+            {
+                if (LA(1) == '[')
+                {
+                    if (LA(2) == '\\')
+                    {
+                        return EscapedTag();
+                    }
+                    if (LA(2) == '/')
+                    {
                         return CloseTag();
                     }
-                    else {
+                    else
+                    {
                         Token token = OpenTag();
                         PushState(StateTag);
                         return token;
                     }
                 }
-                else if (IsInRange(NewlineChars)) {
+                else if (IsInRange(NewlineChars))
+                {
                     return Newline();
                 }
-                else {
+                else
+                {
                     return Text();
                 }
             }
-            else if (State == StateTag) {
-                if (LA(1) == ']') {
+            else if (State == StateTag)
+            {
+                if (LA(1) == ']')
+                {
                     Consume();
                     PopState();
                     return NextToken();
@@ -178,7 +212,8 @@ namespace ModernUI.Windows.Controls.BBCode
 
                 return Attribute();
             }
-            else {
+            else
+            {
                 throw new ParseException("Invalid state");
             }
         }

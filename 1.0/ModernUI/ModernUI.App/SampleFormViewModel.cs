@@ -16,8 +16,7 @@ namespace ModernUI.App
 
         public string FirstName
         {
-            get { return this.firstName; }
-            set
+            get => this.firstName; set
             {
                 if (this.firstName != value) {
                     this.firstName = value;
@@ -28,8 +27,7 @@ namespace ModernUI.App
 
         public string LastName
         {
-            get { return this.lastName; }
-            set
+            get => this.lastName; set
             {
                 if (this.lastName != value) {
                     this.lastName = value;

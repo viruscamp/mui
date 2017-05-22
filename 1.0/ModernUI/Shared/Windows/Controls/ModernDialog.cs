@@ -167,8 +167,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public object BackgroundContent
         {
-            get { return GetValue(BackgroundContentProperty); }
-            set { SetValue(BackgroundContentProperty, value); }
+            get => GetValue(BackgroundContentProperty); set => SetValue(BackgroundContentProperty, value);
         }
 
         /// <summary>
@@ -176,8 +175,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public IEnumerable<Button> Buttons
         {
-            get { return (IEnumerable<Button>)GetValue(ButtonsProperty); }
-            set { SetValue(ButtonsProperty, value); }
+            get => (IEnumerable<Button>)GetValue(ButtonsProperty); set => SetValue(ButtonsProperty, value);
         }
 
         /// <summary>

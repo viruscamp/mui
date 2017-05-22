@@ -117,8 +117,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get { return (IContentLoader)GetValue(ContentLoaderProperty); }
-            set { SetValue(ContentLoaderProperty, value); }
+            get => (IContentLoader)GetValue(ContentLoaderProperty); set => SetValue(ContentLoaderProperty, value);
         }
 
         /// <summary>
@@ -126,8 +125,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public TabLayout Layout
         {
-            get { return (TabLayout)GetValue(LayoutProperty); }
-            set { SetValue(LayoutProperty, value); }
+            get => (TabLayout)GetValue(LayoutProperty); set => SetValue(LayoutProperty, value);
         }
 
         /// <summary>
@@ -135,8 +133,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public LinkCollection Links
         {
-            get { return (LinkCollection)GetValue(LinksProperty); }
-            set { SetValue(LinksProperty, value); }
+            get => (LinkCollection)GetValue(LinksProperty); set => SetValue(LinksProperty, value);
         }
 
         /// <summary>
@@ -147,8 +144,7 @@ namespace ModernUI.Windows.Controls
         /// </value>
         public GridLength ListWidth
         {
-            get { return (GridLength)GetValue(ListWidthProperty); }
-            set { SetValue(ListWidthProperty, value); }
+            get => (GridLength)GetValue(ListWidthProperty); set => SetValue(ListWidthProperty, value);
         }
 
         /// <summary>
@@ -157,8 +153,7 @@ namespace ModernUI.Windows.Controls
         /// <value>The source URI of the selected link.</value>
         public Uri SelectedSource
         {
-            get { return (Uri)GetValue(SelectedSourceProperty); }
-            set { SetValue(SelectedSourceProperty, value); }
+            get => (Uri)GetValue(SelectedSourceProperty); set => SetValue(SelectedSourceProperty, value);
         }
     }
 }

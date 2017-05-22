@@ -20,8 +20,7 @@ namespace ModernUI.Presentation
         /// <value>The display name.</value>
         public string DisplayName
         {
-            get { return this.displayName; }
-            set
+            get => this.displayName; set
             {
                 if (this.displayName != value) {
                     this.displayName = value;

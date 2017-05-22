@@ -25,7 +25,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ModernDialog">
-                    <Border Background="{DynamicResource WindowBackground}" Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}">
+                    <Border Background="{DynamicResource WindowBackground}"
+                            Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}">
                         <Grid>
                             <Border BorderBrush="{DynamicResource WindowBorder}" BorderThickness="1">
                                 <AdornerDecorator>
@@ -35,7 +36,8 @@
 
                                         <!-- top blob -->
                                         <Canvas>
-                                            <Rectangle Fill="{DynamicResource Accent}" Canvas.Top="18" Canvas.Left="24" Width="100" Height="6" />
+                                            <Rectangle Fill="{DynamicResource Accent}" Canvas.Top="18" Canvas.Left="24"
+                                                       Width="100" Height="6" />
                                         </Canvas>
 
                                         <Grid Margin="24">
@@ -46,17 +48,20 @@
                                             </Grid.RowDefinitions>
 
                                             <!-- title -->
-                                            <TextBlock DataContext="{TemplateBinding Title}" Text="{Binding Converter={StaticResource ToUpperConverter}}" 
-                                                   FontFamily="Segoe UI"
-                                                   FontSize="24"
-                                                   TextOptions.TextFormattingMode="Ideal"
-                                                   TextTrimming="CharacterEllipsis" />
+                                            <TextBlock DataContext="{TemplateBinding Title}"
+                                                       Text="{Binding Converter={StaticResource ToUpperConverter}}"
+                                                       FontFamily="Segoe UI"
+                                                       FontSize="24"
+                                                       TextOptions.TextFormattingMode="Ideal"
+                                                       TextTrimming="CharacterEllipsis" />
 
                                             <!-- content -->
-                                            <controls:TransitioningContentControl Grid.Row="1" Margin="0,20" Content="{TemplateBinding Content}" />
+                                            <controls:TransitioningContentControl Grid.Row="1" Margin="0,20"
+                                                                                  Content="{TemplateBinding Content}" />
 
                                             <!-- buttons -->
-                                            <ItemsControl Grid.Row="2" ItemsSource="{TemplateBinding Buttons}" HorizontalAlignment="Right">
+                                            <ItemsControl Grid.Row="2" ItemsSource="{TemplateBinding Buttons}"
+                                                          HorizontalAlignment="Right">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal" />
@@ -68,7 +73,8 @@
                                     </Grid>
                                 </AdornerDecorator>
                             </Border>
-                            <Border BorderBrush="{DynamicResource WindowBorderActive}" BorderThickness="1" Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Border BorderBrush="{DynamicResource WindowBorderActive}" BorderThickness="1"
+                                    Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>

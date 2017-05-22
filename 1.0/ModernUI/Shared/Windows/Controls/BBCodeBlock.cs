@@ -32,6 +32,10 @@ namespace ModernUI.Windows.Controls
         /// Identifies the LinkNavigator dependency property.
         /// </summary>
         public static DependencyProperty LinkNavigatorProperty = DependencyProperty.Register("LinkNavigator", typeof(ILinkNavigator), typeof(BBCodeBlock), new PropertyMetadata(new DefaultLinkNavigator(), OnLinkNavigatorChanged));
+        /// <summary>
+        /// Identifies the BBCodeQuote dependency property.
+        /// </summary>
+        public static DependencyProperty BBCodeQuoteBackgroundProperty = DependencyProperty.Register("BBCodeQuoteBackground", typeof(Brush), typeof(BBCodeBlock), new PropertyMetadata(new PropertyChangedCallback(OnBBCodeQuoteBackgroundChanged)));
 
         private bool dirty = false;
 
@@ -52,9 +56,15 @@ namespace ModernUI.Windows.Controls
             ((BBCodeBlock)o).UpdateDirty();
         }
 
+        private static void OnBBCodeQuoteBackgroundChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            ((BBCodeBlock)o).UpdateDirty();
+        }
+
         private static void OnLinkNavigatorChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue == null) {
+            if (e.NewValue == null)
+            {
                 // null values disallowed
                 throw new ArgumentNullException("LinkNavigator");
             }
@@ -75,7 +85,8 @@ namespace ModernUI.Windows.Controls
 
         private void Update()
         {
-            if (!this.IsLoaded || !this.dirty) {
+            if (!this.IsLoaded || !this.dirty)
+            {
                 return;
             }
 
@@ -83,15 +94,19 @@ namespace ModernUI.Windows.Controls
 
             this.Inlines.Clear();
 
-            if (!string.IsNullOrWhiteSpace(bbcode)) {
+            if (!string.IsNullOrWhiteSpace(bbcode))
+            {
                 Inline inline;
-                try {
-                    var parser = new BBCodeParser(bbcode, this) {
+                try
+                {
+                    var parser = new BBCodeParser(bbcode, this, BBCodeQuoteBackground)
+                    {
                         Commands = this.LinkNavigator.Commands
                     };
                     inline = parser.Parse();
                 }
-                catch (Exception) {
+                catch (Exception)
+                {
                     // parsing failed, display BBCode value as-is
                     inline = new Run { Text = bbcode };
                 }
@@ -102,11 +117,13 @@ namespace ModernUI.Windows.Controls
 
         private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            try {
+            try
+            {
                 // perform navigation using the link navigator
                 this.LinkNavigator.Navigate(e.Uri, this, e.Target);
             }
-            catch (Exception error) {
+            catch (Exception error)
+            {
                 // display navigation failures
                 ModernDialog.ShowMessage(error.Message, ModernUI.Resources.NavigationFailed, MessageBoxButton.OK);
             }
@@ -118,8 +135,7 @@ namespace ModernUI.Windows.Controls
         /// <value>The BB code.</value>
         public string BBCode
         {
-            get { return (string)GetValue(BBCodeProperty); }
-            set { SetValue(BBCodeProperty, value); }
+            get => (string)GetValue(BBCodeProperty); set => SetValue(BBCodeProperty, value);
         }
 
         /// <summary>
@@ -128,8 +144,17 @@ namespace ModernUI.Windows.Controls
         /// <value>The link navigator.</value>
         public ILinkNavigator LinkNavigator
         {
-            get { return (ILinkNavigator)GetValue(LinkNavigatorProperty); }
-            set { SetValue(LinkNavigatorProperty, value); }
+            get => (ILinkNavigator)GetValue(LinkNavigatorProperty); set => SetValue(LinkNavigatorProperty, value);
         }
+
+        /// <summary>
+        /// Gets or sets the BB quote background.
+        /// </summary>
+        /// <value>The BB code.</value>
+        public Brush BBCodeQuoteBackground
+        {
+            get => (Brush)GetValue(BBCodeQuoteBackgroundProperty); set => SetValue(BBCodeQuoteBackgroundProperty, value);
+        }
+
     }
 }

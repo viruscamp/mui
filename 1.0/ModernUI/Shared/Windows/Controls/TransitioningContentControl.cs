@@ -91,8 +91,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool IsTransitioning
         {
-            get { return (bool)GetValue(IsTransitioningProperty); }
-            private set
+            get => (bool)GetValue(IsTransitioningProperty); private set
             {
                 _allowIsTransitioningWrite = true;
                 SetValue(IsTransitioningProperty, value);
@@ -140,8 +139,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         private Storyboard CurrentTransition
         {
-            get { return _currentTransition; }
-            set
+            get => _currentTransition; set
             {
                 // decouple event
                 if (_currentTransition != null) {
@@ -163,8 +161,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public string Transition
         {
-            get { return GetValue(TransitionProperty) as string; }
-            set { SetValue(TransitionProperty, value); }
+            get => GetValue(TransitionProperty) as string; set => SetValue(TransitionProperty, value);
         }
 
         /// <summary>
@@ -223,8 +220,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool RestartTransitionOnContentChange
         {
-            get { return (bool)GetValue(RestartTransitionOnContentChangeProperty); }
-            set { SetValue(RestartTransitionOnContentChangeProperty, value); }
+            get => (bool)GetValue(RestartTransitionOnContentChangeProperty); set => SetValue(RestartTransitionOnContentChangeProperty, value);
         }
 
         /// <summary>

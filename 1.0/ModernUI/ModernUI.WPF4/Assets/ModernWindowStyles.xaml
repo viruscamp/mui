@@ -15,19 +15,24 @@
     <!-- Resource key 'EmptyWindow' is considered obsolete, use 'BlankWindow' instead (see below). EmptyWindow resource is kept here for backwards compatibility. -->
 
     <!-- blank window style, no backbutton, menu and title links -->
-    <Style x:Key="EmptyWindow" TargetType="controls:ModernWindow" BasedOn="{StaticResource {x:Type controls:ModernWindow}}" >
+    <Style x:Key="EmptyWindow" TargetType="controls:ModernWindow"
+           BasedOn="{StaticResource {x:Type controls:ModernWindow}}">
         <Setter Property="Padding" Value="8" />
         <Setter Property="IsTitleVisible" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ModernWindow">
-                    <Border x:Name="WindowBorder" Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}">
+                    <Border x:Name="WindowBorder"
+                            Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}">
                         <Border.Background>
-                            <SolidColorBrush x:Name="WindowBorderBackground" Color="{DynamicResource WindowBackgroundColor}" />
+                            <SolidColorBrush x:Name="WindowBorderBackground"
+                                             Color="{DynamicResource WindowBackgroundColor}" />
                         </Border.Background>
                         <Border.Resources>
                             <Storyboard x:Key="BackgroundAnimation">
-                                <ColorAnimation Storyboard.TargetName="WindowBorderBackground" Storyboard.TargetProperty="Color" To="{DynamicResource WindowBackgroundColor}" Duration="0:0:.6" />
+                                <ColorAnimation Storyboard.TargetName="WindowBorderBackground"
+                                                Storyboard.TargetProperty="Color"
+                                                To="{DynamicResource WindowBackgroundColor}" Duration="0:0:.6" />
                             </Storyboard>
                         </Border.Resources>
 
@@ -54,50 +59,78 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!-- title -->
-                                        <TextBlock Text="{TemplateBinding Title}" Margin="8,0" VerticalAlignment="Center" Style="{StaticResource ModernWindowTitle}"
+                                        <TextBlock Text="{TemplateBinding Title}" Margin="8,0"
+                                                   VerticalAlignment="Center"
+                                                   Style="{StaticResource ModernWindowTitle}"
                                                    DataContext="{TemplateBinding IsTitleVisible}"
-                                                   Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                   Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                                         <!-- logo (visible only when LogoData is not null) -->
-                                        <Border Grid.Column="1" Background="{DynamicResource Accent}" Width="36" Height="36" Margin="8,0"
+                                        <Border Grid.Column="1" Background="{DynamicResource Accent}" Width="36"
+                                                Height="36" Margin="8,0"
                                                 DataContext="{TemplateBinding LogoData}"
                                                 Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                                            <Path Data="{Binding}" Stretch="Fill" Fill="White" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Path Data="{Binding}" Stretch="Fill" Fill="White" Width="24" Height="24"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
 
                                         <!-- window system buttons-->
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top" shell:WindowChrome.IsHitTestVisibleInChrome="True">
-                                            <Button x:Name="Minimize" Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}" ToolTip="{x:Static modernui:Resources.Minimize}" Style="{StaticResource SystemButton}">
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top"
+                                                    shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Button x:Name="Minimize"
+                                                    Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}"
+                                                    ToolTip="{x:Static modernui:Resources.Minimize}"
+                                                    Style="{StaticResource SystemButton}">
                                                 <Button.Content>
                                                     <Grid Width="13" Height="12" RenderTransform="1,0,0,1,0,1">
-                                                        <Path Data="M0,6 L8,6 Z" Width="8" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                              Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="2"  />
+                                                        <Path Data="M0,6 L8,6 Z" Width="8" Height="7"
+                                                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                              Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                                              StrokeThickness="2" />
                                                     </Grid>
                                                 </Button.Content>
                                             </Button>
                                             <Grid Margin="1,0,1,0">
-                                                <Button x:Name="Restore" Command="{Binding Source={x:Static shell:SystemCommands.RestoreWindowCommand}}" ToolTip="{x:Static modernui:Resources.Restore}" Style="{StaticResource SystemButton}" Visibility="Hidden" >
+                                                <Button x:Name="Restore"
+                                                        Command="{Binding Source={x:Static shell:SystemCommands.RestoreWindowCommand}}"
+                                                        ToolTip="{x:Static modernui:Resources.Restore}"
+                                                        Style="{StaticResource SystemButton}" Visibility="Hidden">
                                                     <Button.Content>
-                                                        <Grid Width="13" Height="12" UseLayoutRounding="True" RenderTransform="1,0,0,1,.5,.5">
-                                                            <Path Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z" Width="8" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="1"  />
+                                                        <Grid Width="13" Height="12" UseLayoutRounding="True"
+                                                              RenderTransform="1,0,0,1,.5,.5">
+                                                            <Path Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z"
+                                                                  Width="8" Height="8" VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center"
+                                                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                                                  StrokeThickness="1" />
                                                         </Grid>
                                                     </Button.Content>
                                                 </Button>
-                                                <Button x:Name="Maximize" Command="{Binding Source={x:Static shell:SystemCommands.MaximizeWindowCommand}}" ToolTip="{x:Static modernui:Resources.Maximize}" Style="{StaticResource SystemButton}" >
+                                                <Button x:Name="Maximize"
+                                                        Command="{Binding Source={x:Static shell:SystemCommands.MaximizeWindowCommand}}"
+                                                        ToolTip="{x:Static modernui:Resources.Maximize}"
+                                                        Style="{StaticResource SystemButton}">
                                                     <Button.Content>
                                                         <Grid Width="13" Height="12">
-                                                            <Path Data="M0,1 L9,1 L9,8 L0,8 Z" Width="9" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="2"  />
+                                                            <Path Data="M0,1 L9,1 L9,8 L0,8 Z" Width="9" Height="8"
+                                                                  VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center"
+                                                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                                                  StrokeThickness="2" />
                                                         </Grid>
                                                     </Button.Content>
                                                 </Button>
                                             </Grid>
-                                            <Button Command="{Binding Source={x:Static shell:SystemCommands.CloseWindowCommand}}" ToolTip="{x:Static modernui:Resources.Close}" Style="{StaticResource SystemCloseButton}" >
+                                            <Button
+                                                Command="{Binding Source={x:Static shell:SystemCommands.CloseWindowCommand}}"
+                                                ToolTip="{x:Static modernui:Resources.Close}"
+                                                Style="{StaticResource SystemCloseButton}">
                                                 <Button.Content>
                                                     <Grid Width="13" Height="12" RenderTransform="1,0,0,1,0,1">
-                                                        <Path Data="M0,0 L8,7 M8,0 L0,7 Z" Width="8" Height="7" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                              Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" StrokeThickness="1.5"  />
+                                                        <Path Data="M0,0 L8,7 M8,0 L0,7 Z" Width="8" Height="7"
+                                                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                              Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                                              StrokeThickness="1.5" />
                                                     </Grid>
                                                 </Button.Content>
                                             </Button>
@@ -105,8 +138,10 @@
                                     </Grid>
 
                                     <!-- resize grip -->
-                                    <Grid Grid.Row="1" x:Name="ResizeGrip" Background="Transparent" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Bottom" shell:WindowChrome.ResizeGripDirection="BottomRight">
-                                        <Path Width="12" Height="12" Margin="1" 
+                                    <Grid Grid.Row="1" x:Name="ResizeGrip" Background="Transparent"
+                                          Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                          shell:WindowChrome.ResizeGripDirection="BottomRight">
+                                        <Path Width="12" Height="12" Margin="1"
                                               Stroke="{DynamicResource WindowText}"
                                               StrokeThickness="1"
                                               Stretch="None"

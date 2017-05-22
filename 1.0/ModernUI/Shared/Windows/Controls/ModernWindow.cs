@@ -41,6 +41,14 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public static readonly DependencyProperty LogoDataProperty = DependencyProperty.Register("LogoData", typeof(Geometry), typeof(ModernWindow));
         /// <summary>
+        /// Identifies the LogoCommand dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LogoCommandProperty = DependencyProperty.Register("LogoCommand", typeof(ICommand), typeof(ModernWindow));
+        /// <summary>
+        /// Identifies the LogoCommandParameter dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LogoCommandParameterProperty = DependencyProperty.Register("LogoCommandParameter", typeof(object), typeof(ModernWindow));
+        /// <summary>
         /// Defines the ContentSource dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentSourceProperty = DependencyProperty.Register("ContentSource", typeof(Uri), typeof(ModernWindow));
@@ -52,6 +60,11 @@ namespace ModernUI.Windows.Controls
         /// Identifies the LinkNavigator dependency property.
         /// </summary>
         public static DependencyProperty LinkNavigatorProperty = DependencyProperty.Register("LinkNavigator", typeof(ILinkNavigator), typeof(ModernWindow), new PropertyMetadata(new DefaultLinkNavigator()));
+
+        /// <summary>
+        /// Identifies the BBCodeTitle dependency property.
+        /// </summary>
+        public static DependencyProperty BBCodeTitleProperty = DependencyProperty.Register("BBCodeTitle", typeof(string), typeof(ModernWindow), new PropertyMetadata(null));
 
         private Storyboard backgroundAnimation;
 
@@ -106,10 +119,12 @@ namespace ModernUI.Windows.Controls
 
             // retrieve BackgroundAnimation storyboard
             var border = GetTemplateChild("WindowBorder") as Border;
-            if (border != null) {
+            if (border != null)
+            {
                 this.backgroundAnimation = border.Resources["BackgroundAnimation"] as Storyboard;
 
-                if (this.backgroundAnimation != null) {
+                if (this.backgroundAnimation != null)
+                {
                     this.backgroundAnimation.Begin();
                 }
             }
@@ -118,7 +133,8 @@ namespace ModernUI.Windows.Controls
         private void OnAppearanceManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             // start background animation if theme has changed
-            if (e.PropertyName == "ThemeSource" && this.backgroundAnimation != null) {
+            if (e.PropertyName == "ThemeSource" && this.backgroundAnimation != null)
+            {
                 this.backgroundAnimation.Begin();
             }
         }
@@ -128,16 +144,19 @@ namespace ModernUI.Windows.Controls
             // true by default
             e.CanExecute = true;
 
-            if (this.LinkNavigator != null && this.LinkNavigator.Commands != null) {
+            if (this.LinkNavigator != null && this.LinkNavigator.Commands != null)
+            {
                 // in case of command uri, check if ICommand.CanExecute is true
                 Uri uri;
                 string parameter;
                 string targetName;
 
                 // TODO: CanNavigate is invoked a lot, which means a lot of parsing. need improvements??
-                if (NavigationHelper.TryParseUriWithParameters(e.Parameter, out uri, out parameter, out targetName)) {
+                if (NavigationHelper.TryParseUriWithParameters(e.Parameter, out uri, out parameter, out targetName))
+                {
                     ICommand command;
-                    if (this.LinkNavigator.Commands.TryGetValue(uri, out command)) {
+                    if (this.LinkNavigator.Commands.TryGetValue(uri, out command))
+                    {
                         e.CanExecute = command.CanExecute(parameter);
                     }
                 }
@@ -146,12 +165,14 @@ namespace ModernUI.Windows.Controls
 
         private void OnNavigateLink(object sender, ExecutedRoutedEventArgs e)
         {
-            if (this.LinkNavigator != null) {
-                 Uri uri;
+            if (this.LinkNavigator != null)
+            {
+                Uri uri;
                 string parameter;
                 string targetName;
 
-                if (NavigationHelper.TryParseUriWithParameters(e.Parameter, out uri, out parameter, out targetName)) {
+                if (NavigationHelper.TryParseUriWithParameters(e.Parameter, out uri, out parameter, out targetName))
+                {
                     this.LinkNavigator.Navigate(uri, e.Source as FrameworkElement, parameter);
                 }
             }
@@ -208,8 +229,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public object BackgroundContent
         {
-            get { return GetValue(BackgroundContentProperty); }
-            set { SetValue(BackgroundContentProperty, value); }
+            get => GetValue(BackgroundContentProperty); set => SetValue(BackgroundContentProperty, value);
         }
 
         /// <summary>
@@ -217,8 +237,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public LinkGroupCollection MenuLinkGroups
         {
-            get { return (LinkGroupCollection)GetValue(MenuLinkGroupsProperty); }
-            set { SetValue(MenuLinkGroupsProperty, value); }
+            get => (LinkGroupCollection)GetValue(MenuLinkGroupsProperty); set => SetValue(MenuLinkGroupsProperty, value);
         }
 
         /// <summary>
@@ -226,8 +245,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public LinkCollection TitleLinks
         {
-            get { return (LinkCollection)GetValue(TitleLinksProperty); }
-            set { SetValue(TitleLinksProperty, value); }
+            get => (LinkCollection)GetValue(TitleLinksProperty); set => SetValue(TitleLinksProperty, value);
         }
 
         /// <summary>
@@ -235,8 +253,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool IsTitleVisible
         {
-            get { return (bool)GetValue(IsTitleVisibleProperty); }
-            set { SetValue(IsTitleVisibleProperty, value); }
+            get => (bool)GetValue(IsTitleVisibleProperty); set => SetValue(IsTitleVisibleProperty, value);
         }
 
         /// <summary>
@@ -244,8 +261,23 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public Geometry LogoData
         {
-            get { return (Geometry)GetValue(LogoDataProperty); }
-            set { SetValue(LogoDataProperty, value); }
+            get => (Geometry)GetValue(LogoDataProperty); set => SetValue(LogoDataProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command for the logo.
+        /// </summary>
+        public ICommand LogoCommand
+        {
+            get => (ICommand)GetValue(LogoCommandProperty); set => SetValue(LogoCommandProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the command parameter for the logo.
+        /// </summary>
+        public object LogoCommandParameter
+        {
+            get => (object)GetValue(LogoCommandParameterProperty); set => SetValue(LogoCommandParameterProperty, value);
         }
 
         /// <summary>
@@ -253,8 +285,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public Uri ContentSource
         {
-            get { return (Uri)GetValue(ContentSourceProperty); }
-            set { SetValue(ContentSourceProperty, value); }
+            get => (Uri)GetValue(ContentSourceProperty); set => SetValue(ContentSourceProperty, value);
         }
 
         /// <summary>
@@ -262,8 +293,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get { return (IContentLoader)GetValue(ContentLoaderProperty); }
-            set { SetValue(ContentLoaderProperty, value); }
+            get => (IContentLoader)GetValue(ContentLoaderProperty); set => SetValue(ContentLoaderProperty, value);
         }
 
         /// <summary>
@@ -272,8 +302,16 @@ namespace ModernUI.Windows.Controls
         /// <value>The link navigator.</value>
         public ILinkNavigator LinkNavigator
         {
-            get { return (ILinkNavigator)GetValue(LinkNavigatorProperty); }
-            set { SetValue(LinkNavigatorProperty, value); }
+            get => (ILinkNavigator)GetValue(LinkNavigatorProperty); set => SetValue(LinkNavigatorProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the BBCode Title.
+        /// </summary>
+        /// <value>The link navigator.</value>
+        public string BBCodeTitle
+        {
+            get => (string)GetValue(BBCodeTitleProperty); set => SetValue(BBCodeTitleProperty, value);
         }
     }
 }

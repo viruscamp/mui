@@ -10,7 +10,8 @@
 
     <Rectangle x:Key="WindowBackgroundContent" x:Shared="false" Margin="32">
         <Rectangle.Fill>
-            <ImageBrush Opacity=".1" ImageSource="/Assets/background.kitty.png" Stretch="None"  AlignmentX="Right" AlignmentY="Bottom" />
+            <ImageBrush Opacity=".1" ImageSource="/Assets/background.kitty.png" Stretch="None" AlignmentX="Right"
+                        AlignmentY="Bottom" />
         </Rectangle.Fill>
     </Rectangle>
 
