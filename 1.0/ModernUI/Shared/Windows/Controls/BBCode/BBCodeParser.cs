@@ -29,6 +29,7 @@ namespace ModernUI.Windows.Controls.BBCode
         private const string TagList = "list";
         private const string TagOrderedList = "ol";
         private const string TagListItem = "li";
+        private const string TagNewLine = "br";
 
         class ParseContext
         {
@@ -213,6 +214,13 @@ namespace ModernUI.Windows.Controls.BBCode
             else if (tag == TagListItem)
             {
                 context.IsListItem = start;
+            }
+            else if (tag == TagNewLine)
+            {
+                if (start)
+                {
+                    context.Parent.Inlines.Add(Environment.NewLine);
+                }
             }
         }
 
