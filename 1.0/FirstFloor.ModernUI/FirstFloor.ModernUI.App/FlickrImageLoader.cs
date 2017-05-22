@@ -1,5 +1,5 @@
-﻿using FirstFloor.ModernUI.Presentation;
-using FirstFloor.ModernUI.Windows;
+﻿using ModernUI.Presentation;
+using ModernUI.Windows;
 using System;
 using System.Globalization;
 using System.IO;
@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
-namespace FirstFloor.ModernUI.App
+namespace ModernUI.App
 {
     /// <summary>
     /// Loads image content from Flickr.
