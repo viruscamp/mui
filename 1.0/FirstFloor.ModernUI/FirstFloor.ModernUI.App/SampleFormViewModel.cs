@@ -1,4 +1,4 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using ModernUI.Presentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstFloor.ModernUI.App
+namespace ModernUI.App
 {
     public class SampleFormViewModel
         : NotifyPropertyChanged, IDataErrorInfo

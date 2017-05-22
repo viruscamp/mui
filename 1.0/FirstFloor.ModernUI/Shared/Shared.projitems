@@ -6,7 +6,7 @@
     <SharedGUID>{EEDA74FC-CA5A-4C06-9654-2600B74E2D1D}</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>FirstFloor.ModernUI</Import_RootNamespace>
+    <Import_RootNamespace>ModernUI</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Assets\Button.xaml">
@@ -240,11 +240,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-	<Compile Include="$(MSBuildThisFileDirectory)Resources.fr.Designer.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Resources.fr.Designer.cs">
       <DependentUpon>Resources.fr.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-	</Compile>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources.fr.resx">

@@ -16,10 +16,10 @@
     <tags>modern ui, metro, wpf</tags>
   </metadata>
   <files>
-    <file src="Output\Temp\FirstFloor.ModernUI.dll" target="lib\net45\FirstFloor.ModernUI.dll" />
-    <file src="Output\Temp\FirstFloor.ModernUI.XML" target="lib\net45\FirstFloor.ModernUI.XML" />
-    <file src="Output\Temp\net40\FirstFloor.ModernUI.dll" target="lib\net40\FirstFloor.ModernUI.dll" />
-    <file src="Output\Temp\net40\FirstFloor.ModernUI.XML" target="lib\net40\FirstFloor.ModernUI.XML" />
+    <file src="Output\Temp\ModernUI.dll" target="lib\net45\ModernUI.dll" />
+    <file src="Output\Temp\ModernUI.XML" target="lib\net45\ModernUI.XML" />
+    <file src="Output\Temp\net40\ModernUI.dll" target="lib\net40\ModernUI.dll" />
+    <file src="Output\Temp\net40\ModernUI.XML" target="lib\net40\ModernUI.XML" />
     <file src="Output\Temp\net40\Microsoft.Windows.Shell.dll" target="lib\net40\Microsoft.Windows.Shell.dll" />
   </files>
 </package>

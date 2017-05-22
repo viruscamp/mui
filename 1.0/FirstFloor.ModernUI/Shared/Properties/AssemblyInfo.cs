@@ -44,11 +44,11 @@ using System;
 [assembly: AssemblyVersion("1.0.9.0")]
 [assembly: AssemblyFileVersion("1.0.9.0")]
 
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "FirstFloor.ModernUI.Presentation")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "FirstFloor.ModernUI.Windows")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "FirstFloor.ModernUI.Windows.Controls")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "FirstFloor.ModernUI.Windows.Converters")]
-[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "FirstFloor.ModernUI.Windows.Navigation")]
+[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Presentation")]
+[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows")]
+[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Controls")]
+[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Converters")]
+[assembly: XmlnsDefinition("http://firstfloorsoftware.com/ModernUI", "ModernUI.Windows.Navigation")]
 [assembly: XmlnsPrefix("http://firstfloorsoftware.com/ModernUI", "mui")]
 
 [assembly: ThemeInfo(

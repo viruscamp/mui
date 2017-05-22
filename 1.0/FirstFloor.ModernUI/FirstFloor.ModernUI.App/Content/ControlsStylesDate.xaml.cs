@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FirstFloor.ModernUI.App.Content
+namespace ModernUI.App.Content
 {
     /// <summary>
     /// Interaction logic for ControlsStylesDate.xaml

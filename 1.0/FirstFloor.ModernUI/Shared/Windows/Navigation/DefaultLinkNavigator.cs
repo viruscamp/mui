@@ -1,6 +1,6 @@
-﻿using FirstFloor.ModernUI.Presentation;
-using FirstFloor.ModernUI.Windows.Controls;
-using FirstFloor.ModernUI.Windows.Media;
+﻿using ModernUI.Presentation;
+using ModernUI.Windows.Controls;
+using ModernUI.Windows.Media;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace FirstFloor.ModernUI.Windows.Navigation
+namespace ModernUI.Windows.Navigation
 {
     /// <summary>
     /// The default link navigator with support for loading frame content, external link navigation using the default browser and command execution.

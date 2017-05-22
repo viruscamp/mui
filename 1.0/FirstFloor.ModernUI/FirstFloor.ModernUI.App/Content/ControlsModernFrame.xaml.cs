@@ -1,4 +1,4 @@
-﻿using FirstFloor.ModernUI.Windows.Navigation;
+﻿using ModernUI.Windows.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FirstFloor.ModernUI.App.Content
+namespace ModernUI.App.Content
 {
     /// <summary>
     /// Interaction logic for ControlsModernFrame.xaml

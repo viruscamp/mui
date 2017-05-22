@@ -3,8 +3,8 @@ Modern UI for WPF
 CONTENTS
 ========
 
-FirstFloor.ModernUI.dll
-FirstFloor.ModernUI.xml
+ModernUI.dll
+ModernUI.xml
   The ModernUI binary and XML documentation for .NET 4.5
 
 ModernUIDemo.exe 

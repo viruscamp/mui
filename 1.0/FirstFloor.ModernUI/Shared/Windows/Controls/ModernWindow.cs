@@ -1,5 +1,5 @@
-﻿using FirstFloor.ModernUI.Presentation;
-using FirstFloor.ModernUI.Windows.Navigation;
+﻿using ModernUI.Presentation;
+using ModernUI.Windows.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace FirstFloor.ModernUI.Windows.Controls
+namespace ModernUI.Windows.Controls
 {
     /// <summary>
     /// Represents a Modern UI styled window.
