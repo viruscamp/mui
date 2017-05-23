@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModernUI.Presentation
+﻿namespace ModernUI.Presentation
 {
     /// <summary>
-    /// Provides a base implementation for objects that are displayed in the UI.
+    ///     Provides a base implementation for objects that are displayed in the UI.
     /// </summary>
     public abstract class Displayable
         : NotifyPropertyChanged
@@ -15,15 +9,17 @@ namespace ModernUI.Presentation
         private string displayName;
 
         /// <summary>
-        /// Gets or sets the display name.
+        ///     Gets or sets the display name.
         /// </summary>
         /// <value>The display name.</value>
         public string DisplayName
         {
-            get => this.displayName; set
+            get => displayName;
+            set
             {
-                if (this.displayName != value) {
-                    this.displayName = value;
+                if (displayName != value)
+                {
+                    displayName = value;
                     OnPropertyChanged("DisplayName");
                 }
             }

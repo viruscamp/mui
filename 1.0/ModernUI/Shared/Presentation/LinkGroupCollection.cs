@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
 
 namespace ModernUI.Presentation
 {
     /// <summary>
-    /// Represents an observable collection of link groups.
+    ///     Represents an observable collection of link groups.
     /// </summary>
     public class LinkGroupCollection
         : ObservableCollection<LinkGroup>

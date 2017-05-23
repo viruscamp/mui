@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModernUI.Windows.Controls
+﻿namespace ModernUI.Windows.Controls
 {
     /// <summary>
-    /// Define the available tab layouts.
+    ///     Define the available tab layouts.
     /// </summary>
     public enum TabLayout
     {
         /// <summary>
-        /// Tab layout.
+        ///     Tab layout.
         /// </summary>
         Tab,
+
         /// <summary>
-        /// List layout.
+        ///     List layout.
         /// </summary>
         List
     }

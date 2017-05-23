@@ -5,117 +5,119 @@ using System.Diagnostics.CodeAnalysis;
 namespace ModernUI.Windows.Controls.BBCode
 {
     /// <summary>
-    /// Provides basic lexer functionality.
+    ///     Provides basic lexer functionality.
     /// </summary>
     internal abstract class Lexer
     {
         /// <summary>
-        /// Defines the end-of-file token type.
+        ///     Defines the end-of-file token type.
         /// </summary>
         public const int TokenEnd = int.MaxValue;
 
-        private CharBuffer buffer;
-        private Stack<int> states;
+        private readonly CharBuffer buffer;
+        private readonly Stack<int> states;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Lexer"/> class.
+        ///     Initializes a new instance of the <see cref="T:Lexer" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         protected Lexer(string value)
         {
-            this.buffer = new CharBuffer(value);
-            this.states = new Stack<int>();
-        }
-
-        private static void ValidateOccurence(int count, int minOccurs, int maxOccurs)
-        {
-            if (count < minOccurs || count > maxOccurs) {
-                throw new ParseException("Invalid number of characters");
-            }
+            buffer = new CharBuffer(value);
+            states = new Stack<int>();
         }
 
         /// <summary>
-        /// Gets the default state of the lexer.
+        ///     Gets the default state of the lexer.
         /// </summary>
         /// <value>The state of the default.</value>
-        protected abstract int DefaultState { get;}
+        protected abstract int DefaultState { get; }
 
         /// <summary>
-        /// Gets the current state of the lexer.
+        ///     Gets the current state of the lexer.
         /// </summary>
         /// <value>The state.</value>
         protected int State
         {
             get
             {
-                if (this.states.Count > 0) {
-                    return this.states.Peek();
+                if (states.Count > 0)
+                {
+                    return states.Peek();
                 }
                 return DefaultState;
             }
         }
 
+        private static void ValidateOccurence(int count, int minOccurs, int maxOccurs)
+        {
+            if (count < minOccurs || count > maxOccurs)
+            {
+                throw new ParseException("Invalid number of characters");
+            }
+        }
+
         /// <summary>
-        /// Pushes a new state on the stac.
+        ///     Pushes a new state on the stac.
         /// </summary>
         /// <param name="state">The state.</param>
         protected void PushState(int state)
         {
-            this.states.Push(state);
+            states.Push(state);
         }
 
         /// <summary>
-        /// Pops the state.
+        ///     Pops the state.
         /// </summary>
         /// <returns></returns>
         protected int PopState()
         {
-            return this.states.Pop();
+            return states.Pop();
         }
 
         /// <summary>
-        /// Performs a look-ahead.
+        ///     Performs a look-ahead.
         /// </summary>
         /// <param name="count">The number of characters to look ahead.</param>
         /// <returns></returns>
         protected char LA(int count)
         {
-            return this.buffer.LA(count);
+            return buffer.LA(count);
         }
 
         /// <summary>
-        /// Marks the current position.
+        ///     Marks the current position.
         /// </summary>
         protected void Mark()
         {
-            this.buffer.Mark();
+            buffer.Mark();
         }
 
         /// <summary>
-        /// Gets the mark.
+        ///     Gets the mark.
         /// </summary>
         /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected string GetMark()
         {
-            return this.buffer.GetMark();
+            return buffer.GetMark();
         }
 
         /// <summary>
-        /// Consumes the next character.
+        ///     Consumes the next character.
         /// </summary>
         protected void Consume()
         {
-            this.buffer.Consume();
+            buffer.Consume();
         }
 
         /// <summary>
-        /// Determines whether the current character is in given range.
+        ///     Determines whether the current character is in given range.
         /// </summary>
         /// <param name="first">The first.</param>
         /// <param name="last">The last.</param>
         /// <returns>
-        /// 	<c>true</c> if the current character is in given range; otherwise, <c>false</c>.
+        ///     <c>true</c> if the current character is in given range; otherwise, <c>false</c>.
         /// </returns>
         protected bool IsInRange(char first, char last)
         {
@@ -124,20 +126,23 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Determines whether the current character is in given range.
+        ///     Determines whether the current character is in given range.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// 	<c>true</c> if the current character is in given range; otherwise, <c>false</c>.
+        ///     <c>true</c> if the current character is in given range; otherwise, <c>false</c>.
         /// </returns>
         protected bool IsInRange(char[] value)
         {
-            if (value == null) {
+            if (value == null)
+            {
                 return false;
             }
             char la = LA(1);
-            for (int i = 0; i < value.Length; i++) {
-                if (la == value[i]) {
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (la == value[i])
+                {
                     return true;
                 }
             }
@@ -146,21 +151,23 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Matches the specified character.
+        ///     Matches the specified character.
         /// </summary>
         /// <param name="value">The value.</param>
         protected void Match(char value)
         {
-            if (LA(1) == value) {
+            if (LA(1) == value)
+            {
                 Consume();
             }
-            else {
+            else
+            {
                 throw new ParseException("Character mismatch");
             }
         }
 
         /// <summary>
-        /// Matches the specified character.
+        ///     Matches the specified character.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="minOccurs">The min occurs.</param>
@@ -168,7 +175,8 @@ namespace ModernUI.Windows.Controls.BBCode
         protected void Match(char value, int minOccurs, int maxOccurs)
         {
             int i = 0;
-            while (LA(1) == value) {
+            while (LA(1) == value)
+            {
                 Consume();
                 i++;
             }
@@ -176,40 +184,46 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Matches the specified string.
+        ///     Matches the specified string.
         /// </summary>
         /// <param name="value">The value.</param>
         protected void Match(string value)
         {
-            if (value == null) {
+            if (value == null)
+            {
                 throw new ArgumentNullException("value");
             }
-            for (int i = 0; i < value.Length; i++) {
-                if (LA(1) == value[i]) {
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (LA(1) == value[i])
+                {
                     Consume();
                 }
-                else {
+                else
+                {
                     throw new ParseException("String mismatch");
                 }
             }
         }
 
         /// <summary>
-        /// Matches the range.
+        ///     Matches the range.
         /// </summary>
         /// <param name="value">The value.</param>
         protected void MatchRange(char[] value)
         {
-            if (IsInRange(value)) {
+            if (IsInRange(value))
+            {
                 Consume();
             }
-            else {
+            else
+            {
                 throw new ParseException("Character mismatch");
             }
         }
 
         /// <summary>
-        /// Matches the range.
+        ///     Matches the range.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="minOccurs">The min occurs.</param>
@@ -217,7 +231,8 @@ namespace ModernUI.Windows.Controls.BBCode
         protected void MatchRange(char[] value, int minOccurs, int maxOccurs)
         {
             int i = 0;
-            while (IsInRange(value)) {
+            while (IsInRange(value))
+            {
                 Consume();
                 i++;
             }
@@ -225,22 +240,24 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Matches the range.
+        ///     Matches the range.
         /// </summary>
         /// <param name="first">The first.</param>
         /// <param name="last">The last.</param>
         protected void MatchRange(char first, char last)
         {
-            if (IsInRange(first, last)) {
+            if (IsInRange(first, last))
+            {
                 Consume();
             }
-            else {
+            else
+            {
                 throw new ParseException("Character mismatch");
             }
         }
 
         /// <summary>
-        /// Matches the range.
+        ///     Matches the range.
         /// </summary>
         /// <param name="first">The first.</param>
         /// <param name="last">The last.</param>
@@ -249,7 +266,8 @@ namespace ModernUI.Windows.Controls.BBCode
         protected void MatchRange(char first, char last, int minOccurs, int maxOccurs)
         {
             int i = 0;
-            while (IsInRange(first, last)) {
+            while (IsInRange(first, last))
+            {
                 Consume();
                 i++;
             }
@@ -257,7 +275,7 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Gets the next token.
+        ///     Gets the next token.
         /// </summary>
         /// <returns></returns>
         public abstract Token NextToken();

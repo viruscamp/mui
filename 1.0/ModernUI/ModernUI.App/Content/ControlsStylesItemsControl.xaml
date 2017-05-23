@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class="ModernUI.App.Content.ControlsStylesItemsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <ScrollViewer>
@@ -27,9 +27,10 @@
                     <TextBlock Text="(editable)" Margin="8,2,0,0" Foreground="{DynamicResource WindowTextReadOnly}" />
                 </StackPanel>
                 <TextBlock Text="CONTEXTMENU" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                <Button Content="show context menu" Click="ShowContextMenu_Click" Margin="0,0,0,32" HorizontalAlignment="Left"/>
+                <Button Content="show context menu" Click="ShowContextMenu_Click" Margin="0,0,0,32"
+                        HorizontalAlignment="Left" />
 
-                <TextBlock Text="LISTBOX" Style="{StaticResource Heading2}" Margin="0,0,0,8"/>
+                <TextBlock Text="LISTBOX" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <ListBox Margin="0,0,0,32">
                     <ListBoxItem Content="Item 1" />
                     <ListBoxItem Content="Item 2" />
@@ -37,7 +38,7 @@
                     <ListBoxItem Content="Item 4" />
                     <ListBoxItem Content="Item 5" />
                 </ListBox>
-                <TextBlock Text="LISTVIEW" Style="{StaticResource Heading2}" Margin="0,0,0,8"/>
+                <TextBlock Text="LISTVIEW" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <ListView Margin="0,0,0,16">
                     <ListViewItem Content="Item 1" />
                     <ListViewItem Content="Item 2" />
@@ -61,7 +62,7 @@
                     <ListViewItem Content="Item 5" />
                 </ListView>
 
-                <TextBlock Text="TREEVIEW" Style="{StaticResource Heading2}" Margin="0,0,0,8"/>
+                <TextBlock Text="TREEVIEW" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                 <TreeView>
                     <TreeViewItem Header="Item 1">
                         <TreeViewItem Header="Item 1.1" />

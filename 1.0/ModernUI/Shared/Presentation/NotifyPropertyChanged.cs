@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModernUI.Presentation
 {
     /// <summary>
-    /// The base implementation of the INotifyPropertyChanged contract.
+    ///     The base implementation of the INotifyPropertyChanged contract.
     /// </summary>
     public abstract class NotifyPropertyChanged
         : INotifyPropertyChanged
     {
         /// <summary>
-        /// Occurs when a property value changes.
+        ///     Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Raises the PropertyChanged event.
+        ///     Raises the PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null) {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
-#if !NET4
+#if !NET4 
         /// <summary>
         /// Updates specified value, and raises the <see cref="PropertyChanged"/> event when the value has changed.
         /// </summary>

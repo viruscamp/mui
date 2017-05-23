@@ -1,29 +1,26 @@
-﻿using ModernUI.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using ModernUI.Win32;
 
 namespace ModernUI
 {
     /// <summary>
-    /// Provides various common helper methods.
+    ///     Provides various common helper methods.
     /// </summary>
     public static class ModernUIHelper
     {
         private static bool? isInDesignMode;
 
         /// <summary>
-        /// Determines whether the current code is executed in a design time environment such as Visual Studio or Blend.
+        ///     Determines whether the current code is executed in a design time environment such as Visual Studio or Blend.
         /// </summary>
         public static bool IsInDesignMode
         {
             get
             {
-                if (!isInDesignMode.HasValue) {
+                if (!isInDesignMode.HasValue)
+                {
                     isInDesignMode = DesignerProperties.GetIsInDesignMode(new DependencyObject());
                 }
                 return isInDesignMode.Value;
@@ -31,26 +28,31 @@ namespace ModernUI
         }
 
         /// <summary>
-        /// Gets the DPI awareness of the current process.
+        ///     Gets the DPI awareness of the current process.
         /// </summary>
         /// <returns>
-        /// The DPI awareness of the current process
+        ///     The DPI awareness of the current process
         /// </returns>
         /// <exception cref="System.ComponentModel.Win32Exception"></exception>
         public static ProcessDpiAwareness GetDpiAwareness()
         {
-            if (OSVersionHelper.IsWindows8Point1OrGreater) {
+            if (OSVersionHelper.IsWindows8Point1OrGreater)
+            {
                 ProcessDpiAwareness value;
                 int result = NativeMethods.GetProcessDpiAwareness(IntPtr.Zero, out value);
-                if (result != NativeMethods.S_OK) {
+                if (result != NativeMethods.S_OK)
+                {
                     throw new Win32Exception(result);
                 }
 
                 return value;
             }
-            if (OSVersionHelper.IsWindowsVistaOrGreater) {
+            if (OSVersionHelper.IsWindowsVistaOrGreater)
+            {
                 // use older Win32 API to query system DPI awareness
-                return NativeMethods.IsProcessDPIAware() ? ProcessDpiAwareness.SystemDpiAware : ProcessDpiAwareness.DpiUnaware;
+                return NativeMethods.IsProcessDPIAware()
+                    ? ProcessDpiAwareness.SystemDpiAware
+                    : ProcessDpiAwareness.DpiUnaware;
             }
 
             // assume WPF default
@@ -58,27 +60,31 @@ namespace ModernUI
         }
 
         /// <summary>
-        /// Attempts to set the DPI awareness of this process to PerMonitorDpiAware
+        ///     Attempts to set the DPI awareness of this process to PerMonitorDpiAware
         /// </summary>
         /// <returns>A value indicating whether the DPI awareness has been set to PerMonitorDpiAware.</returns>
         /// <remarks>
-        /// <para>
-        /// For this operation to succeed the host OS must be Windows 8.1 or greater, and the initial
-        /// DPI awareness must be set to DpiUnaware (apply [assembly:DisableDpiAwareness] to application assembly).
-        /// </para>
-        /// <para>
-        /// When the host OS is Windows 8 or lower, an attempt is made to set the DPI awareness to SystemDpiAware (= WPF default). This
-        /// effectively revokes the [assembly:DisableDpiAwareness] attribute if set.
-        /// </para>
+        ///     <para>
+        ///         For this operation to succeed the host OS must be Windows 8.1 or greater, and the initial
+        ///         DPI awareness must be set to DpiUnaware (apply [assembly:DisableDpiAwareness] to application assembly).
+        ///     </para>
+        ///     <para>
+        ///         When the host OS is Windows 8 or lower, an attempt is made to set the DPI awareness to SystemDpiAware (= WPF
+        ///         default). This
+        ///         effectively revokes the [assembly:DisableDpiAwareness] attribute if set.
+        ///     </para>
         /// </remarks>
         public static bool TrySetPerMonitorDpiAware()
         {
             ProcessDpiAwareness awareness = GetDpiAwareness();
 
             // initial awareness must be DpiUnaware
-            if (awareness == ProcessDpiAwareness.DpiUnaware) {
-                if (OSVersionHelper.IsWindows8Point1OrGreater) {
-                    return NativeMethods.SetProcessDpiAwareness(ProcessDpiAwareness.PerMonitorDpiAware) == NativeMethods.S_OK;
+            if (awareness == ProcessDpiAwareness.DpiUnaware)
+            {
+                if (OSVersionHelper.IsWindows8Point1OrGreater)
+                {
+                    return NativeMethods.SetProcessDpiAwareness(ProcessDpiAwareness.PerMonitorDpiAware) ==
+                           NativeMethods.S_OK;
                 }
 
                 // use older Win32 API to set the awareness to SystemDpiAware

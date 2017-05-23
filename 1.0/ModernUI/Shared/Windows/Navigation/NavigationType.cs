@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModernUI.Windows.Navigation
+﻿namespace ModernUI.Windows.Navigation
 {
     /// <summary>
-    /// Identifies the types of navigation that are supported.
+    ///     Identifies the types of navigation that are supported.
     /// </summary>
     public enum NavigationType
     {
         /// <summary>
-        /// Navigating to new content.
+        ///     Navigating to new content.
         /// </summary>
         New,
+
         /// <summary>
-        /// Navigating back in the back navigation history.
+        ///     Navigating back in the back navigation history.
         /// </summary>
         Back,
+
         /// <summary>
-        /// Reloading the current content.
+        ///     Reloading the current content.
         /// </summary>
         Refresh
     }

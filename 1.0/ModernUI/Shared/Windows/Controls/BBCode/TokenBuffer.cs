@@ -4,42 +4,45 @@ using System.Collections.Generic;
 namespace ModernUI.Windows.Controls.BBCode
 {
     /// <summary>
-    /// Represents a token buffer.
+    ///     Represents a token buffer.
     /// </summary>
     internal class TokenBuffer
     {
-        private List<Token> tokens = new List<Token>();
         private int position;
+
+        private readonly List<Token> tokens = new List<Token>();
         //private int mark;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:TokenBuffer"/> class.
+        ///     Initializes a new instance of the <see cref="T:TokenBuffer" /> class.
         /// </summary>
         /// <param name="lexer">The lexer.</param>
         public TokenBuffer(Lexer lexer)
         {
-            if (lexer == null) {
+            if (lexer == null)
+            {
                 throw new ArgumentNullException("lexer");
             }
 
             Token token;
-            do {
+            do
+            {
                 token = lexer.NextToken();
-                this.tokens.Add(token);
-            }
-            while (token.TokenType != Lexer.TokenEnd);
+                tokens.Add(token);
+            } while (token.TokenType != Lexer.TokenEnd);
         }
 
         /// <summary>
-        /// Performs a look-ahead.
+        ///     Performs a look-ahead.
         /// </summary>
         /// <param name="count">The number of tokens to look ahead.</param>
         /// <returns></returns>
         public Token LA(int count)
         {
-            int index = this.position + count - 1;
-            if (index < this.tokens.Count) {
-                return this.tokens[index];
+            int index = position + count - 1;
+            if (index < tokens.Count)
+            {
+                return tokens[index];
             }
 
             return Token.End;
@@ -71,11 +74,11 @@ namespace ModernUI.Windows.Controls.BBCode
         //}
 
         /// <summary>
-        /// Consumes the next token.
+        ///     Consumes the next token.
         /// </summary>
         public void Consume()
         {
-            this.position++;
+            position++;
         }
     }
 }

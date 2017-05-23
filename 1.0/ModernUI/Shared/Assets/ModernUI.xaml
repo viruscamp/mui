@@ -26,6 +26,7 @@
         <ResourceDictionary Source="TextBox.xaml" />
         <ResourceDictionary Source="ToolTip.xaml" />
         <ResourceDictionary Source="TreeView.xaml" />
+        <ResourceDictionary Source="ModernWindowStyles.xaml" />
         <ResourceDictionary Source="ErrorTemplatePopup.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

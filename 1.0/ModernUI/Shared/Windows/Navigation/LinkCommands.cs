@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace ModernUI.Windows.Navigation
 {
     /// <summary>
-    /// The routed link commands.
+    ///     The routed link commands.
     /// </summary>
     public static class LinkCommands
     {
-        private static RoutedUICommand navigateLink = new RoutedUICommand(Resources.NavigateLink, "NavigateLink", typeof(LinkCommands));
-
         /// <summary>
-        /// Gets the navigate link routed command.
+        ///     Gets the navigate link routed command.
         /// </summary>
-        public static RoutedUICommand NavigateLink => navigateLink;
+        public static RoutedUICommand NavigateLink { get; } =
+            new RoutedUICommand(Resources.NavigateLink, "NavigateLink", typeof(LinkCommands));
     }
 }

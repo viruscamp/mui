@@ -1,10 +1,5 @@
-﻿using ModernUI.Presentation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using ModernUI.Presentation;
 
 namespace ModernUI.App
 {
@@ -16,10 +11,12 @@ namespace ModernUI.App
 
         public string FirstName
         {
-            get => this.firstName; set
+            get => firstName;
+            set
             {
-                if (this.firstName != value) {
-                    this.firstName = value;
+                if (firstName != value)
+                {
+                    firstName = value;
                     OnPropertyChanged("FirstName");
                 }
             }
@@ -27,10 +24,12 @@ namespace ModernUI.App
 
         public string LastName
         {
-            get => this.lastName; set
+            get => lastName;
+            set
             {
-                if (this.lastName != value) {
-                    this.lastName = value;
+                if (lastName != value)
+                {
+                    lastName = value;
                     OnPropertyChanged("LastName");
                 }
             }
@@ -42,11 +41,13 @@ namespace ModernUI.App
         {
             get
             {
-                if (columnName == "FirstName") {
-                    return string.IsNullOrEmpty(this.firstName) ? "Required value" : null;
+                if (columnName == "FirstName")
+                {
+                    return string.IsNullOrEmpty(firstName) ? "Required value" : null;
                 }
-                if (columnName == "LastName") {
-                    return string.IsNullOrEmpty(this.lastName) ? "Required value" : null;
+                if (columnName == "LastName")
+                {
+                    return string.IsNullOrEmpty(lastName) ? "Required value" : null;
                 }
                 return null;
             }

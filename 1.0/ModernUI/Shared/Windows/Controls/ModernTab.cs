@@ -1,67 +1,127 @@
-﻿using ModernUI.Presentation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ModernUI.Presentation;
 
 namespace ModernUI.Windows.Controls
 {
     /// <summary>
-    /// Represents a control that contains multiple pages that share the same space on screen.
+    ///     Represents a control that contains multiple pages that share the same space on screen.
     /// </summary>
     public class ModernTab
         : Control
     {
         /// <summary>
-        /// Identifies the ContentLoader dependency property.
+        ///     Identifies the ContentLoader dependency property.
         /// </summary>
-        public static readonly DependencyProperty ContentLoaderProperty = DependencyProperty.Register("ContentLoader", typeof(IContentLoader), typeof(ModernTab), new PropertyMetadata(new DefaultContentLoader()));
-        /// <summary>
-        /// Identifies the Layout dependency property.
-        /// </summary>
-        public static readonly DependencyProperty LayoutProperty = DependencyProperty.Register("Layout", typeof(TabLayout), typeof(ModernTab), new PropertyMetadata(TabLayout.Tab));
-        /// <summary>
-        /// Identifies the ListWidth dependency property.
-        /// </summary>
-        public static readonly DependencyProperty ListWidthProperty = DependencyProperty.Register("ListWidth", typeof(GridLength), typeof(ModernTab), new PropertyMetadata(new GridLength(170)));
-        /// <summary>
-        /// Identifies the Links dependency property.
-        /// </summary>
-        public static readonly DependencyProperty LinksProperty = DependencyProperty.Register("Links", typeof(LinkCollection), typeof(ModernTab), new PropertyMetadata(OnLinksChanged));
-        /// <summary>
-        /// Identifies the SelectedSource dependency property.
-        /// </summary>
-        public static readonly DependencyProperty SelectedSourceProperty = DependencyProperty.Register("SelectedSource", typeof(Uri), typeof(ModernTab), new PropertyMetadata(OnSelectedSourceChanged));
+        public static readonly DependencyProperty ContentLoaderProperty =
+            DependencyProperty.Register("ContentLoader", typeof(IContentLoader), typeof(ModernTab),
+                new PropertyMetadata(new DefaultContentLoader()));
 
         /// <summary>
-        /// Occurs when the selected source has changed.
+        ///     Identifies the Layout dependency property.
         /// </summary>
-        public event EventHandler<SourceEventArgs> SelectedSourceChanged;
+        public static readonly DependencyProperty LayoutProperty =
+            DependencyProperty.Register("Layout", typeof(TabLayout), typeof(ModernTab),
+                new PropertyMetadata(TabLayout.Tab));
+
+        /// <summary>
+        ///     Identifies the ListWidth dependency property.
+        /// </summary>
+        public static readonly DependencyProperty ListWidthProperty =
+            DependencyProperty.Register("ListWidth", typeof(GridLength), typeof(ModernTab),
+                new PropertyMetadata(new GridLength(170)));
+
+        /// <summary>
+        ///     Identifies the Links dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LinksProperty =
+            DependencyProperty.Register("Links", typeof(LinkCollection), typeof(ModernTab),
+                new PropertyMetadata(OnLinksChanged));
+
+        /// <summary>
+        ///     Identifies the SelectedSource dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SelectedSourceProperty =
+            DependencyProperty.Register("SelectedSource", typeof(Uri), typeof(ModernTab),
+                new PropertyMetadata(OnSelectedSourceChanged));
 
         private ListBox linkList;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ModernTab"/> control.
+        ///     Initializes a new instance of the <see cref="ModernTab" /> control.
         /// </summary>
         public ModernTab()
         {
-            this.DefaultStyleKey = typeof(ModernTab);
+            DefaultStyleKey = typeof(ModernTab);
 
             // create a default links collection
             SetCurrentValue(LinksProperty, new LinkCollection());
         }
 
+        /// <summary>
+        ///     Gets or sets the content loader.
+        /// </summary>
+        public IContentLoader ContentLoader
+        {
+            get => (IContentLoader) GetValue(ContentLoaderProperty);
+            set => SetValue(ContentLoaderProperty, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets a value indicating how the tab should be rendered.
+        /// </summary>
+        public TabLayout Layout
+        {
+            get => (TabLayout) GetValue(LayoutProperty);
+            set => SetValue(LayoutProperty, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the collection of links that define the available content in this tab.
+        /// </summary>
+        public LinkCollection Links
+        {
+            get => (LinkCollection) GetValue(LinksProperty);
+            set => SetValue(LinksProperty, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the width of the list when Layout is set to List.
+        /// </summary>
+        /// <value>
+        ///     The width of the list.
+        /// </value>
+        public GridLength ListWidth
+        {
+            get => (GridLength) GetValue(ListWidthProperty);
+            set => SetValue(ListWidthProperty, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the source URI of the selected link.
+        /// </summary>
+        /// <value>The source URI of the selected link.</value>
+        public Uri SelectedSource
+        {
+            get => (Uri) GetValue(SelectedSourceProperty);
+            set => SetValue(SelectedSourceProperty, value);
+        }
+
+        /// <summary>
+        ///     Occurs when the selected source has changed.
+        /// </summary>
+        public event EventHandler<SourceEventArgs> SelectedSourceChanged;
+
         private static void OnLinksChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((ModernTab)o).UpdateSelection();
+            ((ModernTab) o).UpdateSelection();
         }
 
         private static void OnSelectedSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((ModernTab)o).OnSelectedSourceChanged((Uri)e.OldValue, (Uri)e.NewValue);
+            ((ModernTab) o).OnSelectedSourceChanged((Uri) e.OldValue, (Uri) e.NewValue);
         }
 
         private void OnSelectedSourceChanged(Uri oldValue, Uri newValue)
@@ -69,36 +129,41 @@ namespace ModernUI.Windows.Controls
             UpdateSelection();
 
             // raise SelectedSourceChanged event
-            EventHandler<SourceEventArgs> handler = this.SelectedSourceChanged;
-            if (handler != null) {
+            EventHandler<SourceEventArgs> handler = SelectedSourceChanged;
+            if (handler != null)
+            {
                 handler(this, new SourceEventArgs(newValue));
             }
         }
 
         private void UpdateSelection()
         {
-            if (this.linkList == null || this.Links == null) {
+            if (linkList == null || Links == null)
+            {
                 return;
             }
 
             // sync list selection with current source
-            this.linkList.SelectedItem = this.Links.FirstOrDefault(l => l.Source == this.SelectedSource);
+            linkList.SelectedItem = Links.FirstOrDefault(l => l.Source == SelectedSource);
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call System.Windows.FrameworkElement.ApplyTemplate().
+        ///     When overridden in a derived class, is invoked whenever application code or internal processes call
+        ///     System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            if (this.linkList != null) {
-                this.linkList.SelectionChanged -= OnLinkListSelectionChanged;
+            if (linkList != null)
+            {
+                linkList.SelectionChanged -= OnLinkListSelectionChanged;
             }
 
-            this.linkList = GetTemplateChild("LinkList") as ListBox;
-            if (this.linkList != null) {
-                this.linkList.SelectionChanged += OnLinkListSelectionChanged;
+            linkList = GetTemplateChild("LinkList") as ListBox;
+            if (linkList != null)
+            {
+                linkList.SelectionChanged += OnLinkListSelectionChanged;
             }
 
             UpdateSelection();
@@ -106,54 +171,11 @@ namespace ModernUI.Windows.Controls
 
         private void OnLinkListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Link link = this.linkList.SelectedItem as Link;
-            if (link != null && link.Source != this.SelectedSource) {
+            Link link = linkList.SelectedItem as Link;
+            if (link != null && link.Source != SelectedSource)
+            {
                 SetCurrentValue(SelectedSourceProperty, link.Source);
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the content loader.
-        /// </summary>
-        public IContentLoader ContentLoader
-        {
-            get => (IContentLoader)GetValue(ContentLoaderProperty); set => SetValue(ContentLoaderProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating how the tab should be rendered.
-        /// </summary>
-        public TabLayout Layout
-        {
-            get => (TabLayout)GetValue(LayoutProperty); set => SetValue(LayoutProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the collection of links that define the available content in this tab.
-        /// </summary>
-        public LinkCollection Links
-        {
-            get => (LinkCollection)GetValue(LinksProperty); set => SetValue(LinksProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the width of the list when Layout is set to List.
-        /// </summary>
-        /// <value>
-        /// The width of the list.
-        /// </value>
-        public GridLength ListWidth
-        {
-            get => (GridLength)GetValue(ListWidthProperty); set => SetValue(ListWidthProperty, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the source URI of the selected link.
-        /// </summary>
-        /// <value>The source URI of the selected link.</value>
-        public Uri SelectedSource
-        {
-            get => (Uri)GetValue(SelectedSourceProperty); set => SetValue(SelectedSourceProperty, value);
         }
     }
 }

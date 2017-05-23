@@ -452,9 +452,9 @@
     <Resource Include="Assets\background.snowflakes.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModernUI.WPF4\ModernUI.WPF4.csproj">
-      <Project>{a0ea4572-2726-4585-8e17-3a81a0eafa61}</Project>
-      <Name>ModernUI.WPF4</Name>
+    <ProjectReference Include="..\ModernUI\ModernUI.csproj">
+      <Project>{9a653a28-fe46-40e8-a14f-48b0e325165d}</Project>
+      <Name>ModernUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

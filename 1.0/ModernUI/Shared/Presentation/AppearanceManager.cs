@@ -1,92 +1,163 @@
-﻿using ModernUI.Windows.Navigation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using ModernUI.Windows.Navigation;
 
 namespace ModernUI.Presentation
 {
     /// <summary>
-    /// Manages the theme, font size and accent colors for a Modern UI application.
+    ///     Manages the theme, font size and accent colors for a Modern UI application.
     /// </summary>
     public class AppearanceManager
         : NotifyPropertyChanged
     {
         /// <summary>
-        /// The location of the dark theme resource dictionary.
-        /// </summary>
-        public static readonly Uri DarkThemeSource = new Uri("/ModernUI;component/Assets/ModernUI.Dark.xaml", UriKind.Relative);
-        /// <summary>
-        /// The location of the light theme resource dictionary.
-        /// </summary>
-        public static readonly Uri LightThemeSource = new Uri("/ModernUI;component/Assets/ModernUI.Light.xaml", UriKind.Relative);
-
-        /// <summary>
-        /// The resource key for the accent color.
+        ///     The resource key for the accent color.
         /// </summary>
         public const string KeyAccentColor = "AccentColor";
+
         /// <summary>
-        /// The resource key for the accent brush.
+        ///     The resource key for the accent brush.
         /// </summary>
         public const string KeyAccent = "Accent";
+
         /// <summary>
-        /// The resource key for the default font size.
+        ///     The resource key for the default font size.
         /// </summary>
         public const string KeyDefaultFontSize = "DefaultFontSize";
+
         /// <summary>
-        /// The resource key for the fixed font size.
+        ///     The resource key for the fixed font size.
         /// </summary>
         public const string KeyFixedFontSize = "FixedFontSize";
 
-        private static AppearanceManager current = new AppearanceManager();
+        /// <summary>
+        ///     The location of the dark theme resource dictionary.
+        /// </summary>
+        public static readonly Uri DarkThemeSource =
+            new Uri("/ModernUI;component/Assets/ModernUI.Dark.xaml", UriKind.Relative);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppearanceManager"/> class.
+        ///     The location of the light theme resource dictionary.
+        /// </summary>
+        public static readonly Uri LightThemeSource =
+            new Uri("/ModernUI;component/Assets/ModernUI.Light.xaml", UriKind.Relative);
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="AppearanceManager" /> class.
         /// </summary>
         private AppearanceManager()
         {
-            DarkThemeCommand = new RelayCommand(o => ThemeSource = DarkThemeSource, o => !DarkThemeSource.Equals(ThemeSource));
-            LightThemeCommand = new RelayCommand(o => ThemeSource = LightThemeSource, o => !LightThemeSource.Equals(ThemeSource));
-            SetThemeCommand = new RelayCommand(o => {
+            DarkThemeCommand = new RelayCommand(o => ThemeSource = DarkThemeSource,
+                o => !DarkThemeSource.Equals(ThemeSource));
+            LightThemeCommand = new RelayCommand(o => ThemeSource = LightThemeSource,
+                o => !LightThemeSource.Equals(ThemeSource));
+            SetThemeCommand = new RelayCommand(o =>
+            {
                 Uri uri = NavigationHelper.ToUri(o);
-                if (uri != null) {
+                if (uri != null)
+                {
                     ThemeSource = uri;
                 }
             }, o => o is Uri || o is string);
             LargeFontSizeCommand = new RelayCommand(o => FontSize = FontSize.Large);
             SmallFontSizeCommand = new RelayCommand(o => FontSize = FontSize.Small);
-            AccentColorCommand = new RelayCommand(o => {
-                if (o is Color) {
-                    AccentColor = (Color)o;
+            AccentColorCommand = new RelayCommand(o =>
+            {
+                if (o is Color)
+                {
+                    AccentColor = (Color) o;
                 }
-                else {
+                else
+                {
                     // parse color from string
                     string str = o as string;
-                    if (str != null) {
-                        AccentColor = (Color)ColorConverter.ConvertFromString(str);
+                    if (str != null)
+                    {
+                        AccentColor = (Color) ColorConverter.ConvertFromString(str);
                     }
                 }
             }, o => o is Color || o is string);
+        }
+
+        /// <summary>
+        ///     Gets the current <see cref="AppearanceManager" /> instance.
+        /// </summary>
+        public static AppearanceManager Current { get; } = new AppearanceManager();
+
+        /// <summary>
+        ///     The command that sets the dark theme.
+        /// </summary>
+        public ICommand DarkThemeCommand { get; }
+
+        /// <summary>
+        ///     The command that sets the light color theme.
+        /// </summary>
+        public ICommand LightThemeCommand { get; }
+
+        /// <summary>
+        ///     The command that sets a custom theme.
+        /// </summary>
+        public ICommand SetThemeCommand { get; }
+
+        /// <summary>
+        ///     The command that sets the large font size.
+        /// </summary>
+        public ICommand LargeFontSizeCommand { get; }
+
+        /// <summary>
+        ///     The command that sets the small font size.
+        /// </summary>
+        public ICommand SmallFontSizeCommand { get; }
+
+        /// <summary>
+        ///     The command that sets the accent color.
+        /// </summary>
+        public ICommand AccentColorCommand { get; }
+
+        /// <summary>
+        ///     Gets or sets the current theme source.
+        /// </summary>
+        public Uri ThemeSource
+        {
+            get => GetThemeSource();
+            set => SetThemeSource(value, true);
+        }
+
+        /// <summary>
+        ///     Gets or sets the font size.
+        /// </summary>
+        public FontSize FontSize
+        {
+            get => GetFontSize();
+            set => SetFontSize(value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the accent color.
+        /// </summary>
+        public Color AccentColor
+        {
+            get => GetAccentColor();
+            set => SetAccentColor(value);
         }
 
         private ResourceDictionary GetThemeDictionary()
         {
             // determine the current theme by looking at the app resources and return the first dictionary having the resource key 'WindowBackground' defined.
             return (from dict in Application.Current.Resources.MergedDictionaries
-                    where dict.Contains("WindowBackground")
-                    select dict).FirstOrDefault();
+                where dict.Contains("WindowBackground")
+                select dict).FirstOrDefault();
         }
 
         private Uri GetThemeSource()
         {
             ResourceDictionary dict = GetThemeDictionary();
-            if (dict != null) {
+            if (dict != null)
+            {
                 return dict.Source;
             }
 
@@ -96,21 +167,24 @@ namespace ModernUI.Presentation
 
         private void SetThemeSource(Uri source, bool useThemeAccentColor)
         {
-            if (source == null) {
+            if (source == null)
+            {
                 throw new ArgumentNullException(nameof(source));
             }
 
             ResourceDictionary oldThemeDict = GetThemeDictionary();
             Collection<ResourceDictionary> dictionaries = Application.Current.Resources.MergedDictionaries;
-            ResourceDictionary themeDict = new ResourceDictionary { Source = source };
+            ResourceDictionary themeDict = new ResourceDictionary {Source = source};
 
             // if theme defines an accent color, use it
             Color? accentColor = themeDict[KeyAccentColor] as Color?;
-            if (accentColor.HasValue) {
+            if (accentColor.HasValue)
+            {
                 // remove from the theme dictionary and apply globally if useThemeAccentColor is true
                 themeDict.Remove(KeyAccentColor);
 
-                if (useThemeAccentColor) {
+                if (useThemeAccentColor)
+                {
                     ApplyAccentColor(accentColor.Value);
                 }
             }
@@ -119,7 +193,8 @@ namespace ModernUI.Presentation
             dictionaries.Add(themeDict);
 
             // remove old theme
-            if (oldThemeDict != null) {
+            if (oldThemeDict != null)
+            {
                 dictionaries.Remove(oldThemeDict);
             }
 
@@ -136,8 +211,9 @@ namespace ModernUI.Presentation
         private FontSize GetFontSize()
         {
             double? defaultFontSize = Application.Current.Resources[KeyDefaultFontSize] as double?;
-             
-            if (defaultFontSize.HasValue) {
+
+            if (defaultFontSize.HasValue)
+            {
                 return defaultFontSize.Value == 12D ? FontSize.Small : FontSize.Large;
             }
 
@@ -147,7 +223,8 @@ namespace ModernUI.Presentation
 
         private void SetFontSize(FontSize fontSize)
         {
-            if (GetFontSize() == fontSize) {
+            if (GetFontSize() == fontSize)
+            {
                 return;
             }
 
@@ -161,7 +238,8 @@ namespace ModernUI.Presentation
         {
             Color? accentColor = Application.Current.Resources[KeyAccentColor] as Color?;
 
-            if (accentColor.HasValue) {
+            if (accentColor.HasValue)
+            {
                 return accentColor.Value;
             }
 
@@ -175,65 +253,12 @@ namespace ModernUI.Presentation
 
             // re-apply theme to ensure brushes referencing AccentColor are updated
             Uri themeSource = GetThemeSource();
-            if (themeSource != null) {
+            if (themeSource != null)
+            {
                 SetThemeSource(themeSource, false);
             }
 
             OnPropertyChanged("AccentColor");
-        }
-
-        /// <summary>
-        /// Gets the current <see cref="AppearanceManager"/> instance.
-        /// </summary>
-        public static AppearanceManager Current => current;
-
-        /// <summary>
-        /// The command that sets the dark theme.
-        /// </summary>
-        public ICommand DarkThemeCommand { get; private set; }
-        /// <summary>
-        /// The command that sets the light color theme.
-        /// </summary>
-        public ICommand LightThemeCommand { get; private set; }
-        /// <summary>
-        /// The command that sets a custom theme.
-        /// </summary>
-        public ICommand SetThemeCommand { get; private set; }
-        /// <summary>
-        /// The command that sets the large font size.
-        /// </summary>
-        public ICommand LargeFontSizeCommand { get; private set; }
-        /// <summary>
-        /// The command that sets the small font size.
-        /// </summary>
-        public ICommand SmallFontSizeCommand { get; private set; }
-        /// <summary>
-        /// The command that sets the accent color.
-        /// </summary>
-        public ICommand AccentColorCommand { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the current theme source.
-        /// </summary>
-        public Uri ThemeSource
-        {
-            get => GetThemeSource(); set => SetThemeSource(value, true);
-        }
-
-        /// <summary>
-        /// Gets or sets the font size.
-        /// </summary>
-        public FontSize FontSize
-        {
-            get => GetFontSize(); set => SetFontSize(value);
-        }
-
-        /// <summary>
-        /// Gets or sets the accent color.
-        /// </summary>
-        public Color AccentColor
-        {
-            get => GetAccentColor(); set => SetAccentColor(value);
         }
     }
 }

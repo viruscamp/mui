@@ -1,21 +1,17 @@
-﻿using ModernUI.App.Content;
+﻿using System;
+using ModernUI.App.Content;
 using ModernUI.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModernUI.App
 {
     /// <summary>
-    /// Loads lorem ipsum content regardless the given uri.
+    ///     Loads lorem ipsum content regardless the given uri.
     /// </summary>
     public class LoremIpsumLoader
         : DefaultContentLoader
     {
         /// <summary>
-        /// Loads the content from specified uri.
+        ///     Loads the content from specified uri.
         /// </summary>
         /// <param name="uri">The content uri</param>
         /// <returns>The loaded content.</returns>

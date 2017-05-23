@@ -1,40 +1,39 @@
-﻿using ModernUI.Windows.Media;
-using ModernUI.Windows.Navigation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ModernUI.Windows.Media;
+using ModernUI.Windows.Navigation;
 
 namespace ModernUI.Windows.Controls
 {
     /// <summary>
-    /// A simple content frame implementation with navigation support.
+    ///     A simple content frame implementation with navigation support.
     /// </summary>
     public class ModernFrame
         : ContentControl
     {
         /// <summary>
-        /// Identifies the KeepAlive attached dependency property.
+        ///     Identifies the KeepAlive attached dependency property.
         /// </summary>
         public static readonly DependencyProperty KeepAliveProperty =
             DependencyProperty.RegisterAttached("KeepAlive", typeof(bool?), typeof(ModernFrame),
                 new PropertyMetadata(null));
 
         /// <summary>
-        /// Identifies the KeepContentAlive dependency property.
+        ///     Identifies the KeepContentAlive dependency property.
         /// </summary>
         public static readonly DependencyProperty KeepContentAliveProperty =
             DependencyProperty.Register("KeepContentAlive", typeof(bool), typeof(ModernFrame),
                 new PropertyMetadata(true, OnKeepContentAliveChanged));
 
         /// <summary>
-        /// Identifies the ContentLoader dependency property.
+        ///     Identifies the ContentLoader dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentLoaderProperty =
             DependencyProperty.Register("ContentLoader", typeof(IContentLoader), typeof(ModernFrame),
@@ -45,45 +44,47 @@ namespace ModernUI.Windows.Controls
                 new PropertyMetadata(false));
 
         /// <summary>
-        /// Identifies the IsLoadingContent dependency property.
+        ///     Identifies the IsLoadingContent dependency property.
         /// </summary>
         public static readonly DependencyProperty IsLoadingContentProperty =
             IsLoadingContentPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Identifies the Source dependency property.
+        ///     Identifies the Source dependency property.
         /// </summary>
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(Uri), typeof(ModernFrame),
                 new PropertyMetadata(OnSourceChanged));
 
         /// <summary>
-        /// Occurs when navigation to a content fragment begins.
+        ///     Occurs when navigation to a content fragment begins.
         /// </summary>
         public event EventHandler<FragmentNavigationEventArgs> FragmentNavigation;
 
         /// <summary>
-        /// Occurs when a new navigation is requested.
+        ///     Occurs when a new navigation is requested.
         /// </summary>
         /// <remarks>
-        /// The navigating event is also raised when a parent frame is navigating. This allows for cancelling parent navigation.
+        ///     The navigating event is also raised when a parent frame is navigating. This allows for cancelling parent
+        ///     navigation.
         /// </remarks>
         public event EventHandler<NavigatingCancelEventArgs> Navigating;
 
         /// <summary>
-        /// Occurs when navigation to new content has completed.
+        ///     Occurs when navigation to new content has completed.
         /// </summary>
         public event EventHandler<NavigationEventArgs> Navigated;
 
         /// <summary>
-        /// Occurs when navigation has failed.
+        ///     Occurs when navigation has failed.
         /// </summary>
         public event EventHandler<NavigationFailedEventArgs> NavigationFailed;
 
-        private Stack<Uri> history = new Stack<Uri>();
-        private Dictionary<Uri, object> contentCache = new Dictionary<Uri, object>();
+        private readonly Stack<Uri> history = new Stack<Uri>();
+        private readonly Dictionary<Uri, object> contentCache = new Dictionary<Uri, object>();
 #if NET4
-        private List<WeakReference> childFrames = new List<WeakReference>(); // list of registered frames in sub tree
+        private readonly List<WeakReference> childFrames = new List<WeakReference>()
+            ; // list of registered frames in sub tree
 #else
         private List<WeakReference<ModernFrame>> childFrames =
 new List<WeakReference<ModernFrame>>();        // list of registered frames in sub tree
@@ -93,19 +94,19 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         private bool isResetSource;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ModernFrame"/> class.
+        ///     Initializes a new instance of the <see cref="ModernFrame" /> class.
         /// </summary>
         public ModernFrame()
         {
-            this.DefaultStyleKey = typeof(ModernFrame);
+            DefaultStyleKey = typeof(ModernFrame);
 
             // associate application and navigation commands with this instance
-            this.CommandBindings.Add(new CommandBinding(NavigationCommands.BrowseBack, OnBrowseBack, OnCanBrowseBack));
-            this.CommandBindings.Add(new CommandBinding(NavigationCommands.GoToPage, OnGoToPage, OnCanGoToPage));
-            this.CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh, OnRefresh, OnCanRefresh));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, OnCopy, OnCanCopy));
+            CommandBindings.Add(new CommandBinding(NavigationCommands.BrowseBack, OnBrowseBack, OnCanBrowseBack));
+            CommandBindings.Add(new CommandBinding(NavigationCommands.GoToPage, OnGoToPage, OnCanGoToPage));
+            CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh, OnRefresh, OnCanRefresh));
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, OnCopy, OnCanCopy));
 
-            this.Loaded += OnLoaded;
+            Loaded += OnLoaded;
         }
 
         private static void OnKeepContentAliveChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
@@ -116,7 +117,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         private void OnKeepContentAliveChanged(bool keepAlive)
         {
             // clear content cache
-            this.contentCache.Clear();
+            contentCache.Clear();
         }
 
         private static void OnContentLoaderChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
@@ -136,15 +137,15 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         private void OnSourceChanged(Uri oldValue, Uri newValue)
         {
             // if resetting source or old source equals new, don't do anything
-            if (this.isResetSource || newValue != null && newValue.Equals(oldValue))
+            if (isResetSource || newValue != null && newValue.Equals(oldValue))
             {
                 return;
             }
 
             // handle fragment navigation
             string newFragment = null;
-            var oldValueNoFragment = NavigationHelper.RemoveFragment(oldValue);
-            var newValueNoFragment = NavigationHelper.RemoveFragment(newValue, out newFragment);
+            Uri oldValueNoFragment = NavigationHelper.RemoveFragment(oldValue);
+            Uri newValueNoFragment = NavigationHelper.RemoveFragment(newValue, out newFragment);
 
             if (newValueNoFragment != null && newValueNoFragment.Equals(oldValueNoFragment))
             {
@@ -154,14 +155,14 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                     Fragment = newFragment
                 };
 
-                OnFragmentNavigation(this.Content as IContent, args);
+                OnFragmentNavigation(Content as IContent, args);
             }
             else
             {
-                var navType = this.isNavigatingHistory ? NavigationType.Back : NavigationType.New;
+                NavigationType navType = isNavigatingHistory ? NavigationType.Back : NavigationType.New;
 
                 // only invoke CanNavigate for new navigation
-                if (!this.isNavigatingHistory && !CanNavigate(oldValue, newValue, navType))
+                if (!isNavigatingHistory && !CanNavigate(oldValue, newValue, navType))
                 {
                     return;
                 }
@@ -178,23 +179,23 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                 Source = newValue,
                 IsParentFrameNavigating = true,
                 NavigationType = navigationType,
-                Cancel = false,
+                Cancel = false
             };
-            OnNavigating(this.Content as IContent, cancelArgs);
+            OnNavigating(Content as IContent, cancelArgs);
 
             // check if navigation cancelled
             if (cancelArgs.Cancel)
             {
                 Debug.WriteLine("Cancelled navigation from '{0}' to '{1}'", oldValue, newValue);
 
-                if (this.Source != oldValue)
+                if (Source != oldValue)
                 {
                     // enqueue the operation to reset the source back to the old value
                     Dispatcher.BeginInvoke((Action) (() =>
                     {
-                        this.isResetSource = true;
+                        isResetSource = true;
                         SetCurrentValue(SourceProperty, oldValue);
-                        this.isResetSource = false;
+                        isResetSource = false;
                     }));
                 }
                 return false;
@@ -212,16 +213,16 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
             // cancel previous load content task (if any)
             // note: no need for thread synchronization, this code always executes on the UI thread
-            if (this.tokenSource != null)
+            if (tokenSource != null)
             {
-                this.tokenSource.Cancel();
-                this.tokenSource = null;
+                tokenSource.Cancel();
+                tokenSource = null;
             }
 
             // push previous source onto the history stack (only for new navigation types)
             if (oldValue != null && navigationType == NavigationType.New)
             {
-                this.history.Push(oldValue);
+                history.Push(oldValue);
             }
 
             object newContent = null;
@@ -229,16 +230,16 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
             if (newValue != null)
             {
                 // content is cached on uri without fragment
-                var newValueNoFragment = NavigationHelper.RemoveFragment(newValue);
+                Uri newValueNoFragment = NavigationHelper.RemoveFragment(newValue);
 
                 if (navigationType == NavigationType.Refresh ||
-                    !this.contentCache.TryGetValue(newValueNoFragment, out newContent))
+                    !contentCache.TryGetValue(newValueNoFragment, out newContent))
                 {
                     CancellationTokenSource localTokenSource = new CancellationTokenSource();
-                    this.tokenSource = localTokenSource;
+                    tokenSource = localTokenSource;
                     // load the content (asynchronous!)
                     TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-                    var task = this.ContentLoader.LoadContentAsync(newValue, this.tokenSource.Token);
+                    Task<object> task = ContentLoader.LoadContentAsync(newValue, tokenSource.Token);
 
                     task.ContinueWith(t =>
                     {
@@ -272,7 +273,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                                 if (ShouldKeepContentAlive(newContent))
                                 {
                                     // keep the new content in memory
-                                    this.contentCache[newValueNoFragment] = newContent;
+                                    contentCache[newValueNoFragment] = newContent;
                                 }
 
                                 SetContent(newValue, navigationType, newContent, false);
@@ -281,9 +282,9 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                         finally
                         {
                             // clear global tokenSource to avoid a Cancel on a disposed object
-                            if (this.tokenSource == localTokenSource)
+                            if (tokenSource == localTokenSource)
                             {
-                                this.tokenSource = null;
+                                tokenSource = null;
                             }
 
                             // and dispose of the local tokensource
@@ -300,10 +301,10 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
         private void SetContent(Uri newSource, NavigationType navigationType, object newContent, bool contentIsError)
         {
-            IContent oldContent = this.Content as IContent;
+            IContent oldContent = Content as IContent;
 
             // assign content
-            this.Content = newContent;
+            Content = newContent;
 
             // do not raise navigated event when error
             if (!contentIsError)
@@ -343,7 +344,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
         private IEnumerable<ModernFrame> GetChildFrames()
         {
-            var refs = this.childFrames.ToArray();
+            var refs = childFrames.ToArray();
             foreach (var r in refs)
             {
                 bool valid = false;
@@ -366,7 +367,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
                 if (!valid)
                 {
-                    this.childFrames.Remove(r);
+                    childFrames.Remove(r);
                 }
             }
         }
@@ -389,7 +390,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         private void OnNavigating(IContent content, NavigatingCancelEventArgs e)
         {
             // first invoke child frame navigation events
-            foreach (var f in GetChildFrames())
+            foreach (ModernFrame f in GetChildFrames())
             {
                 f.OnNavigating(f.Content as IContent, e);
             }
@@ -437,7 +438,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Determines whether the routed event args should be handled.
+        ///     Determines whether the routed event args should be handled.
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -458,7 +459,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
             // only enable browse back for source frame, do not bubble
             if (HandleRoutedEvent(e))
             {
-                e.CanExecute = this.history.Count > 0;
+                e.CanExecute = history.Count > 0;
             }
         }
 
@@ -466,7 +467,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         {
             if (HandleRoutedEvent(e))
             {
-                e.CanExecute = this.Content != null;
+                e.CanExecute = Content != null;
             }
         }
 
@@ -474,7 +475,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         {
             if (HandleRoutedEvent(e))
             {
-                e.CanExecute = e.Parameter is String || e.Parameter is Uri;
+                e.CanExecute = e.Parameter is string || e.Parameter is Uri;
             }
         }
 
@@ -482,49 +483,49 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         {
             if (HandleRoutedEvent(e))
             {
-                e.CanExecute = this.Source != null;
+                e.CanExecute = Source != null;
             }
         }
 
         private void OnBrowseBack(object target, ExecutedRoutedEventArgs e)
         {
-            if (this.history.Count > 0)
+            if (history.Count > 0)
             {
-                var oldValue = this.Source;
-                var newValue = this.history.Peek(); // do not remove just yet, navigation may be cancelled
+                Uri oldValue = Source;
+                Uri newValue = history.Peek(); // do not remove just yet, navigation may be cancelled
 
                 if (CanNavigate(oldValue, newValue, NavigationType.Back))
                 {
-                    this.isNavigatingHistory = true;
-                    SetCurrentValue(SourceProperty, this.history.Pop());
-                    this.isNavigatingHistory = false;
+                    isNavigatingHistory = true;
+                    SetCurrentValue(SourceProperty, history.Pop());
+                    isNavigatingHistory = false;
                 }
             }
         }
 
         private void OnGoToPage(object target, ExecutedRoutedEventArgs e)
         {
-            var newValue = NavigationHelper.ToUri(e.Parameter);
+            Uri newValue = NavigationHelper.ToUri(e.Parameter);
             SetCurrentValue(SourceProperty, newValue);
         }
 
         private void OnRefresh(object target, ExecutedRoutedEventArgs e)
         {
-            if (CanNavigate(this.Source, this.Source, NavigationType.Refresh))
+            if (CanNavigate(Source, Source, NavigationType.Refresh))
             {
-                Navigate(this.Source, this.Source, NavigationType.Refresh);
+                Navigate(Source, Source, NavigationType.Refresh);
             }
         }
 
         private void OnCopy(object target, ExecutedRoutedEventArgs e)
         {
             // copies the string representation of the current content to the clipboard
-            Clipboard.SetText(this.Content.ToString());
+            Clipboard.SetText(Content.ToString());
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var parent = NavigationHelper.FindFrame(NavigationHelper.FrameParent, this);
+            ModernFrame parent = NavigationHelper.FindFrame(NavigationHelper.FrameParent, this);
             if (parent != null)
             {
                 parent.RegisterChildFrame(this);
@@ -541,12 +542,12 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 #else
                 var r = new WeakReference<ModernFrame>(frame);
 #endif
-                this.childFrames.Add(r);
+                childFrames.Add(r);
             }
         }
 
         /// <summary>
-        /// Determines whether the specified content should be kept alive.
+        ///     Determines whether the specified content should be kept alive.
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
@@ -555,7 +556,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
             DependencyObject o = content as DependencyObject;
             if (o != null)
             {
-                var result = GetKeepAlive(o);
+                bool? result = GetKeepAlive(o);
 
                 // if a value exists for given content, use it
                 if (result.HasValue)
@@ -564,11 +565,11 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                 }
             }
             // otherwise let the ModernFrame decide
-            return this.KeepContentAlive;
+            return KeepContentAlive;
         }
 
         /// <summary>
-        /// Gets a value indicating whether to keep specified object alive in a ModernFrame instance.
+        ///     Gets a value indicating whether to keep specified object alive in a ModernFrame instance.
         /// </summary>
         /// <param name="o">The target dependency object.</param>
         /// <returns>Whether to keep the object alive. Null to leave the decision to the ModernFrame.</returns>
@@ -582,7 +583,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Sets a value indicating whether to keep specified object alive in a ModernFrame instance.
+        ///     Sets a value indicating whether to keep specified object alive in a ModernFrame instance.
         /// </summary>
         /// <param name="o">The target dependency object.</param>
         /// <param name="value">Whether to keep the object alive. Null to leave the decision to the ModernFrame.</param>
@@ -596,7 +597,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Gets or sets a value whether content should be kept in memory.
+        ///     Gets or sets a value whether content should be kept in memory.
         /// </summary>
         public bool KeepContentAlive
         {
@@ -605,7 +606,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Gets or sets the content loader.
+        ///     Gets or sets the content loader.
         /// </summary>
         public IContentLoader ContentLoader
         {
@@ -614,12 +615,12 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is currently loading content.
+        ///     Gets a value indicating whether this instance is currently loading content.
         /// </summary>
         public bool IsLoadingContent => (bool) GetValue(IsLoadingContentProperty);
 
         /// <summary>
-        /// Gets or sets the source of the current content.
+        ///     Gets or sets the source of the current content.
         /// </summary>
         public Uri Source
         {
@@ -628,7 +629,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         }
 
         /// <summary>
-        /// Clears the history stack.
+        ///     Clears the history stack.
         /// </summary>
         public void ClearHistory()
         {

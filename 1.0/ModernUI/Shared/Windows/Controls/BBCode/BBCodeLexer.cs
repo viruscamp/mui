@@ -1,49 +1,52 @@
-﻿using System;
-
-namespace ModernUI.Windows.Controls.BBCode
+﻿namespace ModernUI.Windows.Controls.BBCode
 {
     /// <summary>
-    /// The BBCode lexer.
+    ///     The BBCode lexer.
     /// </summary>
     internal class BBCodeLexer
         : Lexer
     {
-        private static readonly char[] QuoteChars = new char[] { '\'', '"' };
-        private static readonly char[] WhitespaceChars = new char[] { ' ', '\t' };
-        private static readonly char[] NewlineChars = new char[] { '\r', '\n' };
-
         /// <summary>
-        /// Start tag
+        ///     Start tag
         /// </summary>
         public const int TokenStartTag = 0;
+
         /// <summary>
-        /// End tag
+        ///     End tag
         /// </summary>
         public const int TokenEndTag = 1;
+
         /// <summary>
-        /// Attribute
+        ///     Attribute
         /// </summary>
         public const int TokenAttribute = 2;
+
         /// <summary>
-        /// Text
+        ///     Text
         /// </summary>
         public const int TokenText = 3;
+
         /// <summary>
-        /// Line break
+        ///     Line break
         /// </summary>
         public const int TokenLineBreak = 4;
 
         /// <summary>
-        /// Normal state
+        ///     Normal state
         /// </summary>
         public const int StateNormal = 0;
+
         /// <summary>
-        /// Tag state
+        ///     Tag state
         /// </summary>
         public const int StateTag = 1;
 
+        private static readonly char[] QuoteChars = {'\'', '"'};
+        private static readonly char[] WhitespaceChars = {' ', '\t'};
+        private static readonly char[] NewlineChars = {'\r', '\n'};
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:BBCodeLexer"/> class.
+        ///     Initializes a new instance of the <see cref="T:BBCodeLexer" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public BBCodeLexer(string value)
@@ -51,9 +54,15 @@ namespace ModernUI.Windows.Controls.BBCode
         {
         }
 
+        /// <summary>
+        ///     Gets the default state of the lexer.
+        /// </summary>
+        /// <value>The state of the default.</value>
+        protected override int DefaultState => StateNormal;
+
         private bool IsTagNameChar()
         {
-            return IsInRange('A', 'Z') || IsInRange('a', 'z') || IsInRange(new char[] { '*' });
+            return IsInRange('A', 'Z') || IsInRange('a', 'z') || IsInRange(new[] {'*'});
         }
 
         private Token OpenTag()
@@ -61,9 +70,7 @@ namespace ModernUI.Windows.Controls.BBCode
             Match('[');
             Mark();
             while (IsTagNameChar())
-            {
                 Consume();
-            }
 
             return new Token(GetMark(), TokenStartTag);
         }
@@ -75,9 +82,7 @@ namespace ModernUI.Windows.Controls.BBCode
 
             Mark();
             while (IsTagNameChar())
-            {
                 Consume();
-            }
             Token token = new Token(GetMark(), TokenEndTag);
             Match(']');
 
@@ -96,9 +101,7 @@ namespace ModernUI.Windows.Controls.BBCode
         {
             Mark();
             while (LA(1) != '[' && LA(1) != char.MaxValue && !IsInRange(NewlineChars))
-            {
                 Consume();
-            }
             return new Token(GetMark(), TokenText);
         }
 
@@ -107,9 +110,7 @@ namespace ModernUI.Windows.Controls.BBCode
             Mark();
             Consume();
             while (LA(1) != '[' && LA(1) != char.MaxValue && !IsInRange(NewlineChars))
-            {
                 Consume();
-            }
             string result = GetMark();
             return new Token(result.Substring(0, 1) + result.Substring(2), TokenText);
         }
@@ -118,9 +119,7 @@ namespace ModernUI.Windows.Controls.BBCode
         {
             Match('=');
             while (IsInRange(WhitespaceChars))
-            {
                 Consume();
-            }
 
             Token token;
 
@@ -129,9 +128,7 @@ namespace ModernUI.Windows.Controls.BBCode
                 Consume();
                 Mark();
                 while (!IsInRange(QuoteChars))
-                {
                     Consume();
-                }
                 token = new Token(GetMark(), TokenAttribute);
                 Consume();
             }
@@ -139,28 +136,18 @@ namespace ModernUI.Windows.Controls.BBCode
             {
                 Mark();
                 while (!IsInRange(WhitespaceChars) && LA(1) != ']' && LA(1) != char.MaxValue)
-                {
                     Consume();
-                }
 
                 token = new Token(GetMark(), TokenAttribute);
             }
 
             while (IsInRange(WhitespaceChars))
-            {
                 Consume();
-            }
             return token;
         }
 
         /// <summary>
-        /// Gets the default state of the lexer.
-        /// </summary>
-        /// <value>The state of the default.</value>
-        protected override int DefaultState => StateNormal;
-
-        /// <summary>
-        /// Gets the next token.
+        ///     Gets the next token.
         /// </summary>
         /// <returns></returns>
         public override Token NextToken()
@@ -182,23 +169,17 @@ namespace ModernUI.Windows.Controls.BBCode
                     {
                         return CloseTag();
                     }
-                    else
-                    {
-                        Token token = OpenTag();
-                        PushState(StateTag);
-                        return token;
-                    }
+                    Token token = OpenTag();
+                    PushState(StateTag);
+                    return token;
                 }
-                else if (IsInRange(NewlineChars))
+                if (IsInRange(NewlineChars))
                 {
                     return Newline();
                 }
-                else
-                {
-                    return Text();
-                }
+                return Text();
             }
-            else if (State == StateTag)
+            if (State == StateTag)
             {
                 if (LA(1) == ']')
                 {
@@ -209,10 +190,7 @@ namespace ModernUI.Windows.Controls.BBCode
 
                 return Attribute();
             }
-            else
-            {
-                throw new ParseException("Invalid state");
-            }
+            throw new ParseException("Invalid state");
         }
     }
 }

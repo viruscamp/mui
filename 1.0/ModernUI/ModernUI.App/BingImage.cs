@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,36 +13,44 @@ using System.Xml.XPath;
 namespace ModernUI.App
 {
     /// <summary>
-    /// Provides an attached property determining the current Bing image and assigning it to an image or imagebrush.
+    ///     Provides an attached property determining the current Bing image and assigning it to an image or imagebrush.
     /// </summary>
     public static class BingImage
     {
-        public static readonly DependencyProperty UseBingImageProperty = DependencyProperty.RegisterAttached("UseBingImage", typeof(bool), typeof(BingImage), new PropertyMetadata(OnUseBingImageChanged));
+        public static readonly DependencyProperty UseBingImageProperty =
+            DependencyProperty.RegisterAttached("UseBingImage", typeof(bool), typeof(BingImage),
+                new PropertyMetadata(OnUseBingImageChanged));
 
         private static BitmapImage cachedBingImage;
 
         private static async void OnUseBingImageChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            bool newValue = (bool)e.NewValue;
+            bool newValue = (bool) e.NewValue;
             Image image = o as Image;
             ImageBrush imageBrush = o as ImageBrush;
 
-            if (!newValue || (image == null && imageBrush == null)) {
+            if (!newValue || image == null && imageBrush == null)
+            {
                 return;
             }
 
-            if (cachedBingImage == null) {
+            if (cachedBingImage == null)
+            {
                 Uri url = await GetCurrentBingImageUrl();
-                if (url != null) {
+                if (url != null)
+                {
                     cachedBingImage = new BitmapImage(url);
                 }
             }
 
-            if (cachedBingImage != null){
-                if (image != null) {
+            if (cachedBingImage != null)
+            {
+                if (image != null)
+                {
                     image.Source = cachedBingImage;
                 }
-                else if (imageBrush != null) {
+                else if (imageBrush != null)
+                {
                     imageBrush.ImageSource = cachedBingImage;
                 }
             }
@@ -54,14 +59,18 @@ namespace ModernUI.App
         private static async Task<Uri> GetCurrentBingImageUrl()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage result = await client.GetAsync("http://www.bing.com/hpimagearchive.aspx?format=xml&idx=0&n=2&mbl=1&mkt=en-ww");
-            if (result.IsSuccessStatusCode) {
-                using (Stream stream = await result.Content.ReadAsStreamAsync()) {
+            HttpResponseMessage result =
+                await client.GetAsync("http://www.bing.com/hpimagearchive.aspx?format=xml&idx=0&n=2&mbl=1&mkt=en-ww");
+            if (result.IsSuccessStatusCode)
+            {
+                using (Stream stream = await result.Content.ReadAsStreamAsync())
+                {
                     XDocument doc = XDocument.Load(stream);
 
-                    string url = (string)doc.XPathSelectElement("/images/image/url");
+                    string url = (string) doc.XPathSelectElement("/images/image/url");
 
-                    return new Uri(string.Format(CultureInfo.InvariantCulture, "http://bing.com{0}", url), UriKind.Absolute);
+                    return new Uri(string.Format(CultureInfo.InvariantCulture, "http://bing.com{0}", url),
+                        UriKind.Absolute);
                 }
             }
 
@@ -71,7 +80,7 @@ namespace ModernUI.App
 
         public static bool GetUseBingImage(DependencyObject o)
         {
-            return (bool)o.GetValue(UseBingImageProperty);
+            return (bool) o.GetValue(UseBingImageProperty);
         }
 
         public static void SetUseBingImage(DependencyObject o, bool value)

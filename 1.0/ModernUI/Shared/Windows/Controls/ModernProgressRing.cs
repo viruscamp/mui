@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace ModernUI.Windows.Controls
 {
     /// <summary>
-    /// Represents a control that indicates that an operation is ongoing. 
+    ///     Represents a control that indicates that an operation is ongoing.
     /// </summary>
     [TemplateVisualState(GroupName = GroupActiveStates, Name = StateInactive)]
     [TemplateVisualState(GroupName = GroupActiveStates, Name = StateActive)]
@@ -21,27 +16,39 @@ namespace ModernUI.Windows.Controls
         private const string StateActive = "Active";
 
         /// <summary>
-        /// Identifies the IsActive property.
+        ///     Identifies the IsActive property.
         /// </summary>
-        public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(ModernProgressRing), new PropertyMetadata(false, OnIsActiveChanged));
+        public static readonly DependencyProperty IsActiveProperty =
+            DependencyProperty.Register("IsActive", typeof(bool), typeof(ModernProgressRing),
+                new PropertyMetadata(false, OnIsActiveChanged));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ModernProgressRing"/> class.
+        ///     Initializes a new instance of the <see cref="ModernProgressRing" /> class.
         /// </summary>
         public ModernProgressRing()
         {
-            this.DefaultStyleKey = typeof(ModernProgressRing);
+            DefaultStyleKey = typeof(ModernProgressRing);
+        }
+
+        /// <summary>
+        ///     Gets or sets a value that indicates whether the <see cref="ModernProgressRing" /> is showing progress.
+        /// </summary>
+        public bool IsActive
+        {
+            get => (bool) GetValue(IsActiveProperty);
+            set => SetValue(IsActiveProperty, value);
         }
 
         private void GotoCurrentState(bool animate)
         {
-            string state = this.IsActive ? StateActive : StateInactive;
+            string state = IsActive ? StateActive : StateInactive;
 
             VisualStateManager.GoToState(this, state, animate);
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        ///     When overridden in a derived class, is invoked whenever application code or internal processes call
+        ///     <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
         /// </summary>
         public override void OnApplyTemplate()
         {
@@ -52,15 +59,7 @@ namespace ModernUI.Windows.Controls
 
         private static void OnIsActiveChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((ModernProgressRing)o).GotoCurrentState(true);
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the <see cref="ModernProgressRing"/> is showing progress.
-        /// </summary>
-        public bool IsActive
-        {
-            get => (bool)GetValue(IsActiveProperty); set => SetValue(IsActiveProperty, value);
+            ((ModernProgressRing) o).GotoCurrentState(true);
         }
     }
 }

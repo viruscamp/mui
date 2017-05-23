@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModernUI.Presentation
+﻿namespace ModernUI.Presentation
 {
     /// <summary>
-    /// Identifies the available font size.
+    ///     Identifies the available font size.
     /// </summary>
     public enum FontSize
     {
         /// <summary>
-        /// Large fonts.
+        ///     Large fonts.
         /// </summary>
         Large,
+
         /// <summary>
-        /// Small fonts.
+        ///     Small fonts.
         /// </summary>
         Small
     }

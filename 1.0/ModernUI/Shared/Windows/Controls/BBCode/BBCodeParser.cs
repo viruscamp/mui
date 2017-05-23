@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Globalization;
-using System.Windows.Documents;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using ModernUI.Windows.Navigation;
 
 namespace ModernUI.Windows.Controls.BBCode
 {
     /// <summary>
-    /// Represents the BBCode parser.
+    ///     Represents the BBCode parser.
     /// </summary>
     internal class BBCodeParser
         : Parser<Span>
     {
         // supporting a basic set of BBCode tags
         private const string TagBold = "b";
+
         private const string TagColor = "color";
         private const string TagItalic = "i";
         private const string TagSize = "size";
@@ -30,65 +27,12 @@ namespace ModernUI.Windows.Controls.BBCode
         private const string TagOrderedList = "ol";
         private const string TagListItem = "li";
         private const string TagNewLine = "br";
+        private readonly Brush quoteBrush;
 
-        class ParseContext
-        {
-            public ParseContext(Span parent)
-            {
-                this.Parent = parent;
-            }
-            public Span Parent { get; private set; }
-            public double? FontSize { get; set; }
-            public FontWeight? FontWeight { get; set; }
-            public FontStyle? FontStyle { get; set; }
-            public Brush Foreground { get; set; }
-            public Brush Background { get; set; }
-            public TextDecorationCollection TextDecorations { get; set; }
-            public string NavigateUri { get; set; }
-            public bool IsList { get; set; }
-            public bool IsOrderedList { get; set; }
-            public int ListCounter { get; set; }
-            public bool IsListItem { get; set; }
-            public bool IsFirstListItem { get; set; }
-
-            /// <summary>
-            /// Creates a run reflecting the current context settings.
-            /// </summary>
-            /// <returns></returns>
-            public Run CreateRun(string text)
-            {
-                Run run = new Run { Text = text };
-                if (this.FontSize.HasValue)
-                {
-                    run.FontSize = this.FontSize.Value;
-                }
-                if (this.FontWeight.HasValue)
-                {
-                    run.FontWeight = this.FontWeight.Value;
-                }
-                if (this.FontStyle.HasValue)
-                {
-                    run.FontStyle = this.FontStyle.Value;
-                }
-                if (this.Foreground != null)
-                {
-                    run.Foreground = this.Foreground;
-                }
-                if (this.Background != null)
-                {
-                    run.Background = this.Background;
-                }
-                run.TextDecorations = this.TextDecorations;
-
-                return run;
-            }
-        }
-
-        private FrameworkElement source;
-        private Brush quoteBrush;
+        private readonly FrameworkElement source;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:BBCodeParser"/> class.
+        ///     Initializes a new instance of the <see cref="T:BBCodeParser" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="source">The framework source element this parser operates in.</param>
@@ -105,7 +49,7 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Gets or sets the available navigable commands.
+        ///     Gets or sets the available navigable commands.
         /// </summary>
         public CommandDictionary Commands { get; set; }
 
@@ -126,7 +70,7 @@ namespace ModernUI.Windows.Controls.BBCode
                     Token token = LA(1);
                     if (token.TokenType == BBCodeLexer.TokenAttribute)
                     {
-                        Color color = (Color)ColorConverter.ConvertFromString(token.Value);
+                        Color color = (Color) ColorConverter.ConvertFromString(token.Value);
                         context.Foreground = new SolidColorBrush(color);
 
                         Consume();
@@ -268,19 +212,20 @@ namespace ModernUI.Windows.Controls.BBCode
                     string targetName = null;
 
                     // parse uri value for optional parameter and/or target, eg [url=cmd://foo|parameter|target]
-                    if (NavigationHelper.TryParseUriWithParameters(context.NavigateUri, out uri, out parameter, out targetName))
+                    if (NavigationHelper.TryParseUriWithParameters(context.NavigateUri, out uri, out parameter,
+                        out targetName))
                     {
                         Hyperlink link = new Hyperlink();
 
                         // assign ICommand instance if available, otherwise set NavigateUri
                         ICommand command;
-                        if (this.Commands != null && this.Commands.TryGetValue(uri, out command))
+                        if (Commands != null && Commands.TryGetValue(uri, out command))
                         {
                             link.Command = command;
                             link.CommandParameter = parameter;
                             if (targetName != null)
                             {
-                                link.CommandTarget = this.source.FindName(targetName) as IInputElement;
+                                link.CommandTarget = source.FindName(targetName) as IInputElement;
                             }
                         }
                         else
@@ -305,7 +250,6 @@ namespace ModernUI.Windows.Controls.BBCode
                         Run run = context.CreateRun(token.Value);
                         parent.Inlines.Add(run);
                     }
-
                 }
                 else if (token.TokenType == BBCodeLexer.TokenLineBreak)
                 {
@@ -315,7 +259,7 @@ namespace ModernUI.Windows.Controls.BBCode
                 {
                     throw new ParseException(Resources.UnexpectedToken);
                 }
-                else if (token.TokenType == BBCodeLexer.TokenEnd)
+                else if (token.TokenType == Lexer.TokenEnd)
                 {
                     break;
                 }
@@ -327,7 +271,7 @@ namespace ModernUI.Windows.Controls.BBCode
         }
 
         /// <summary>
-        /// Parses the text and returns a Span containing the parsed result.
+        ///     Parses the text and returns a Span containing the parsed result.
         /// </summary>
         /// <returns></returns>
         public override Span Parse()
@@ -337,6 +281,60 @@ namespace ModernUI.Windows.Controls.BBCode
             Parse(span);
 
             return span;
+        }
+
+        private class ParseContext
+        {
+            public ParseContext(Span parent)
+            {
+                Parent = parent;
+            }
+
+            public Span Parent { get; }
+            public double? FontSize { get; set; }
+            public FontWeight? FontWeight { get; set; }
+            public FontStyle? FontStyle { get; set; }
+            public Brush Foreground { get; set; }
+            public Brush Background { get; set; }
+            public TextDecorationCollection TextDecorations { get; set; }
+            public string NavigateUri { get; set; }
+            public bool IsList { get; set; }
+            public bool IsOrderedList { get; set; }
+            public int ListCounter { get; set; }
+            public bool IsListItem { get; set; }
+            public bool IsFirstListItem { get; set; }
+
+            /// <summary>
+            ///     Creates a run reflecting the current context settings.
+            /// </summary>
+            /// <returns></returns>
+            public Run CreateRun(string text)
+            {
+                Run run = new Run {Text = text};
+                if (FontSize.HasValue)
+                {
+                    run.FontSize = FontSize.Value;
+                }
+                if (FontWeight.HasValue)
+                {
+                    run.FontWeight = FontWeight.Value;
+                }
+                if (FontStyle.HasValue)
+                {
+                    run.FontStyle = FontStyle.Value;
+                }
+                if (Foreground != null)
+                {
+                    run.Foreground = Foreground;
+                }
+                if (Background != null)
+                {
+                    run.Background = Background;
+                }
+                run.TextDecorations = TextDecorations;
+
+                return run;
+            }
         }
     }
 }

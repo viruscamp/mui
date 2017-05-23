@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModernUI.Presentation
 {
     /// <summary>
-    /// Represents a displayable link.
+    ///     Represents a displayable link.
     /// </summary>
     public class Link
         : Displayable
@@ -15,15 +11,17 @@ namespace ModernUI.Presentation
         private Uri source;
 
         /// <summary>
-        /// Gets or sets the source uri.
+        ///     Gets or sets the source uri.
         /// </summary>
         /// <value>The source.</value>
         public Uri Source
         {
-            get => this.source; set
+            get => source;
+            set
             {
-                if (this.source != value) {
-                    this.source = value;
+                if (source != value)
+                {
+                    source = value;
                     OnPropertyChanged("Source");
                 }
             }

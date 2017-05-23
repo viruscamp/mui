@@ -1,44 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModernUI.Presentation
 {
     /// <summary>
-    /// The command that relays its functionality by invoking delegates.
+    ///     The command that relays its functionality by invoking delegates.
     /// </summary>
     public class RelayCommand
         : CommandBase
     {
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Func<object, bool> canExecute;
+        private readonly Action<object> execute;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
+        ///     Initializes a new instance of the <see cref="RelayCommand" /> class.
         /// </summary>
         /// <param name="execute">The execute.</param>
         /// <param name="canExecute">The can execute.</param>
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            if (execute == null) {
+            if (execute == null)
+            {
                 throw new ArgumentNullException("execute");
             }
-            if (canExecute == null) {
+            if (canExecute == null)
+            {
                 // no can execute provided, then always executable
-                canExecute = (o) => true;
+                canExecute = o => true;
             }
             this.execute = execute;
             this.canExecute = canExecute;
         }
 
         /// <summary>
-        /// Defines the method that determines whether the command can execute in its current state.
+        ///     Defines the method that determines whether the command can execute in its current state.
         /// </summary>
-        /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
+        /// <param name="parameter">
+        ///     Data used by the command. If the command does not require data to be passed, this object can be
+        ///     set to null.
+        /// </param>
         /// <returns>
-        /// true if this command can be executed; otherwise, false.
+        ///     true if this command can be executed; otherwise, false.
         /// </returns>
         public override bool CanExecute(object parameter)
         {
@@ -46,7 +47,7 @@ namespace ModernUI.Presentation
         }
 
         /// <summary>
-        /// Executes the command.
+        ///     Executes the command.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         protected override void OnExecute(object parameter)

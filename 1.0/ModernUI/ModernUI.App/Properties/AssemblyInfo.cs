@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
@@ -32,7 +30,7 @@ using System.Windows.Media;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 // required for PerMonitor DPI support to work
-[assembly:DisableDpiAwareness]
+[assembly: DisableDpiAwareness]
 
 
 [assembly: ThemeInfo(

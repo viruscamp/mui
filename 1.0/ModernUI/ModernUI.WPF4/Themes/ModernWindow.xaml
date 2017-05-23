@@ -64,16 +64,32 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!-- title -->
-                                        <TextBlock Text="{TemplateBinding Title}" Margin="8,0"
-                                                   VerticalAlignment="Center"
-                                                   Style="{StaticResource ModernWindowTitle}"
-                                                   DataContext="{TemplateBinding IsTitleVisible}"
-                                                   Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <controls:BBCodeBlock Margin="8,0" VerticalAlignment="Center">
+                                            <controls:BBCodeBlock.Style>
+                                                <Style TargetType="{x:Type controls:BBCodeBlock}">
+                                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                                    <Setter Property="Visibility"
+                                                            Value="{Binding IsTitleVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                    <Setter Property="BBCode"
+                                                            Value="{Binding BBCodeTitle, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding BBCodeTitle, RelativeSource={RelativeSource TemplatedParent}}"
+                                                            Value="{x:Null}">
+                                                            <DataTrigger.Setters>
+                                                                <Setter Property="Text"
+                                                                        Value="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                                <Setter Property="FontWeight" Value="Bold" />
+                                                            </DataTrigger.Setters>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </controls:BBCodeBlock.Style>
+                                        </controls:BBCodeBlock>
 
                                         <!-- title links -->
                                         <ItemsControl Grid.Column="1" ItemsSource="{TemplateBinding TitleLinks}"
-                                                      Margin="0,0,24,0"
-                                                      shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                                                      Margin="0,0,24,0" WindowChrome.IsHitTestVisibleInChrome="True">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation="Horizontal" />
@@ -105,19 +121,47 @@
                                         </ItemsControl>
 
                                         <!-- logo (visible only when LogoData is not null) -->
-                                        <Border Grid.Column="2" Background="{DynamicResource Accent}" Width="36"
+                                        <Button Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" Width="36"
                                                 Height="36" Margin="8,0"
                                                 DataContext="{TemplateBinding LogoData}"
+                                                Command="{Binding LogoCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                CommandParameter="{Binding LogoCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                                 Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                                            <Path Data="{Binding}" Stretch="Fill" Fill="White" Width="24" Height="24"
-                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}"
+                                                       BasedOn="{StaticResource {x:Type Button}}">
+                                                    <Setter Property="Cursor" Value="Hand" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Background="{DynamicResource Accent}">
+                                                                    <Path Data="{Binding}" Stretch="Fill" Fill="White"
+                                                                          Width="24" Height="24"
+                                                                          HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding LogoCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                            Value="{x:Null}">
+                                                            <Setter Property="IsEnabled" Value="False" />
+                                                            <Setter Property="Cursor" Value="{x:Null}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                        </Button>
 
                                         <!-- window system buttons-->
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top"
-                                                    shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                                                    WindowChrome.IsHitTestVisibleInChrome="True">
+
                                             <Button x:Name="Minimize"
-                                                    Command="{Binding Source={x:Static shell:SystemCommands.MinimizeWindowCommand}}"
+                                                    Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
                                                     ToolTip="{x:Static modernui:Resources.Minimize}"
                                                     Style="{StaticResource SystemButton}">
                                                 <Button.Content>
@@ -131,7 +175,7 @@
                                             </Button>
                                             <Grid Margin="1,0,1,0">
                                                 <Button x:Name="Restore"
-                                                        Command="{Binding Source={x:Static shell:SystemCommands.RestoreWindowCommand}}"
+                                                        Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
                                                         ToolTip="{x:Static modernui:Resources.Restore}"
                                                         Style="{StaticResource SystemButton}" Visibility="Collapsed">
                                                     <Button.Content>
@@ -146,7 +190,7 @@
                                                     </Button.Content>
                                                 </Button>
                                                 <Button x:Name="Maximize"
-                                                        Command="{Binding Source={x:Static shell:SystemCommands.MaximizeWindowCommand}}"
+                                                        Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
                                                         ToolTip="{x:Static modernui:Resources.Maximize}"
                                                         Style="{StaticResource SystemButton}">
                                                     <Button.Content>
@@ -161,7 +205,7 @@
                                                 </Button>
                                             </Grid>
                                             <Button
-                                                Command="{Binding Source={x:Static shell:SystemCommands.CloseWindowCommand}}"
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
                                                 ToolTip="{x:Static modernui:Resources.Close}"
                                                 Style="{StaticResource SystemCloseButton}">
                                                 <Button.Content>
@@ -190,7 +234,7 @@
                                                                Command="NavigationCommands.BrowseBack"
                                                                CommandTarget="{Binding ElementName=ContentFrame}"
                                                                ToolTip="{x:Static modernui:Resources.Back}"
-                                                               shell:WindowChrome.IsHitTestVisibleInChrome="True" />
+                                                               WindowChrome.IsHitTestVisibleInChrome="True" />
 
                                         <!-- main menu -->
                                         <controls:ModernMenu Grid.Column="1"
@@ -207,7 +251,7 @@
                                     <!-- resize grip -->
                                     <Grid Grid.Row="2" x:Name="ResizeGrip" Background="Transparent"
                                           Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                          shell:WindowChrome.ResizeGripDirection="BottomRight">
+                                          WindowChrome.ResizeGripDirection="BottomRight">
                                         <Path Width="12" Height="12" Margin="1"
                                               Stroke="{DynamicResource WindowText}"
                                               StrokeThickness="1"
