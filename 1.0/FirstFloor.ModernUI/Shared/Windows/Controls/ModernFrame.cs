@@ -426,6 +426,10 @@ namespace FirstFloor.ModernUI.Windows.Controls
 
                 if (CanNavigate(oldValue, newValue, NavigationType.Back)) {
                     this.isNavigatingHistory = true;
+
+                    if (e.Source is IContent content)
+                        content.OnNavigatingFrom(new NavigatingCancelEventArgs());
+
                     SetCurrentValue(SourceProperty, this.history.Pop());
                     this.isNavigatingHistory = false;
                 }
