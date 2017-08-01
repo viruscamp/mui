@@ -312,6 +312,19 @@ namespace FirstFloor.ModernUI.Windows.Controls
                 }
 
                 if (!valid) {
+                    //raise NavigatedFrom Event
+                    if (frame.Content is IContent content)
+                    {
+                        var cancelArgs = new NavigatingCancelEventArgs
+                        {
+                            Frame = this,
+                            Source = Source,
+                            IsParentFrameNavigating = true,
+                            NavigationType = NavigationType.Back,
+                            Cancel = false,
+                        };
+                        content.OnNavigatingFrom(new NavigatingCancelEventArgs());
+                    }
                     this.childFrames.Remove(r);
                 }
             }
@@ -427,8 +440,7 @@ namespace FirstFloor.ModernUI.Windows.Controls
                 if (CanNavigate(oldValue, newValue, NavigationType.Back)) {
                     this.isNavigatingHistory = true;
 
-                    if (e.Source is IContent content)
-                        content.OnNavigatingFrom(new NavigatingCancelEventArgs());
+
 
                     SetCurrentValue(SourceProperty, this.history.Pop());
                     this.isNavigatingHistory = false;
