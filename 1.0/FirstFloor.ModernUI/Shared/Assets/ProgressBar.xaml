@@ -84,27 +84,27 @@
                             <Grid x:Name="ProgressBarRootGrid">
                                 <Grid x:Name="IndeterminateRoot" Visibility="Collapsed" ClipToBounds="True">
                                     <Grid HorizontalAlignment="Left">
-                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R1" Opacity="0">
+                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R1" Opacity="0" RadiusX="2" RadiusY="2">
                                             <Rectangle.RenderTransform>
                                                 <TranslateTransform x:Name="R1TT"/>
                                             </Rectangle.RenderTransform>
                                         </Rectangle>
-                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R2" Opacity="0">
+                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R2" Opacity="0" RadiusX="2" RadiusY="2">
                                             <Rectangle.RenderTransform>
                                                 <TranslateTransform x:Name="R2TT"/>
                                             </Rectangle.RenderTransform>
                                         </Rectangle>
-                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R3" Opacity="0">
+                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R3" Opacity="0" RadiusX="2" RadiusY="2">
                                             <Rectangle.RenderTransform>
                                                 <TranslateTransform x:Name="R3TT"/>
                                             </Rectangle.RenderTransform>
                                         </Rectangle>
-                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R4" Opacity="0">
+                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R4" Opacity="0" RadiusX="2" RadiusY="2">
                                             <Rectangle.RenderTransform>
                                                 <TranslateTransform x:Name="R4TT"/>
                                             </Rectangle.RenderTransform>
                                         </Rectangle>
-                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R5" Opacity="0">
+                                        <Rectangle Fill="{TemplateBinding Foreground}" Height="4" IsHitTestVisible="False" Width="4" x:Name="R5" Opacity="0" RadiusX="2" RadiusY="2">
                                             <Rectangle.RenderTransform>
                                                 <TranslateTransform x:Name="R5TT"/>
                                             </Rectangle.RenderTransform>

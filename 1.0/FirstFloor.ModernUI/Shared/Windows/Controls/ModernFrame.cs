@@ -204,7 +204,7 @@ namespace FirstFloor.ModernUI.Windows.Controls
                     var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
                     var task = this.ContentLoader.LoadContentAsync(newValue, this.tokenSource.Token);
 
-                    task.ContinueWith(t => {
+                    await task.ContinueWith(t => {
                         try {
                             if (t.IsCanceled || localTokenSource.IsCancellationRequested) {
                                 Debug.WriteLine("Cancelled navigation to '{0}'", newValue);
@@ -275,6 +275,7 @@ namespace FirstFloor.ModernUI.Windows.Controls
             // set IsLoadingContent to false
             SetValue(IsLoadingContentPropertyKey, false);
 
+
             if (!contentIsError) {
                 // and raise optional fragment navigation events
                 string fragment;
@@ -324,6 +325,15 @@ namespace FirstFloor.ModernUI.Windows.Controls
                             Cancel = false,
                         };
                         content.OnNavigatingFrom(new NavigatingCancelEventArgs());
+
+                        var args = new NavigationEventArgs
+                        {
+                            Frame = this,
+                            Source = Source,
+                            Content = Content,
+                            NavigationType = NavigationType.Back
+                        };
+                        content.OnNavigatedFrom(args);
                     }
                     this.childFrames.Remove(r);
                 }
@@ -439,8 +449,6 @@ namespace FirstFloor.ModernUI.Windows.Controls
 
                 if (CanNavigate(oldValue, newValue, NavigationType.Back)) {
                     this.isNavigatingHistory = true;
-
-
 
                     SetCurrentValue(SourceProperty, this.history.Pop());
                     this.isNavigatingHistory = false;

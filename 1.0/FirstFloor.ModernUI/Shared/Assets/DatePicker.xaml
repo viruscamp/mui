@@ -149,7 +149,13 @@
                                                     Opacity="0"
                                                     Focusable="False"
                                                     IsHitTestVisible="False"
-                                                    Margin="3,0"/>
+                                                    Margin="3,0">
+                                        <ContentControl.Template>
+                                            <ControlTemplate>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=DatePicker}, Path=Tag}"/>
+                                            </ControlTemplate>
+                                        </ContentControl.Template>
+                                    </ContentControl>
                                 </Border>
                                 <ScrollViewer x:Name="PART_ContentHost" 
                                               Margin="0"
