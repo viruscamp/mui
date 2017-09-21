@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:ModernUI.Windows.Controls"
+                    xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernUI;component/Themes/BBCodeBlock.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernButton.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernToggleButton.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernDialog.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernFrame.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernMenu.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernProgressRing.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernTab.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/ModernWindow.xaml" />
+        <ResourceDictionary Source="/ModernUI;component/Themes/TransitioningContentControl.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>
