@@ -15,6 +15,6 @@ namespace ModernUI.Windows
         /// <param name="uri">The content uri.</param>
         /// <param name="cancellationToken">The token used to cancel the load content task.</param>
         /// <returns>The loaded content.</returns>
-        async Task<object> LoadContentAsync(Uri uri, CancellationToken cancellationToken);
+        Task<object> LoadContentAsync(Uri uri, CancellationToken cancellationToken);
     }
 }

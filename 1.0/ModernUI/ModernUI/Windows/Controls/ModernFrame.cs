@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModernUI.Windows.Media;
+using ModernUI.Windows.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ModernUI.Windows.Media;
-using ModernUI.Windows.Navigation;
 
 namespace ModernUI.Windows.Controls
 {
@@ -111,7 +111,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
         private static void OnKeepContentAliveChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((ModernFrame) o).OnKeepContentAliveChanged((bool) e.NewValue);
+            ((ModernFrame)o).OnKeepContentAliveChanged((bool)e.NewValue);
         }
 
         private void OnKeepContentAliveChanged(bool keepAlive)
@@ -131,7 +131,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
         private static void OnSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((ModernFrame) o).OnSourceChanged((Uri) e.OldValue, (Uri) e.NewValue);
+            ((ModernFrame)o).OnSourceChanged((Uri)e.OldValue, (Uri)e.NewValue);
         }
 
         private void OnSourceChanged(Uri oldValue, Uri newValue)
@@ -191,12 +191,12 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                 if (Source != oldValue)
                 {
                     // enqueue the operation to reset the source back to the old value
-                    Dispatcher.BeginInvoke((Action) (() =>
-                    {
-                        isResetSource = true;
-                        SetCurrentValue(SourceProperty, oldValue);
-                        isResetSource = false;
-                    }));
+                    Dispatcher.BeginInvoke((Action)(() =>
+                   {
+                       isResetSource = true;
+                       SetCurrentValue(SourceProperty, oldValue);
+                       isResetSource = false;
+                   }));
                 }
                 return false;
             }
@@ -350,13 +350,8 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                 bool valid = false;
                 ModernFrame frame;
 
-#if NET4
-                if (r.IsAlive)
+                if (r.TryGetTarget(out frame))
                 {
-                    frame = (ModernFrame) r.Target;
-#else
-                if (r.TryGetTarget(out frame)) {
-#endif
                     // check if frame is still an actual child (not the case when child is removed, but not yet garbage collected)
                     if (NavigationHelper.FindFrame(null, frame) == this)
                     {
@@ -367,6 +362,28 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
 
                 if (!valid)
                 {
+                    //raise NavigatedFrom Event
+                    if (frame.Content is IContent content)
+                    {
+                        var cancelArgs = new NavigatingCancelEventArgs
+                        {
+                            Frame = this,
+                            Source = Source,
+                            IsParentFrameNavigating = true,
+                            NavigationType = NavigationType.Back,
+                            Cancel = false,
+                        };
+                        content.OnNavigatingFrom(new NavigatingCancelEventArgs());
+
+                        var args = new NavigationEventArgs
+                        {
+                            Frame = this,
+                            Source = Source,
+                            Content = Content,
+                            NavigationType = NavigationType.Back
+                        };
+                        content.OnNavigatedFrom(args);
+                    }
                     childFrames.Remove(r);
                 }
             }
@@ -579,7 +596,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
             {
                 throw new ArgumentNullException("o");
             }
-            return (bool?) o.GetValue(KeepAliveProperty);
+            return (bool?)o.GetValue(KeepAliveProperty);
         }
 
         /// <summary>
@@ -601,7 +618,7 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         /// </summary>
         public bool KeepContentAlive
         {
-            get => (bool) GetValue(KeepContentAliveProperty);
+            get => (bool)GetValue(KeepContentAliveProperty);
             set => SetValue(KeepContentAliveProperty, value);
         }
 
@@ -610,21 +627,21 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get => (IContentLoader) GetValue(ContentLoaderProperty);
+            get => (IContentLoader)GetValue(ContentLoaderProperty);
             set => SetValue(ContentLoaderProperty, value);
         }
 
         /// <summary>
         ///     Gets a value indicating whether this instance is currently loading content.
         /// </summary>
-        public bool IsLoadingContent => (bool) GetValue(IsLoadingContentProperty);
+        public bool IsLoadingContent => (bool)GetValue(IsLoadingContentProperty);
 
         /// <summary>
         ///     Gets or sets the source of the current content.
         /// </summary>
         public Uri Source
         {
-            get => (Uri) GetValue(SourceProperty);
+            get => (Uri)GetValue(SourceProperty);
             set => SetValue(SourceProperty, value);
         }
 

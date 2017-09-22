@@ -123,6 +123,7 @@
                                         <Button Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" Width="36"
                                                 Height="36" Margin="8,0"
                                                 DataContext="{TemplateBinding LogoData}"
+                                                ToolTip="{TemplateBinding LogoDataToolTip}" 
                                                 Command="{Binding LogoCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                                 CommandParameter="{Binding LogoCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                                 Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">

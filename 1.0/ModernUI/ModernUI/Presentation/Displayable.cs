@@ -1,4 +1,6 @@
-﻿namespace ModernUI.Presentation
+﻿using System.Windows;
+
+namespace ModernUI.Presentation
 {
     /// <summary>
     ///     Provides a base implementation for objects that are displayed in the UI.
@@ -6,7 +8,11 @@
     public abstract class Displayable
         : NotifyPropertyChanged
     {
-        private string displayName;
+
+        /// <summary>
+        ///     DependencyProperty for DisplayName to be able to bind the property
+        /// </summary>
+        public static readonly DependencyProperty DisplayNameProperty = DependencyProperty.Register("DisplayName", typeof(string), typeof(Displayable), new PropertyMetadata(""));
 
         /// <summary>
         ///     Gets or sets the display name.
@@ -14,14 +20,10 @@
         /// <value>The display name.</value>
         public string DisplayName
         {
-            get => displayName;
+            get { return (string)GetValue(DisplayNameProperty); }
             set
             {
-                if (displayName != value)
-                {
-                    displayName = value;
-                    OnPropertyChanged("DisplayName");
-                }
+                SetValue(DisplayNameProperty, value);
             }
         }
     }

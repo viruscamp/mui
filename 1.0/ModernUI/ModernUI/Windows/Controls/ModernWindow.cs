@@ -84,6 +84,11 @@ namespace ModernUI.Windows.Controls
         public static DependencyProperty BBCodeTitleProperty =
             DependencyProperty.Register("BBCodeTitle", typeof(string), typeof(ModernWindow),
                 new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the LogoDataToolTip dependency property
+        /// </summary>
+        public static readonly DependencyProperty LogoDataToolTipProperty = 
+            DependencyProperty.Register("LogoDataToolTip", typeof(string), typeof(ModernWindow));
 
         private Storyboard backgroundAnimation;
 
@@ -163,6 +168,15 @@ namespace ModernUI.Windows.Controls
         {
             get => (Geometry) GetValue(LogoDataProperty);
             set => SetValue(LogoDataProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the ToolTip text of LogoData.
+        /// </summary>
+        public string LogoDataToolTip
+        {
+            get { return (string)GetValue(LogoDataToolTipProperty); }
+            set { SetValue(LogoDataToolTipProperty, value); }
         }
 
         /// <summary>

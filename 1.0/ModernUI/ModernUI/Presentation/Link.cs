@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace ModernUI.Presentation
 {
@@ -8,7 +9,10 @@ namespace ModernUI.Presentation
     public class Link
         : Displayable
     {
-        private Uri source;
+        /// <summary>
+        ///     DependencyProperty for Source to be able to bind the value
+        /// </summary>
+        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(Uri), typeof(Link), new PropertyMetadata(null));
 
         /// <summary>
         ///     Gets or sets the source uri.
@@ -16,15 +20,8 @@ namespace ModernUI.Presentation
         /// <value>The source.</value>
         public Uri Source
         {
-            get => source;
-            set
-            {
-                if (source != value)
-                {
-                    source = value;
-                    OnPropertyChanged("Source");
-                }
-            }
+            get { return (Uri)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
         }
     }
 }
