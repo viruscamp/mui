@@ -35,8 +35,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool IsActive
         {
-            get => (bool) GetValue(IsActiveProperty);
-            set => SetValue(IsActiveProperty, value);
+            get { return (bool) GetValue(IsActiveProperty); }
+            set { SetValue(IsActiveProperty, value); }
         }
 
         private void GotoCurrentState(bool animate)

@@ -363,8 +363,9 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
                 if (!valid)
                 {
                     //raise NavigatedFrom Event
-                    if (frame.Content is IContent content)
+                    if (frame.Content is IContent)
                     {
+                        IContent content = (IContent)frame.Content;
                         var cancelArgs = new NavigatingCancelEventArgs
                         {
                             Frame = this,
@@ -618,8 +619,8 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         /// </summary>
         public bool KeepContentAlive
         {
-            get => (bool)GetValue(KeepContentAliveProperty);
-            set => SetValue(KeepContentAliveProperty, value);
+            get { return (bool)GetValue(KeepContentAliveProperty); }
+            set { SetValue(KeepContentAliveProperty, value); }
         }
 
         /// <summary>
@@ -627,8 +628,8 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get => (IContentLoader)GetValue(ContentLoaderProperty);
-            set => SetValue(ContentLoaderProperty, value);
+            get { return (IContentLoader)GetValue(ContentLoaderProperty); }
+            set { SetValue(ContentLoaderProperty, value); }
         }
 
         /// <summary>
@@ -641,8 +642,8 @@ new List<WeakReference<ModernFrame>>();        // list of registered frames in s
         /// </summary>
         public Uri Source
         {
-            get => (Uri)GetValue(SourceProperty);
-            set => SetValue(SourceProperty, value);
+            get { return (Uri)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
         }
 
         /// <summary>

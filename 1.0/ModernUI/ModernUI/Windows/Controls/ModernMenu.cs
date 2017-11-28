@@ -75,8 +75,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The link groups.</value>
         public LinkGroupCollection LinkGroups
         {
-            get => (LinkGroupCollection) GetValue(LinkGroupsProperty);
-            set => SetValue(LinkGroupsProperty, value);
+            get { return (LinkGroupCollection) GetValue(LinkGroupsProperty); }
+            set { SetValue(LinkGroupsProperty, value); }
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The selected link.</value>
         public Link SelectedLink
         {
-            get => (Link) GetValue(SelectedLinkProperty);
-            set => SetValue(SelectedLinkProperty, value);
+            get { return (Link) GetValue(SelectedLinkProperty); }
+            set { SetValue(SelectedLinkProperty, value); }
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The source URI of the selected link.</value>
         public Uri SelectedSource
         {
-            get => (Uri) GetValue(SelectedSourceProperty);
-            set => SetValue(SelectedSourceProperty, value);
+            get { return (Uri) GetValue(SelectedSourceProperty); }
+            set { SetValue(SelectedSourceProperty, value); }
         }
 
         /// <summary>

@@ -130,8 +130,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public object BackgroundContent
         {
-            get => GetValue(BackgroundContentProperty);
-            set => SetValue(BackgroundContentProperty, value);
+            get { return GetValue(BackgroundContentProperty); }
+            set { SetValue(BackgroundContentProperty, value); }
         }
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public LinkGroupCollection MenuLinkGroups
         {
-            get => (LinkGroupCollection) GetValue(MenuLinkGroupsProperty);
-            set => SetValue(MenuLinkGroupsProperty, value);
+            get { return (LinkGroupCollection) GetValue(MenuLinkGroupsProperty); }
+            set { SetValue(MenuLinkGroupsProperty, value); }
         }
 
         /// <summary>
@@ -148,8 +148,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public LinkCollection TitleLinks
         {
-            get => (LinkCollection) GetValue(TitleLinksProperty);
-            set => SetValue(TitleLinksProperty, value);
+            get { return (LinkCollection) GetValue(TitleLinksProperty); }
+            set { SetValue(TitleLinksProperty, value); }
         }
 
         /// <summary>
@@ -157,8 +157,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool IsTitleVisible
         {
-            get => (bool) GetValue(IsTitleVisibleProperty);
-            set => SetValue(IsTitleVisibleProperty, value);
+            get { return (bool) GetValue(IsTitleVisibleProperty); }
+            set { SetValue(IsTitleVisibleProperty, value); }
         }
 
         /// <summary>
@@ -166,8 +166,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public Geometry LogoData
         {
-            get => (Geometry) GetValue(LogoDataProperty);
-            set => SetValue(LogoDataProperty, value);
+            get { return (Geometry) GetValue(LogoDataProperty); }
+            set { SetValue(LogoDataProperty, value); }
         }
 
         /// <summary>
@@ -184,8 +184,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public ICommand LogoCommand
         {
-            get => (ICommand) GetValue(LogoCommandProperty);
-            set => SetValue(LogoCommandProperty, value);
+            get { return (ICommand) GetValue(LogoCommandProperty); }
+            set { SetValue(LogoCommandProperty, value); }
         }
 
         /// <summary>
@@ -193,8 +193,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public object LogoCommandParameter
         {
-            get => GetValue(LogoCommandParameterProperty);
-            set => SetValue(LogoCommandParameterProperty, value);
+            get { return GetValue(LogoCommandParameterProperty); }
+            set { SetValue(LogoCommandParameterProperty, value); }
         }
 
         /// <summary>
@@ -202,8 +202,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public Uri ContentSource
         {
-            get => (Uri) GetValue(ContentSourceProperty);
-            set => SetValue(ContentSourceProperty, value);
+            get { return (Uri) GetValue(ContentSourceProperty); }
+            set { SetValue(ContentSourceProperty, value); }
         }
 
         /// <summary>
@@ -211,8 +211,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public IContentLoader ContentLoader
         {
-            get => (IContentLoader) GetValue(ContentLoaderProperty);
-            set => SetValue(ContentLoaderProperty, value);
+            get { return (IContentLoader) GetValue(ContentLoaderProperty); }
+            set { SetValue(ContentLoaderProperty, value); }
         }
 
         /// <summary>
@@ -221,8 +221,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The link navigator.</value>
         public ILinkNavigator LinkNavigator
         {
-            get => (ILinkNavigator) GetValue(LinkNavigatorProperty);
-            set => SetValue(LinkNavigatorProperty, value);
+            get { return (ILinkNavigator)GetValue(LinkNavigatorProperty); }
+            set { SetValue(LinkNavigatorProperty, value); }
         }
 
         /// <summary>
@@ -231,8 +231,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The link navigator.</value>
         public string BBCodeTitle
         {
-            get => (string) GetValue(BBCodeTitleProperty);
-            set => SetValue(BBCodeTitleProperty, value);
+            get { return (string) GetValue(BBCodeTitleProperty); }
+            set { SetValue(BBCodeTitleProperty, value); }
         }
 
         /// <summary>

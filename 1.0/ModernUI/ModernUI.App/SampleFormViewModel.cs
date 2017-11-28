@@ -11,7 +11,7 @@ namespace ModernUI.App
 
         public string FirstName
         {
-            get => firstName;
+            get { return firstName; }
             set
             {
                 if (firstName != value)
@@ -24,7 +24,7 @@ namespace ModernUI.App
 
         public string LastName
         {
-            get => lastName;
+            get { return lastName; }
             set
             {
                 if (lastName != value)

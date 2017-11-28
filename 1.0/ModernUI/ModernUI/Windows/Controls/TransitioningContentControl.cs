@@ -57,7 +57,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         private Storyboard CurrentTransition
         {
-            get => _currentTransition;
+            get { return _currentTransition; }
             set
             {
                 // decouple event
@@ -279,7 +279,7 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool IsTransitioning
         {
-            get => (bool) GetValue(IsTransitioningProperty);
+            get { return (bool) GetValue(IsTransitioningProperty); }
             private set
             {
                 _allowIsTransitioningWrite = true;
@@ -329,8 +329,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public string Transition
         {
-            get => GetValue(TransitionProperty) as string;
-            set => SetValue(TransitionProperty, value);
+            get { return GetValue(TransitionProperty) as string; }
+            set { SetValue(TransitionProperty, value); }
         }
 
         /// <summary>
@@ -396,8 +396,8 @@ namespace ModernUI.Windows.Controls
         /// </summary>
         public bool RestartTransitionOnContentChange
         {
-            get => (bool) GetValue(RestartTransitionOnContentChangeProperty);
-            set => SetValue(RestartTransitionOnContentChangeProperty, value);
+            get { return (bool) GetValue(RestartTransitionOnContentChangeProperty); }
+            set { SetValue(RestartTransitionOnContentChangeProperty, value); }
         }
 
         /// <summary>

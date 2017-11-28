@@ -18,7 +18,7 @@
         /// </remarks>
         public string GroupKey
         {
-            get => groupKey;
+            get { return groupKey; }
             set
             {
                 if (groupKey != value)
@@ -35,7 +35,7 @@
         /// <value>The selected link.</value>
         internal Link SelectedLink
         {
-            get => selectedLink;
+            get { return selectedLink; }
             set
             {
                 if (selectedLink != value)

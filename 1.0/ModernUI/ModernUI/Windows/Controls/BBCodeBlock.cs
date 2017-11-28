@@ -57,8 +57,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The BB code.</value>
         public string BBCode
         {
-            get => (string) GetValue(BBCodeProperty);
-            set => SetValue(BBCodeProperty, value);
+            get { return (string) GetValue(BBCodeProperty); }
+            set { SetValue(BBCodeProperty, value); }
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The link navigator.</value>
         public ILinkNavigator LinkNavigator
         {
-            get => (ILinkNavigator) GetValue(LinkNavigatorProperty);
-            set => SetValue(LinkNavigatorProperty, value);
+            get { return (ILinkNavigator) GetValue(LinkNavigatorProperty); }
+            set { SetValue(LinkNavigatorProperty, value); }
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace ModernUI.Windows.Controls
         /// <value>The BB code.</value>
         public Brush BBCodeQuoteBackground
         {
-            get => (Brush) GetValue(BBCodeQuoteBackgroundProperty);
-            set => SetValue(BBCodeQuoteBackgroundProperty, value);
+            get { return (Brush) GetValue(BBCodeQuoteBackgroundProperty); }
+            set { SetValue(BBCodeQuoteBackgroundProperty, value); }
         }
 
         private static void OnBBCodeChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)

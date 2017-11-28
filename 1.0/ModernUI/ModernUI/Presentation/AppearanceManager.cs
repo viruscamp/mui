@@ -123,8 +123,8 @@ namespace ModernUI.Presentation
         /// </summary>
         public Uri ThemeSource
         {
-            get => GetThemeSource();
-            set => SetThemeSource(value, true);
+            get { return GetThemeSource(); }
+            set { SetThemeSource(value, true); }
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace ModernUI.Presentation
         /// </summary>
         public FontSize FontSize
         {
-            get => GetFontSize();
-            set => SetFontSize(value);
+            get { return GetFontSize(); }
+            set { SetFontSize(value); }
         }
 
         /// <summary>
@@ -141,8 +141,8 @@ namespace ModernUI.Presentation
         /// </summary>
         public Color AccentColor
         {
-            get => GetAccentColor();
-            set => SetAccentColor(value);
+            get { return GetAccentColor(); }
+            set { SetAccentColor(value); }
         }
 
         private ResourceDictionary GetThemeDictionary()
